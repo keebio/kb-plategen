@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Blueprint from "react-blueprint-svg";
+import SmileModel from "./makerjs-smile";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  let model = new SmileModel();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Blueprint model={model}>
+        <h3>
+          Keyboard Plate Generator by <a href="https://github.com/keebio">
+            Keebio
+          </a>
+        </h3>
+      </Blueprint>
     </div>
   );
 }
