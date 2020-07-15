@@ -2,6 +2,7 @@ import React from "react";
 import Blueprint from "react-blueprint-svg";
 import SwitchPlate from "./keyboard-plate";
 import makerjs from "makerjs";
+import FileSaver from "file-saver";
 import "./App.css";
 
 function App() {
@@ -16,13 +17,16 @@ function App() {
             </a>
           </h3>
         </Blueprint>
+        <p />
+        <button onClick={saveSvg}>Save SVG</button>
+        <button onClick={saveDxf}>Save DXF</button>
       </div>
       <div className="configuration">
         This is currently a work in progress, and here's the list of initial
         basic functionalities that need to be added in:
         <h4>TODO List:</h4>
         <ul>
-          <li>SVG/DXF export</li>
+          <li>SVG/DXF export options (like precision)</li>
           <li>KLE data import</li>
           <li>Various switch and stabilizer cutouts</li>
           <li>Cutout configuration</li>
@@ -31,6 +35,25 @@ function App() {
       </div>
     </div>
   );
+
+  function saveSvg() {
+    let options = {
+      accuracy: 0.000001,
+      units: makerjs.unitType.Millimeter,
+    };
+    let output = makerjs.exporter.toSVG(plate, options);
+    let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
+    FileSaver.saveAs(blob, "kbplate.svg");
+  }
+
+  function saveDxf() {
+    let options = {
+      units: makerjs.unitType.Millimeter,
+    };
+    let output = makerjs.exporter.toDXF(plate, options);
+    let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
+    FileSaver.saveAs(blob, "kbplate.dxf");
+  }
 }
 
 export default App;
