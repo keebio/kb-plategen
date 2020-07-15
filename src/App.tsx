@@ -1,14 +1,14 @@
 import React from "react";
 import Blueprint from "react-blueprint-svg";
-import SmileModel from "./makerjs-smile";
-import logo from "./logo.svg";
+import SwitchPlate from "./keyboard-plate";
+import makerjs from "makerjs";
 import "./App.css";
 
 function App() {
-  let model = new SmileModel();
+  let plate: makerjs.IModel = new SwitchPlate();
   return (
     <div className="container">
-      <Blueprint model={model}>
+      <Blueprint model={plate}>
         <h3>
           Keyboard Plate Generator by <a href="https://github.com/keebio">
             Keebio
