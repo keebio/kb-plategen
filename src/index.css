@@ -18,3 +18,10 @@ code {
   margin-left: auto;
   margin-right: auto;
 }
+
+.configuration {
+  height: 500px;
+  padding: 70px;
+  margin-left: auto;
+  margin-right: auto;
+}
