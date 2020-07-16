@@ -1,5 +1,5 @@
 import makerjs from "makerjs";
-var kle = require("@ijprest/kle-serial");
+import * as kle from "@ijprest/kle-serial";
 
 /*
 let testKleRawData = `
@@ -130,35 +130,45 @@ let kleJson = [
   ],
 ];
 
-function SwitchPlate() {
-  let keyboard = kle.Serial.deserialize(kleJson);
+export default class SwitchPlate implements makerjs.IModel {
 
-  console.log(keyboard);
+  public origin: makerjs.IPoint;
+  public units = makerjs.unitType.Millimeter;
+  public models: makerjs.IModelMap = {};
 
-  this.units = makerjs.unitType.Millimeter;
-  this.origin = [0, 0];
-  this.models = {};
-  var i = 1;
-  for (var key of keyboard.keys) {
-    this.models["switch" + i] = new MXSwitch(key);
-    i++;
+  constructor() {
+    let keyboard = kle.Serial.deserialize(kleJson);
+
+    console.log(keyboard);
+
+    //this.units = makerjs.unitType.Millimeter;
+    this.origin = [0, 0];
+    this.models = {};
+    var i = 1;
+    for (var key of keyboard.keys) {
+      this.models["switch" + i] = new MXSwitch(key);
+      i++;
+    }
+    console.log(this.origin);
   }
-  console.log(this.origin);
 }
 
-function MXSwitch(key) {
-  this.units = makerjs.unitType.Millimeter;
+class MXSwitch implements makerjs.IModel {
 
-  let hSpacing = 19.05;
-  let wSpacing = 19.05;
-  let x_mm = (key.x + key.width / 2) * wSpacing - wSpacing / 2;
-  let y_mm = (key.y + key.height / 2) * -hSpacing - hSpacing / 2;
+  public origin: makerjs.IPoint;
+  public models: makerjs.IModelMap = {};
+  constructor(key: any) {
 
-  this.origin = [x_mm, y_mm];
-  this.models = {
-    switch: new makerjs.models.RoundRectangle(14, 14, 0.5),
-  };
-  console.log(this.origin);
+    let hSpacing = 19.05;
+    let wSpacing = 19.05;
+    let x_mm = (key.x + key.width / 2) * wSpacing - wSpacing / 2;
+    let y_mm = (key.y + key.height / 2) * -hSpacing - hSpacing / 2;
+
+    this.origin = [x_mm, y_mm];
+    this.models = {
+      switch: new makerjs.models.RoundRectangle(14, 14, 0.5),
+    };
+    console.log(this.origin);
+  }
 }
 
-export default SwitchPlate;

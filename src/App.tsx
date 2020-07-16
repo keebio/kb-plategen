@@ -1,16 +1,16 @@
 import React from "react";
 import Blueprint from "react-blueprint-svg";
-import SwitchPlate from "./keyboard-plate";
+import SwitchPlate from "./SwitchPlate";
 import makerjs from "makerjs";
 import FileSaver from "file-saver";
 import "./App.css";
 
 function App() {
-  let plate: makerjs.IModel = new SwitchPlate();
+  let switchPlate: makerjs.IModel = new SwitchPlate();
   return (
     <div>
       <div className="container">
-        <Blueprint model={plate}>
+        <Blueprint model={switchPlate}>
           <h3>
             Keyboard Plate Generator by <a href="https://github.com/keebio">
               Keebio
@@ -44,20 +44,22 @@ function App() {
   );
 
   function saveSvg() {
-    let options = {
+    let options: makerjs.exporter.ISVGRenderOptions = {
       accuracy: 0.000001,
       units: makerjs.unitType.Millimeter,
+
     };
-    let output = makerjs.exporter.toSVG(plate, options);
+    let output = makerjs.exporter.toSVG(switchPlate, options);
     let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, "kbplate.svg");
   }
 
   function saveDxf() {
-    let options = {
+    let options: makerjs.exporter.IDXFRenderOptions = {
+      accuracy: 0.000001,
       units: makerjs.unitType.Millimeter,
     };
-    let output = makerjs.exporter.toDXF(plate, options);
+    let output = makerjs.exporter.toDXF(switchPlate, options);
     let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, "kbplate.dxf");
   }
