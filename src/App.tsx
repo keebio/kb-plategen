@@ -3,10 +3,11 @@ import Blueprint from "react-blueprint-svg";
 import SwitchPlate from "./SwitchPlate";
 import makerjs from "makerjs";
 import FileSaver from "file-saver";
+import sampleKleData from "./sampleKeyboard";
 import "./App.css";
 
 function App() {
-  let switchPlate: makerjs.IModel = new SwitchPlate();
+  let switchPlate: makerjs.IModel = new SwitchPlate(sampleKleData);
   return (
     <div>
       <div className="container">
