@@ -1,5 +1,6 @@
 import makerjs from "makerjs";
-import * as kle from "@ijprest/kle-serial";
+//import * as kle from "@ijprest/kle-serial";
+import * as kle from "./KLESerial";
 
 class SwitchPlate implements makerjs.IModel {
 
