@@ -52,15 +52,15 @@ function copy(o: any): any {
   if (typeof o !== "object") {
     return o; // primitive value
   } else if (o instanceof Array) {
-    var result: any[] = [];
-    for (var i = 0; i < o.length; i++) {
+    let result: any[] = [];
+    for (let i = 0; i < o.length; i++) {
       result[i] = copy(o[i]);
     }
     return result;
   } else {
-    var oresult: any = Object.create(Object.getPrototypeOf(o));
+    let oresult: any = Object.create(Object.getPrototypeOf(o));
     oresult = new oresult.constructor();
-    for (var prop in o) {
+    for (let prop in o) {
       oresult[prop] = copy(o[prop]);
     }
     return oresult;
@@ -83,15 +83,17 @@ let labelMap: Array<Array<number>> = [
 ];
 
 function reorderLabelsIn(labels: Array<any>, align: number): Array<any> {
-  var ret: Array<any> = [];
-  for (var i = 0; i < labels.length; ++i) {
+  let ret: Array<any> = [];
+  for (let i = 0; i < labels.length; ++i) {
     if (labels[i]) ret[labelMap[align][i]] = labels[i];
   }
   return ret;
 }
 
 function deserializeError(msg: string, data?: any) {
-  throw "Error: " + msg + (data ? ":\n  " + JSON5.stringify(data) : "");
+  throw new Error(
+    "Error: " + msg + (data ? ":\n  " + JSON5.stringify(data) : ""),
+  );
 }
 
 export function deserialize(rows: Array<any>): Keyboard {
@@ -103,14 +105,14 @@ export function deserialize(rows: Array<any>): Keyboard {
   let current: Key = new Key();
   let kbd = new Keyboard();
   let cluster = { x: 0, y: 0 };
-  var align = 4;
+  let align = 4;
 
-  for (var r = 0; r < rows.length; ++r) {
+  for (let r = 0; r < rows.length; ++r) {
     if (rows[r] instanceof Array) {
-      for (var k = 0; k < rows[r].length; ++k) {
-        var item = rows[r][k];
+      for (let k = 0; k < rows[r].length; ++k) {
+        let item = rows[r][k];
         if (typeof item === "string") {
-          var newKey: Key = copy(current);
+          let newKey: Key = copy(current);
 
           // Calculate some generated values
           newKey.width2 = newKey.width2 === 0 ? current.width : current.width2;
@@ -121,15 +123,15 @@ export function deserialize(rows: Array<any>): Keyboard {
           newKey.textSize = reorderLabelsIn(newKey.textSize, align);
 
           // Clean up the data
-          for (var i = 0; i < 12; ++i) {
+          for (let i = 0; i < 12; ++i) {
             if (!newKey.labels[i]) {
               delete newKey.textSize[i];
               delete newKey.textColor[i];
             }
-            if (newKey.textSize[i] == newKey.default.textSize) {
+            if (newKey.textSize[i] === newKey.default.textSize) {
               delete newKey.textSize[i];
             }
-            if (newKey.textColor[i] == newKey.default.textColor) {
+            if (newKey.textColor[i] === newKey.default.textColor) {
               delete newKey.textColor[i];
             }
           }
@@ -144,7 +146,7 @@ export function deserialize(rows: Array<any>): Keyboard {
           current.nub = current.stepped = current.decal = false;
         } else {
           if (
-            k != 0 &&
+            k !== 0 &&
             (item.r != null || item.rx != null || item.ry != null)
           ) {
             deserializeError(
@@ -171,14 +173,14 @@ export function deserialize(rows: Array<any>): Keyboard {
             current.textSize = [];
           }
           if (item.f2) {
-            for (var i = 1; i < 12; ++i) current.textSize[i] = item.f2;
+            for (let i = 1; i < 12; ++i) current.textSize[i] = item.f2;
           }
           if (item.fa) current.textSize = item.fa;
           if (item.p) current.profile = item.p;
           if (item.c) current.color = item.c;
           if (item.t) {
-            var split = item.t.split("\n");
-            if (split[0] != "") current.default.textColor = split[0];
+            let split = item.t.split("\n");
+            if (split[0] !== "") current.default.textColor = split[0];
             current.textColor = reorderLabelsIn(split, align);
           }
           if (item.x) current.x += item.x;
@@ -203,7 +205,7 @@ export function deserialize(rows: Array<any>): Keyboard {
       current.y++;
       current.x = current.rotation_x;
     } else if (typeof rows[r] === "object") {
-      if (r != 0) {
+      if (r !== 0) {
         deserializeError(
           "keyboard metadata must the be first element",
           rows[r],

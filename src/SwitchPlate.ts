@@ -40,13 +40,13 @@ class MXSwitch implements makerjs.IModel {
     let y_mm = (key.y + key.height) * -ySpacing;
 
     this.origin = [x_mm, y_mm];
-    let switchModel = new makerjs.models.RoundRectangle(14, 14, 0.5);
+    //let switchModel = new makerjs.models.RoundRectangle(14, 14, 0.5);
     let switchOutlineModel = new makerjs.models.RoundRectangle(
       xSpacing * key.width,
       ySpacing * key.height,
       0.5,
     );
-    if (key.rotation_angle != 0) {
+    if (key.rotation_angle !== 0) {
       makerjs.model.rotate(
         switchOutlineModel,
         -key.rotation_angle,
