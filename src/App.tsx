@@ -48,7 +48,6 @@ function App() {
     let options: makerjs.exporter.ISVGRenderOptions = {
       accuracy: 0.000001,
       units: makerjs.unitType.Millimeter,
-
     };
     let output = makerjs.exporter.toSVG(switchPlate, options);
     let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
