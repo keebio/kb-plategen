@@ -36,29 +36,32 @@ class MXSwitch implements makerjs.IModel {
   constructor(key: kle.Key) {
     let xSpacing = 19.05;
     let ySpacing = 19.05;
-    //let x_mm = (key.x + key.width / 2) * xSpacing - xSpacing / 2;
-    //let y_mm = (key.y + key.height / 2) * -ySpacing - ySpacing / 2;
-    let x_mm = (key.x + key.width / 2) * xSpacing;
-    let y_mm = (key.y + key.height / 2) * -ySpacing;
+    let x_mm = key.x * xSpacing;
+    let y_mm = (key.y + key.height) * -ySpacing;
 
     this.origin = [x_mm, y_mm];
     let switchModel = new makerjs.models.RoundRectangle(14, 14, 0.5);
+    let switchOutlineModel = new makerjs.models.RoundRectangle(
+      xSpacing * key.width,
+      ySpacing * key.height,
+      0.5,
+    );
     if (key.rotation_angle != 0) {
       makerjs.model.rotate(
-        switchModel,
+        switchOutlineModel,
         -key.rotation_angle,
-        //[xSpacing * (key.rotation_x + 0.5), ySpacing * (key.rotation_y + 0.5)],
       );
       this.origin = rotatePoint(
         this.origin[0],
         this.origin[1],
-        key.rotation_x * xSpacing,
-        key.rotation_y * -ySpacing,
+        (key.rotation_x) * xSpacing,
+        (key.rotation_y) * -ySpacing,
         key.rotation_angle,
       );
     }
     this.models = {
-      switch: switchModel,
+      //switch: switchModel,
+      outline: switchOutlineModel,
     };
     console.log(this.origin);
   }
