@@ -6,7 +6,7 @@ import FileSaver from "file-saver";
 import "./App.css";
 
 function App() {
-  let sampleJson = require("./sample/atreus.json");
+  let sampleJson = require("./sample/ergodox.json");
   let switchPlate: makerjs.IModel = new SwitchPlate(sampleJson);
   return (
     <div>
