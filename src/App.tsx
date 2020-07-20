@@ -3,11 +3,11 @@ import Blueprint from "react-blueprint-svg";
 import SwitchPlate from "./SwitchPlate";
 import makerjs from "makerjs";
 import FileSaver from "file-saver";
-import sampleKleData from "./sampleKeyboard";
 import "./App.css";
 
 function App() {
-  let switchPlate: makerjs.IModel = new SwitchPlate(sampleKleData);
+  let sampleJson = require("./sample/ergodox.json");
+  let switchPlate: makerjs.IModel = new SwitchPlate(sampleJson);
   return (
     <div>
       <div className="container">
@@ -48,7 +48,6 @@ function App() {
     let options: makerjs.exporter.ISVGRenderOptions = {
       accuracy: 0.000001,
       units: makerjs.unitType.Millimeter,
-
     };
     let output = makerjs.exporter.toSVG(switchPlate, options);
     let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
