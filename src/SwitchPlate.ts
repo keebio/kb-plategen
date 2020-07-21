@@ -49,11 +49,7 @@ class Switch implements makerjs.IModel {
   constructor(key: kle.Key) {
     this.origin = this.absoluteCenter(key);
     let switchCutoutModel = this.switchCutout(SwitchCutoutType.MX);
-    let switchOutlineModel = new CenteredRoundRectangle(
-      this.xSpacing * key.width,
-      this.ySpacing * key.height,
-      2,
-    );
+    let switchOutlineModel = this.switchOutline(key);
     if (key.rotation_angle !== 0) {
       makerjs.model.rotate(switchCutoutModel, -key.rotation_angle);
       makerjs.model.rotate(switchOutlineModel, -key.rotation_angle);
@@ -78,6 +74,14 @@ class Switch implements makerjs.IModel {
       default:
         return new CenteredRoundRectangle(14, 14, radius);
     }
+  }
+
+  switchOutline(key: kle.Key): makerjs.IModel {
+    return new CenteredRoundRectangle(
+      this.xSpacing * key.width,
+      this.ySpacing * key.height,
+      2,
+    );
   }
 
   center(key: kle.Key): Point {
