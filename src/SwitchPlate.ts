@@ -26,13 +26,20 @@ class SwitchPlate implements makerjs.IModel {
 
     let i = 1;
     for (let key of keyboard.keys) {
-      this.models["switch" + i] = new MXSwitch(key);
+      this.models["switch" + i] = new Switch(key);
       i++;
     }
   }
 }
 
-class MXSwitch implements makerjs.IModel {
+enum SwitchCutoutType {
+  MX,
+  Alps,
+  MX_Alps,
+  MX_Opening,
+}
+
+class Switch implements makerjs.IModel {
   public origin: makerjs.IPoint;
   public models: makerjs.IModelMap = {};
   public paths: makerjs.IPathMap = {};
@@ -41,29 +48,41 @@ class MXSwitch implements makerjs.IModel {
 
   constructor(key: kle.Key) {
     this.origin = this.absoluteCenter(key);
-    let switchModel = new CenteredRoundRectangle(14, 14, 0.5);
+    let switchCutoutModel = this.switchCutout(SwitchCutoutType.MX);
     let switchOutlineModel = new CenteredRoundRectangle(
       this.xSpacing * key.width,
       this.ySpacing * key.height,
       2,
     );
     if (key.rotation_angle !== 0) {
-      makerjs.model.rotate(switchModel, -key.rotation_angle);
+      makerjs.model.rotate(switchCutoutModel, -key.rotation_angle);
       makerjs.model.rotate(switchOutlineModel, -key.rotation_angle);
     }
 
     this.models = {
-      switch: switchModel,
+      switchCutout: switchCutoutModel,
       outline: switchOutlineModel,
     };
     // TODO: Add stab and acoustic cutouts here
-    console.log(this.origin);
+  }
+
+  switchCutout(
+    cutoutType: SwitchCutoutType,
+    radius: number = 0.5,
+  ): makerjs.IModel {
+    switch (cutoutType) {
+      case SwitchCutoutType.MX:
+        return new CenteredRoundRectangle(14, 14, radius);
+      case SwitchCutoutType.Alps:
+        return new CenteredRoundRectangle(15.5, 12.8, radius);
+      default:
+        return new CenteredRoundRectangle(14, 14, radius);
+    }
   }
 
   center(key: kle.Key): Point {
     let centerX = key.x + key.width / 2;
     let centerY = key.y + key.height / 2;
-    console.log(`C: ${[centerX, centerY]}`);
 
     if (key.rotation_angle === 0) {
       return new Point(centerX, centerY);
