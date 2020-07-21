@@ -86,12 +86,10 @@ class MXSwitch implements makerjs.IModel {
     if (key.rotation_angle !== 0) {
       makerjs.model.rotate(switchModel, -key.rotation_angle);
       makerjs.model.rotate(switchOutlineModel, -key.rotation_angle);
-      this.origin = rotatePoint(
-        pos.x,
-        pos.y,
-        (key.rotation_x) * xSpacing,
-        (key.rotation_y) * -ySpacing,
-        key.rotation_angle,
+      this.origin = makerjs.point.rotate(
+        [pos.x, pos.y],
+        -key.rotation_angle,
+        [key.rotation_x * xSpacing, key.rotation_y * -ySpacing],
       );
     }
 
@@ -101,22 +99,6 @@ class MXSwitch implements makerjs.IModel {
     };
     console.log(this.origin);
   }
-}
-
-function rotatePoint(
-  x: number,
-  y: number,
-  rx: number,
-  ry: number,
-  angle: number,
-): [number, number] {
-  let radians = (Math.PI / 180) * angle;
-  let cos = Math.cos(radians);
-  let sin = Math.sin(radians);
-  let new_x = (cos * (x - rx)) + (sin * (y - ry)) + rx;
-  let new_y = (cos * (y - ry)) - (sin * (x - rx)) + ry;
-
-  return [new_x, new_y];
 }
 
 export default SwitchPlate;
