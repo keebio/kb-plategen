@@ -1,4 +1,5 @@
 import makerjs from "makerjs";
+import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as kle from "./KLESerial";
 
 class Point {
@@ -11,7 +12,6 @@ class Point {
 class KeyPosition {
   xSpacing = 19.05; // TODO: move this out
   ySpacing = 19.05; // TODO: move this out
-  // x,y are for top-left corner of switch
 
   constructor(
     public x: number,
@@ -65,8 +65,8 @@ class MXSwitch implements makerjs.IModel {
   constructor(key: kle.Key) {
     let xSpacing = 19.05;
     let ySpacing = 19.05;
-    let x_mm = key.x * xSpacing;
-    let y_mm = (key.y + key.height) * -ySpacing;
+    let x_mm = (key.x + key.width / 2) * xSpacing;
+    let y_mm = (key.y + key.height / 2) * -ySpacing;
     let pos = new KeyPosition(
       x_mm,
       y_mm,
@@ -78,10 +78,10 @@ class MXSwitch implements makerjs.IModel {
     this.origin = [pos.x, pos.y];
     let switchModel = new makerjs.models.RoundRectangle(14, 14, 0.5);
     switchModel.origin = [(xSpacing - 14) / 2, (ySpacing - 14) / 2];
-    let switchOutlineModel = new makerjs.models.RoundRectangle(
+    let switchOutlineModel = new CenteredRoundRectangle(
       xSpacing * key.width,
       ySpacing * key.height,
-      0.5,
+      2,
     );
     //switchOutlineModel.layer = "outline";
     if (key.rotation_angle !== 0) {
