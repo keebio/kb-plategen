@@ -76,8 +76,7 @@ class MXSwitch implements makerjs.IModel {
     );
 
     this.origin = [pos.x, pos.y];
-    let switchModel = new makerjs.models.RoundRectangle(14, 14, 0.5);
-    switchModel.origin = [(xSpacing - 14) / 2, (ySpacing - 14) / 2];
+    let switchModel = new CenteredRoundRectangle(14, 14, 0.5);
     let switchOutlineModel = new CenteredRoundRectangle(
       xSpacing * key.width,
       ySpacing * key.height,
@@ -85,10 +84,8 @@ class MXSwitch implements makerjs.IModel {
     );
     //switchOutlineModel.layer = "outline";
     if (key.rotation_angle !== 0) {
-      makerjs.model.rotate(
-        switchOutlineModel,
-        -key.rotation_angle,
-      );
+      makerjs.model.rotate(switchModel, -key.rotation_angle);
+      makerjs.model.rotate(switchOutlineModel, -key.rotation_angle);
       this.origin = rotatePoint(
         pos.x,
         pos.y,
@@ -98,13 +95,7 @@ class MXSwitch implements makerjs.IModel {
       );
     }
 
-    let centerPath = new makerjs.paths.Circle(2);
-    let centerPos = pos.center();
-    //centerPath.origin = [centerPos.x, centerPos.y];
-    centerPath.origin = [
-      key.width * xSpacing / 2 - pos.x,
-      key.height * ySpacing / 2 - pos.y,
-    ];
+    let centerPath = new makerjs.paths.Circle(0.1);
     this.paths = {
       center: centerPath,
     };
