@@ -3,30 +3,7 @@ import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as kle from "./KLESerial";
 
 class Point {
-  constructor(
-    public x: number,
-    public y: number,
-  ) {}
-}
-
-class KeyPosition {
-  xSpacing = 19.05; // TODO: move this out
-  ySpacing = 19.05; // TODO: move this out
-
-  constructor(
-    public x: number,
-    public y: number,
-    public w: number = 1,
-    public h: number = 1,
-    public angle: number = 0,
-  ) {}
-
-  center(): Point {
-    let radians = (Math.PI / 180) * this.angle;
-    let cx = this.x + Math.cos(radians) * this.w * this.xSpacing / 2;
-    let cy = this.y + Math.sin(radians) * this.h * -this.ySpacing / 2;
-    return new Point(cx, cy);
-  }
+  constructor(public x: number, public y: number) {}
 }
 
 class SwitchPlate implements makerjs.IModel {
@@ -38,7 +15,6 @@ class SwitchPlate implements makerjs.IModel {
     this.origin = [0, 0];
     this.models = {};
 
-    console.log(kleData);
     var keyboard: kle.Keyboard;
     if (typeof kleData === "string") {
       keyboard = kle.parse(kleData);
@@ -48,13 +24,11 @@ class SwitchPlate implements makerjs.IModel {
       return;
     }
 
-    console.log(keyboard);
     let i = 1;
     for (let key of keyboard.keys) {
       this.models["switch" + i] = new MXSwitch(key);
       i++;
     }
-    console.log(this.origin);
   }
 }
 
@@ -62,42 +36,50 @@ class MXSwitch implements makerjs.IModel {
   public origin: makerjs.IPoint;
   public models: makerjs.IModelMap = {};
   public paths: makerjs.IPathMap = {};
-  constructor(key: kle.Key) {
-    let xSpacing = 19.05;
-    let ySpacing = 19.05;
-    let x_mm = (key.x + key.width / 2) * xSpacing;
-    let y_mm = (key.y + key.height / 2) * -ySpacing;
-    let pos = new KeyPosition(
-      x_mm,
-      y_mm,
-      key.width,
-      key.height,
-      key.rotation_angle,
-    );
+  private xSpacing: number = 19.05;
+  private ySpacing: number = 19.05;
 
-    this.origin = [pos.x, pos.y];
+  constructor(key: kle.Key) {
+    this.origin = this.absoluteCenter(key);
     let switchModel = new CenteredRoundRectangle(14, 14, 0.5);
     let switchOutlineModel = new CenteredRoundRectangle(
-      xSpacing * key.width,
-      ySpacing * key.height,
+      this.xSpacing * key.width,
+      this.ySpacing * key.height,
       2,
     );
-    //switchOutlineModel.layer = "outline";
     if (key.rotation_angle !== 0) {
       makerjs.model.rotate(switchModel, -key.rotation_angle);
       makerjs.model.rotate(switchOutlineModel, -key.rotation_angle);
-      this.origin = makerjs.point.rotate(
-        [pos.x, pos.y],
-        -key.rotation_angle,
-        [key.rotation_x * xSpacing, key.rotation_y * -ySpacing],
-      );
     }
 
     this.models = {
       switch: switchModel,
       outline: switchOutlineModel,
     };
+    // TODO: Add stab and acoustic cutouts here
     console.log(this.origin);
+  }
+
+  center(key: kle.Key): Point {
+    let centerX = key.x + key.width / 2;
+    let centerY = key.y + key.height / 2;
+    console.log(`C: ${[centerX, centerY]}`);
+
+    if (key.rotation_angle === 0) {
+      return new Point(centerX, centerY);
+    }
+
+    let newCenter = makerjs.point.rotate(
+      [centerX, centerY],
+      key.rotation_angle,
+      [key.rotation_x, key.rotation_y],
+    );
+    return new Point(newCenter[0], newCenter[1]);
+  }
+
+  absoluteCenter(key: kle.Key): makerjs.IPoint {
+    let center = this.center(key);
+    return [center.x * this.xSpacing, center.y * -this.ySpacing];
   }
 }
 
