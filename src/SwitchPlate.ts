@@ -95,11 +95,6 @@ class MXSwitch implements makerjs.IModel {
       );
     }
 
-    let centerPath = new makerjs.paths.Circle(0.1);
-    this.paths = {
-      center: centerPath,
-    };
-
     this.models = {
       switch: switchModel,
       outline: switchOutlineModel,
