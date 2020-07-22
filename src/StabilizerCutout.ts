@@ -32,24 +32,25 @@ class StabilizerCutout implements makerjs.IModel {
     } else if (stabilzerWidth >= 3) {
       offsets = [-19.05, 19.05];
     } else if (stabilzerWidth >= 2) {
-      offsets = [-11.938, 11.938];
+      if (style === "choc") {
+        offsets = [-12, 12];
+      } else {
+        offsets = [-11.938, 11.938];
+      }
     }
 
     if (reversed) {
       params.heightOffset = -params.heightOffset;
     }
 
-    let leftStab = new CenteredRoundRectangle(
-      params.width,
-      params.height,
-      radius,
-    );
+    let leftStab: makerjs.IModel;
+    if (style === "choc") {
+      leftStab = this.cutoutChoc(radius);
+    } else {
+      leftStab = this.cutoutMX(params, radius);
+    }
+    let rightStab = makerjs.model.clone(leftStab);
     makerjs.model.moveRelative(leftStab, [offsets[0], params.heightOffset]);
-    let rightStab = new CenteredRoundRectangle(
-      params.width,
-      params.height,
-      radius,
-    );
     makerjs.model.moveRelative(rightStab, [offsets[1], params.heightOffset]);
     this.models = {
       stabilzerLeft: leftStab,
@@ -67,6 +68,18 @@ class StabilizerCutout implements makerjs.IModel {
       default:
         return new CutoutParameters(6.75, 14, -1);
     }
+  }
+
+  cutoutMX(params: CutoutParameters, radius: number): makerjs.IModel {
+    return new CenteredRoundRectangle(params.width, params.height, radius);
+  }
+
+  cutoutChoc(radius: number): makerjs.IModel {
+    let part1 = new CenteredRoundRectangle(6.3, 6.85, radius);
+    makerjs.model.moveRelative(part1, [0, 0.375]);
+    let part2 = new CenteredRoundRectangle(3.6, 8.45, radius);
+    makerjs.model.moveRelative(part2, [0, 4.225]);
+    return makerjs.model.combineUnion(part1, part2);
   }
 }
 
