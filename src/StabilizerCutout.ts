@@ -1,12 +1,23 @@
 import makerjs from "makerjs";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
 
-class StabilzerCutout implements makerjs.IModel {
+class CutoutParameters {
+  constructor(
+    public width: number,
+    public height: number,
+    public heightOffset: number,
+  ) {}
+}
+
+class StabilizerCutout implements makerjs.IModel {
   public models: makerjs.IModelMap = {};
 
-  constructor(stabilzerWidth: number, radius: number = 0.5) {
-    let cutoutWidth = 6.75;
-    let cutoutHeight = 14;
+  constructor(
+    stabilzerWidth: number,
+    style: string = "normal",
+    radius: number = 0.5,
+  ) {
+    let params = this.loadStyle(style);
 
     let offsets = [0, 0];
     if (stabilzerWidth >= 8) {
@@ -24,22 +35,40 @@ class StabilzerCutout implements makerjs.IModel {
     }
 
     let leftStab = new CenteredRoundRectangle(
-      cutoutWidth,
-      cutoutHeight,
+      params.width,
+      params.height,
       radius,
     );
-    makerjs.model.moveRelative(leftStab, [offsets[0], -1]);
+    makerjs.model.moveRelative(leftStab, [offsets[0], params.heightOffset]);
     let rightStab = new CenteredRoundRectangle(
-      cutoutWidth,
-      cutoutHeight,
+      params.width,
+      params.height,
       radius,
     );
-    makerjs.model.moveRelative(rightStab, [offsets[1], -1]);
+    makerjs.model.moveRelative(rightStab, [offsets[1], params.heightOffset]);
     this.models = {
       stabilzerLeft: leftStab,
       stabilzerRight: rightStab,
     };
+
+    // TODO: Add wire cutout for thicker plates
+  }
+
+  loadStyle(style: string): CutoutParameters {
+    switch (style) {
+      case "large":
+        return new CutoutParameters(7, 15, -0.5);
+      case "normal":
+      default:
+        return new CutoutParameters(6.75, 14, -1);
+    }
   }
 }
 
-export default StabilzerCutout;
+declare namespace StabilizerCutout {
+  export enum Style {
+    Normal = 1,
+    Large,
+  }
+}
+export default StabilizerCutout;

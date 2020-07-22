@@ -1,7 +1,7 @@
 import makerjs from "makerjs";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as kle from "./KLESerial";
-import StabilzerCutout from "./StabilizerCutout";
+import StabilizerCutout from "./StabilizerCutout";
 
 class Point {
   constructor(public x: number, public y: number) {}
@@ -27,10 +27,10 @@ class Switch implements makerjs.IModel {
     models["switchCutout"] = this.switchCutout(SwitchCutoutType.MX);
     models["outline"] = this.switchOutline(key);
     if (key.width >= 2) {
-      let stabModel = new StabilzerCutout(key.width);
+      let stabModel = new StabilizerCutout(key.width, "large");
       models["stabilizer"] = stabModel;
     } else if (key.height >= 2) {
-      let stabModel = new StabilzerCutout(key.height);
+      let stabModel = new StabilizerCutout(key.height, "large");
       makerjs.model.rotate(stabModel, 90);
       models["stabilizer"] = stabModel;
     }
