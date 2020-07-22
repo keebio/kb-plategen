@@ -28,6 +28,7 @@ export class Key {
   sm: string = ""; // switch mount
   sb: string = ""; // switch brand
   st: string = ""; // switch type
+  rs: boolean = false; // reversed stabilizer
 }
 
 export class KeyboardMetadata {
@@ -144,6 +145,7 @@ export function deserialize(rows: Array<any>): Keyboard {
           current.width = current.height = 1;
           current.x2 = current.y2 = current.width2 = current.height2 = 0;
           current.nub = current.stepped = current.decal = false;
+          current.rs = false;
         } else {
           if (
             k !== 0 &&
@@ -198,6 +200,7 @@ export function deserialize(rows: Array<any>): Keyboard {
           if (item.sm) current.sm = item.sm;
           if (item.sb) current.sb = item.sb;
           if (item.st) current.st = item.st;
+          if (item.rs) current.rs = item.rs;
         }
       }
 

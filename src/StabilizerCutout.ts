@@ -15,6 +15,7 @@ class StabilizerCutout implements makerjs.IModel {
   constructor(
     stabilzerWidth: number,
     style: string = "normal",
+    reversed: boolean = false,
     radius: number = 0.5,
   ) {
     let params = this.loadStyle(style);
@@ -32,6 +33,10 @@ class StabilizerCutout implements makerjs.IModel {
       offsets = [-19.05, 19.05];
     } else if (stabilzerWidth >= 2) {
       offsets = [-11.938, 11.938];
+    }
+
+    if (reversed) {
+      params.heightOffset = -params.heightOffset;
     }
 
     let leftStab = new CenteredRoundRectangle(
