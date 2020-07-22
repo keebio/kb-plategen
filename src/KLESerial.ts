@@ -1,4 +1,4 @@
-import * as JSON5 from "json5";
+import json5 from "json5";
 
 export class Key {
   color: string = "#cccccc";
@@ -93,7 +93,7 @@ function reorderLabelsIn(labels: Array<any>, align: number): Array<any> {
 
 function deserializeError(msg: string, data?: any) {
   throw new Error(
-    "Error: " + msg + (data ? ":\n  " + JSON5.stringify(data) : ""),
+    "Error: " + msg + (data ? ":\n  " + json5.stringify(data) : ""),
   );
 }
 
@@ -226,6 +226,6 @@ export function deserialize(rows: Array<any>): Keyboard {
   return kbd;
 }
 
-export function parse(json: string): Keyboard {
-  return deserialize(JSON5.parse(json));
+export function parse(rawJson: string): Keyboard {
+  return deserialize(json5.parse("[" + rawJson + "]"));
 }
