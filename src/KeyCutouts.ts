@@ -69,6 +69,10 @@ class KeyCutouts implements makerjs.IModel {
         return new CenteredRoundRectangle(14, 14, radius);
       case SwitchCutoutType.Alps:
         return new CenteredRoundRectangle(15.5, 12.8, radius);
+      case SwitchCutoutType.MX_Alps:
+        let cutoutMX = this.switchCutout(SwitchCutoutType.MX, radius);
+        let cutoutAlps = this.switchCutout(SwitchCutoutType.Alps, radius);
+        return makerjs.model.combineUnion(cutoutMX, cutoutAlps);
       default:
         return new CenteredRoundRectangle(14, 14, radius);
     }
