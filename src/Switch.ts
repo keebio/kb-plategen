@@ -1,6 +1,7 @@
 import makerjs from "makerjs";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as kle from "./KLESerial";
+import StabilzerCutout from "./StabilizerCutout";
 
 class Point {
   constructor(public x: number, public y: number) {}
@@ -22,18 +23,28 @@ class Switch implements makerjs.IModel {
 
   constructor(key: kle.Key) {
     this.origin = this.absoluteCenter(key);
-    let switchCutoutModel = this.switchCutout(SwitchCutoutType.MX);
-    let switchOutlineModel = this.switchOutline(key);
-    if (key.rotation_angle !== 0) {
-      makerjs.model.rotate(switchCutoutModel, -key.rotation_angle);
-      makerjs.model.rotate(switchOutlineModel, -key.rotation_angle);
+    let models: { [id: string]: makerjs.IModel } = {};
+    models["switchCutout"] = this.switchCutout(SwitchCutoutType.MX);
+    models["outline"] = this.switchOutline(key);
+    if (key.width >= 2) {
+      let stabModel = new StabilzerCutout(key.width);
+      models["stabilizer"] = stabModel;
+    } else if (key.height >= 2) {
+      let stabModel = new StabilzerCutout(key.height);
+      makerjs.model.rotate(stabModel, 90);
+      models["stabilizer"] = stabModel;
     }
 
-    this.models = {
-      switchCutout: switchCutoutModel,
-      outline: switchOutlineModel,
-    };
-    // TODO: Add stab and acoustic cutouts here
+    // TODO: Add acoustic cutouts here
+
+    if (key.rotation_angle !== 0) {
+      Object.keys(models).forEach((k: string) => {
+        makerjs.model.rotate(models[k], -key.rotation_angle);
+      });
+    }
+
+    this.models = models;
+    console.log(this.models);
   }
 
   switchCutout(
