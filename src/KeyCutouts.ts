@@ -31,10 +31,18 @@ class KeyCutouts implements makerjs.IModel {
 
     let stabCutoutStyle = "normal";
     if (key.width >= 2) {
-      let stabModel = new StabilizerCutout(key.width, stabCutoutStyle, key.rs);
+      let stabModel = new StabilizerCutout(
+        key.width,
+        stabCutoutStyle,
+        key.rs || key.nub,
+      );
       models["stabilizer"] = stabModel;
     } else if (key.height >= 2) {
-      let stabModel = new StabilizerCutout(key.height, stabCutoutStyle, key.rs);
+      let stabModel = new StabilizerCutout(
+        key.height,
+        stabCutoutStyle,
+        key.rs || key.nub,
+      );
       let rotation = key.rotation_angle >= 0 ? -90 : 90;
       makerjs.model.rotate(stabModel, rotation);
       models["stabilizer"] = stabModel;
