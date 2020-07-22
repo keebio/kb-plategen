@@ -1,6 +1,6 @@
 import makerjs from "makerjs";
 import * as kle from "./KLESerial";
-import Switch from "./Switch";
+import KeyCutouts from "./KeyCutouts";
 
 class SwitchPlate implements makerjs.IModel {
   public origin: makerjs.IPoint;
@@ -22,7 +22,7 @@ class SwitchPlate implements makerjs.IModel {
 
     let i = 1;
     for (let key of keyboard.keys) {
-      this.models["switch" + i] = new Switch(key);
+      this.models["switch" + i] = new KeyCutouts(key);
       i++;
     }
   }

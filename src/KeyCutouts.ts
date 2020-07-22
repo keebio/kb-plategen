@@ -14,7 +14,7 @@ enum SwitchCutoutType {
   MX_Opening,
 }
 
-class Switch implements makerjs.IModel {
+class KeyCutouts implements makerjs.IModel {
   public origin: makerjs.IPoint;
   public models: makerjs.IModelMap = {};
   public paths: makerjs.IPathMap = {};
@@ -91,4 +91,4 @@ class Switch implements makerjs.IModel {
   }
 }
 
-export default Switch;
+export default KeyCutouts;

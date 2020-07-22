@@ -65,6 +65,7 @@ class StabilizerCutout implements makerjs.IModel {
   }
 }
 
+// eslint-disable-next-line
 declare namespace StabilizerCutout {
   export enum Style {
     Normal = 1,
