@@ -29,6 +29,8 @@ class StabilizerCutout implements makerjs.IModel {
       offsets = [-50, 50];
     } else if (stabilzerWidth === 6) {
       offsets = [-57.15, 38.1];
+    } else if (stabilzerWidth === 5.5 && style === "choc") {
+      offsets = [-38, 38];
     } else if (stabilzerWidth >= 3) {
       offsets = [-19.05, 19.05];
     } else if (stabilzerWidth >= 2) {
