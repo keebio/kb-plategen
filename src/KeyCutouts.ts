@@ -26,8 +26,8 @@ class KeyCutouts implements makerjs.IModel {
     let models: { [id: string]: makerjs.IModel } = {};
 
     models["switchCutout"] = this.switchCutout(SwitchCutoutType.MX);
-    models["outline"] = this.switchOutline(key);
-    models["outline"].layer = "gray";
+    //models["outline"] = this.switchOutline(key);
+    //models["outline"].layer = "gray";
 
     let stabCutoutStyle = "normal";
     if (key.width >= 2) {
@@ -57,7 +57,6 @@ class KeyCutouts implements makerjs.IModel {
     }
 
     this.models = models;
-    console.log(this.models);
   }
 
   switchCutout(

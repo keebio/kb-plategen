@@ -9,7 +9,8 @@ class SwitchPlate implements makerjs.IModel {
 
   constructor(kleData: any) {
     this.origin = [0, 0];
-    this.models = {};
+    let models: makerjs.IModelMap = {};
+    let combineOverlaps = false;
 
     var keyboard: kle.Keyboard;
     if (typeof kleData === "string") {
@@ -22,8 +23,24 @@ class SwitchPlate implements makerjs.IModel {
 
     let i = 1;
     for (let key of keyboard.keys) {
-      this.models["switch" + i] = new KeyCutouts(key);
+      models["switch" + i] = new KeyCutouts(key);
       i++;
+    }
+
+    if (combineOverlaps) {
+      let combinedModel = makerjs.cloneObject(models["switch1"]);
+      for (let i = 2; i <= keyboard.keys.length; i++) {
+        console.log(`Combining models: Switch ${i}`);
+        combinedModel = makerjs.model.combineUnion(
+          combinedModel,
+          models["switch" + i],
+        );
+      }
+      this.models = {
+        plate: combinedModel,
+      };
+    } else {
+      this.models = models;
     }
   }
 }
