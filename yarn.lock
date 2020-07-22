@@ -1133,13 +1133,6 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@ijprest/kle-serial@^0.15.1":
-  version "0.15.1"
-  resolved "https://registry.yarnpkg.com/@ijprest/kle-serial/-/kle-serial-0.15.1.tgz#41744e4797a84017dde7dae0dcd6fe3a48095015"
-  integrity sha512-pV4Kn7cU1gw+Pk6OVgvz/K45fKrGhZYlh5M4nfp668VfSJ6O4OHtO0spXirFx5YDs03d2o1KxxufATIbPgKcFQ==
-  dependencies:
-    json5 "^2.1.0"
-
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -6371,13 +6364,6 @@ json5@^1.0.1:
   integrity sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==
   dependencies:
     minimist "^1.2.0"
-
-json5@^2.1.0:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-2.1.3.tgz#c9b0f7fa9233bfe5807fe66fcf3a5617ed597d43"
-  integrity sha512-KXPvOm8K9IJKFM0bmdn8QXh7udDh1g/giieX0NLCaMnb4hEiVFqnop2ImTXCc5e0/oHz3LTqmHGtExn5hfMkOA==
-  dependencies:
-    minimist "^1.2.5"
 
 json5@^2.1.2:
   version "2.1.2"
