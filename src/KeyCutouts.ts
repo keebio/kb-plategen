@@ -24,14 +24,18 @@ class KeyCutouts implements makerjs.IModel {
   constructor(key: kle.Key) {
     this.origin = this.absoluteCenter(key);
     let models: { [id: string]: makerjs.IModel } = {};
+
     models["switchCutout"] = this.switchCutout(SwitchCutoutType.MX);
     models["outline"] = this.switchOutline(key);
+
+    let stabCutoutStyle = "normal";
     if (key.width >= 2) {
-      let stabModel = new StabilizerCutout(key.width, "large");
+      let stabModel = new StabilizerCutout(key.width, stabCutoutStyle);
       models["stabilizer"] = stabModel;
     } else if (key.height >= 2) {
-      let stabModel = new StabilizerCutout(key.height, "large");
-      makerjs.model.rotate(stabModel, 90);
+      let stabModel = new StabilizerCutout(key.height, stabCutoutStyle);
+      let rotation = key.rotation_angle >= 0 ? 90 : -90;
+      makerjs.model.rotate(stabModel, rotation);
       models["stabilizer"] = stabModel;
     }
 
