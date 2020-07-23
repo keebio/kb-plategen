@@ -1,5 +1,6 @@
 import makerjs from "makerjs";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
+import * as makerTools from "./makerTools";
 
 class CutoutParameters {
   constructor(
@@ -41,10 +42,6 @@ class StabilizerCutout implements makerjs.IModel {
       }
     }
 
-    if (reversed) {
-      params.heightOffset = -params.heightOffset;
-    }
-
     let leftStab: makerjs.IModel;
     if (style === "choc") {
       leftStab = this.cutoutChoc(radius);
@@ -54,18 +51,35 @@ class StabilizerCutout implements makerjs.IModel {
     let rightStab = makerjs.model.clone(leftStab);
     makerjs.model.moveRelative(leftStab, [offsets[0], params.heightOffset]);
     makerjs.model.moveRelative(rightStab, [offsets[1], params.heightOffset]);
-    this.models = {
-      stabilzerLeft: leftStab,
-      stabilzerRight: rightStab,
-    };
 
-    // TODO: Add wire cutout for thicker plates
+    if (style === "5mm-plate") {
+      let wire = this.cutoutMXWire(offsets[1] - offsets[0], radius);
+      let models = {
+        stabilzerLeft: leftStab,
+        stabilzerRight: rightStab,
+        wire: wire,
+      };
+      this.models = {
+        stabilizer: makerTools.combineModels(models),
+      };
+    } else {
+      this.models = {
+        stabilzerLeft: leftStab,
+        stabilzerRight: rightStab,
+      };
+    }
+
+    if (reversed) {
+      makerTools.rotateModels(this.models, 180);
+    }
   }
 
   loadStyle(style: string): CutoutParameters {
     switch (style) {
       case "large":
         return new CutoutParameters(7, 15, -0.5);
+      case "5mm-plate":
+        return new CutoutParameters(7, 19, -0.9);
       case "normal":
       default:
         return new CutoutParameters(6.75, 14, -1);
@@ -74,6 +88,12 @@ class StabilizerCutout implements makerjs.IModel {
 
   cutoutMX(params: CutoutParameters, radius: number): makerjs.IModel {
     return new CenteredRoundRectangle(params.width, params.height, radius);
+  }
+
+  cutoutMXWire(wireLength: number, radius: number): makerjs.IModel {
+    let wire = new CenteredRoundRectangle(wireLength, 3.6, radius);
+    makerjs.model.moveRelative(wire, [0, -8.6]);
+    return wire;
   }
 
   cutoutChoc(radius: number): makerjs.IModel {

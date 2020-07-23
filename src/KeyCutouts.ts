@@ -2,6 +2,7 @@ import makerjs from "makerjs";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as kle from "./KLESerial";
 import StabilizerCutout from "./StabilizerCutout";
+import * as makerTools from "./makerTools";
 
 class Point {
   constructor(public x: number, public y: number) {}
@@ -29,7 +30,7 @@ class KeyCutouts implements makerjs.IModel {
     //models["outline"] = this.switchOutline(key);
     //models["outline"].layer = "gray";
 
-    let stabCutoutStyle = "normal";
+    let stabCutoutStyle = "5mm-plate";
     if (key.width >= 2) {
       let stabModel = new StabilizerCutout(
         key.width,
@@ -56,7 +57,9 @@ class KeyCutouts implements makerjs.IModel {
       });
     }
 
-    this.models = models;
+    this.models = {
+      keyCutout: makerTools.combineModels(models),
+    };
   }
 
   switchCutout(
