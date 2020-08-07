@@ -3,6 +3,7 @@ import Blueprint from "react-blueprint-svg";
 import SwitchPlate from "./SwitchPlate";
 import makerjs from "makerjs";
 import FileSaver from "file-saver";
+import PlateConfiguration from "./PlateConfiguration";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
         <button onClick={saveDxf}>Save DXF</button>
       </div>
       <div className="configuration">
+        <PlateConfiguration />
+
         This is currently a work in progress, and here's the list of initial
         basic functionalities that need to be added in:
         <h4>TODO List:</h4>
@@ -48,6 +51,7 @@ function App() {
     let options: makerjs.exporter.ISVGRenderOptions = {
       accuracy: 0.000001,
       units: makerjs.unitType.Millimeter,
+      strokeWidth: "0.25mm",
     };
     let output = makerjs.exporter.toSVG(switchPlate, options);
     let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
