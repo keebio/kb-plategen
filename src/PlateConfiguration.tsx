@@ -1,9 +1,10 @@
 import React from "react";
-import * as keyCutouts from "./KeyCutouts";
+import { SwitchCutoutType } from "./KeyCutouts";
+import { StabilizerCutoutType } from "./StabilizerCutout";
 
 export interface PlateConfigurationProps {
   rawKLEData?: string;
-  switchCutoutType?: keyCutouts.SwitchCutoutType;
+  switchCutoutType?: SwitchCutoutType;
   switchCutoutRadius?: number;
   stabilizerCutoutType?: string;
   stabilizerCutoutRadius?: number;
@@ -15,9 +16,9 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
   render() {
     const {
       rawKLEData = "",
-      switchCutoutType = keyCutouts.SwitchCutoutType.MX,
+      switchCutoutType = SwitchCutoutType.MX,
       switchCutoutRadius = 0.5,
-      stabilizerCutoutType = "large",
+      stabilizerCutoutType = StabilizerCutoutType.Large,
       stabilizerCutoutRadius = 0.5,
       horizontalKeySpacing = 19.05,
       verticalKeySpacing = 19.05,
