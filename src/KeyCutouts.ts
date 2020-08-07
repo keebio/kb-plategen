@@ -9,11 +9,11 @@ class Point {
 }
 
 export enum SwitchCutoutType {
-  MX,
-  Alps,
-  MX_Alps,
-  MX_Opening,
-  MX_Encoder
+  MX = "MX",
+  Alps = "Alps",
+  MX_Alps = "MX/Alps",
+  MX_Opening = "MX Opening",
+  MX_Encoder = "MX + Encoder"
 }
 
 class KeyCutouts implements makerjs.IModel {
@@ -35,7 +35,7 @@ class KeyCutouts implements makerjs.IModel {
     //models["outline"] = this.switchOutline(key);
     //models["outline"].layer = "gray";
 
-    let stabCutoutStyle = StabilizerCutoutType.ThickPlate5mm;
+    let stabCutoutStyle = StabilizerCutoutType.ThickPlate3mm;
     let stabCornerRadius = 0.0;
     if (key.width >= 2) {
       let stabModel = new StabilizerCutout(

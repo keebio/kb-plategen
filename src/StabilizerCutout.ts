@@ -11,11 +11,11 @@ class CutoutParameters {
 }
 
 export enum StabilizerCutoutType {
-  Normal,
-  Large,
-  Choc,
-  ThickPlate3mm,
-  ThickPlate5mm,
+  Normal = "Normal",
+  Large = "Large",
+  Choc = "Choc",
+  ThickPlate3mm = "3mm Plate",
+  ThickPlate5mm = "5mm Plate",
 }
 
 class StabilizerCutout implements makerjs.IModel {
