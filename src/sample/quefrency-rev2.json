@@ -3,6 +3,9 @@
     "name": "Quefrency R2 Plate"
   },
   [
+    {
+      "enc": true
+    },
     "Home\n\n\n\n\n\n\n\n\nA1",
     "Home\n\n\n\n\n\n\n\n\nA2",
     {
@@ -39,7 +42,8 @@
     },
     "Bksp\n\n\n\n1\n\n\n\n\nAx8",
     {
-      "c": "#cccccc"
+      "c": "#cccccc",
+      "enc": true
     },
     "Home\n\n\n\n\n\n\n\n\nA9"
   ],

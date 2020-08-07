@@ -13,6 +13,7 @@ export enum SwitchCutoutType {
   Alps,
   MX_Alps,
   MX_Opening,
+  MX_Encoder
 }
 
 class KeyCutouts implements makerjs.IModel {
@@ -26,12 +27,15 @@ class KeyCutouts implements makerjs.IModel {
   constructor(key: kle.Key) {
     this.origin = this.absoluteCenter(key);
     let models: { [id: string]: makerjs.IModel } = {};
+    let switchCutoutType = SwitchCutoutType.MX;
 
-    models["switchCutout"] = this.switchCutout(SwitchCutoutType.MX, 0.0);
+    if (switchCutoutType === SwitchCutoutType.MX && key.enc)
+      switchCutoutType = SwitchCutoutType.MX_Encoder;
+    models["switchCutout"] = this.switchCutout(switchCutoutType, 0.0);
     //models["outline"] = this.switchOutline(key);
     //models["outline"].layer = "gray";
 
-    let stabCutoutStyle = StabilizerCutoutType.ThickPlate3mm;
+    let stabCutoutStyle = StabilizerCutoutType.ThickPlate5mm;
     let stabCornerRadius = 0.0;
     if (key.width >= 2) {
       let stabModel = new StabilizerCutout(
@@ -88,6 +92,11 @@ class KeyCutouts implements makerjs.IModel {
         makerjs.model.moveRelative(cutoutSide2, [0, -4.45]);
         cutout = makerjs.model.combineUnion(cutout, cutoutSide1);
         cutout = makerjs.model.combineUnion(cutout, cutoutSide2);
+        return cutout;
+      }
+      case SwitchCutoutType.MX_Encoder: {
+        let cutout = new CenteredRoundRectangle(14, 16.5, radius);
+        makerjs.model.moveRelative(cutout, [0, -0.25]);
         return cutout;
       }
       default:
