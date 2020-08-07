@@ -7,7 +7,7 @@ import PlateConfiguration from "./PlateConfiguration";
 import "./App.css";
 
 function App() {
-  let sampleJson = require("./sample/sinc-rev1.json");
+  let sampleJson = require("./sample/quefrency-rev2.json");
   let switchPlate: makerjs.IModel = new SwitchPlate(sampleJson);
   return (
     <div>

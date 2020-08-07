@@ -1,0 +1,362 @@
+[
+  {
+    "name": "Quefrency R2 Plate"
+  },
+  [
+    "Home\n\n\n\n\n\n\n\n\nA1",
+    "Home\n\n\n\n\n\n\n\n\nA2",
+    {
+      "x": 0.5
+    },
+    "~\n`\n\n\n\n\n\n\n\nA3",
+    "!\n1\n\n\n\n\n\n\n\nA4",
+    "@\n2\n\n\n\n\n\n\n\nA5",
+    "#\n3\n\n\n\n\n\n\n\nA6",
+    "$\n4\n\n\n\n\n\n\n\nA7",
+    "%\n5\n\n\n\n\n\n\n\nA8",
+    "^\n6\n\n\n\n\n\n\n\nA9",
+    {
+      "x": 1
+    },
+    "&\n7\n\n\n\n\n\n\n\nA1",
+    "*\n8\n\n\n\n\n\n\n\nA2",
+    "(\n9\n\n\n\n\n\n\n\nA3",
+    ")\n0\n\n\n\n\n\n\n\nA4",
+    "_\n-\n\n\n\n\n\n\n\nA5",
+    "+\n=\n\n\n\n\n\n\n\nA6",
+    {
+      "c": "#318db0"
+    },
+    "Del\n\n\n\n1\n\n\n\n\nA7",
+    {
+      "x": -1,
+      "c": "#36a8d6",
+      "w": 2
+    },
+    "Backspace\n\n\n\n2\n\n\n\n\nA8",
+    {
+      "x": -1
+    },
+    "Bksp\n\n\n\n1\n\n\n\n\nAx8",
+    {
+      "c": "#cccccc"
+    },
+    "Home\n\n\n\n\n\n\n\n\nA9"
+  ],
+  [
+    "End\n\n\n\n\n\n\n\n\nB1",
+    "End\n\n\n\n\n\n\n\n\nB",
+    {
+      "x": 0.5,
+      "w": 1.5
+    },
+    "Tab\n\n\n\n1.5\n\n\n\n\nB3",
+    "Q\n\n\n\n\n\n\n\n\nB4",
+    "W\n\n\n\n\n\n\n\n\nB5",
+    "E\n\n\n\n\n\n\n\n\nB6",
+    "R\n\n\n\n\n\n\n\n\nB7",
+    "T\n\n\n\n\n\n\n\n\nB8",
+    {
+      "x": 1
+    },
+    "Y\n\n\n\n\n\n\n\n\nB1",
+    "U\n\n\n\n\n\n\n\n\nB2",
+    "I\n\n\n\n\n\n\n\n\nB3",
+    "O\n\n\n\n\n\n\n\n\nB4",
+    "P\n\n\n\n\n\n\n\n\nB5",
+    "{\n[\n\n\n\n\n\n\n\nB6",
+    "}\n]\n\n\n\n\n\n\n\nB7",
+    {
+      "c": "#a780d9",
+      "w": 1.5
+    },
+    "|\n\\\n\n\n\n\n\n\n\nB8",
+    {
+      "x": -1.25,
+      "c": "#8e59c9",
+      "w": 1.25,
+      "h": 2,
+      "w2": 1.5,
+      "h2": 1,
+      "x2": -0.25
+    },
+    "Enter\n\n\n\n\n\n\n\n\nC8",
+    {
+      "c": "#cccccc"
+    },
+    "End\n\n\n\n\n\n\n\n\nB9"
+  ],
+  [
+    "Pg Up\n\n\n\n\n\n\n\n\nC1",
+    "Pg Up\n\n\n\n\n\n\n\n\nC",
+    {
+      "x": 0.5,
+      "c": "#bd9b6f",
+      "w": 1.25,
+      "w2": 1.75,
+      "l": true
+    },
+    "Caps\n\n\n\n\n\n\n\n\nCx3",
+    {
+      "x": -1.25,
+      "w": 1.75
+    },
+    "Caps Lock\n\n\n\n1.75\n\n\n\n\nC3",
+    {
+      "c": "#cccccc"
+    },
+    "A\n\n\n\n\n\n\n\n\nC4",
+    "S\n\n\n\n\n\n\n\n\nC5",
+    "D\n\n\n\n\n\n\n\n\nC6",
+    "F\n\n\n\n\n\n\n\n\nC7",
+    "G\n\n\n\n\n\n\n\n\nC8",
+    {
+      "x": 1
+    },
+    "H\n\n\n\n\n\n\n\n\nC1",
+    "J\n\n\n\n\n\n\n\n\nC2",
+    "K\n\n\n\n\n\n\n\n\nC3",
+    "L\n\n\n\n\n\n\n\n\nC4",
+    ":\n;\n\n\n\n\n\n\n\nC5",
+    "\"\n'\n\n\n\n\n\n\n\nC6",
+    {
+      "c": "#8e59c9",
+      "w": 2.25
+    },
+    "Enter\n\n\n\n\n\n\n\n\nC8",
+    {
+      "x": -2.25
+    },
+    "~\n#\n\n\n\n\n\n\n\nC7",
+    {
+      "x": 1.25,
+      "c": "#cccccc"
+    },
+    "Pg Up\n\n\n\n\n\n\n\n\nC9"
+  ],
+  [
+    "Pg Dn\n\n\n\n\n\n\n\n\nD1",
+    "Pg Dn\n\n\n\n\n\n\n\n\nD2",
+    {
+      "x": 0.5,
+      "c": "#8e59c9",
+      "w": 2.25
+    },
+    "Shift\n\n\n\n2.25\n\n\n\n\nD3",
+    {
+      "x": -2.25,
+      "w": 1.25
+    },
+    "Shift\n\n\n\n2.25\n\n\n\n\nDx3",
+    "|\n\\\n\n\n2.25\n\n\n\n\nD4",
+    {
+      "c": "#cccccc"
+    },
+    "Z\n\n\n\n\n\n\n\n\nD5",
+    "X\n\n\n\n\n\n\n\n\nD6",
+    "C\n\n\n\n\n\n\n\n\nD7",
+    "V\n\n\n\n\n\n\n\n\nD8",
+    "B\n\n\n\n\n\n\n\n\nD9",
+    {
+      "x": 1
+    },
+    "N\n\n\n\n\n\n\n\n\nD1",
+    "M\n\n\n\n\n\n\n\n\nD2",
+    "<\n,\n\n\n\n\n\n\n\nD3",
+    ">\n.\n\n\n\n\n\n\n\nD4",
+    {
+      "c": "#1ec93c",
+      "w": 1.75
+    },
+    "?\n/\n\n\n1.75\n\n\n\n\nDx5",
+    {
+      "x": -1.75
+    },
+    "?\n/\n\n\n1\n\n\n\n\nD5",
+    {
+      "c": "#2aa84e",
+      "w": 2.75
+    },
+    "Shift\n\n\n\n2.75\n\n\n\n\nD7",
+    {
+      "x": -2.75,
+      "w": 1.75
+    },
+    "Shift\n\n\n\n1.75\n\n\n\n\nDy7",
+    {
+      "x": -1
+    },
+    "Up\n\n\n\n1\n\n\n\n\nDx7",
+    {
+      "c": "#248542"
+    },
+    "Fn\n\n\n\n1\n\n\n\n\nD8",
+    {
+      "x": -1
+    },
+    "Up\n\n\n\n1\n\n\n\n\nD8",
+    {
+      "c": "#cccccc"
+    },
+    "Pg Dn\n\n\n\n\n\n\n\n\nD9"
+  ],
+  [
+    "Right\n\n\n\n\n\n\n\n\nE1",
+    "Right\n\n\n\n\n\n\n\n\nE2",
+    {
+      "x": 0.5,
+      "c": "#b18bf0",
+      "w": 1.25
+    },
+    "Ctrl\n\n\n\n1.25\n\n\n\n\nE3",
+    {
+      "x": -1.25,
+      "w": 1.5
+    },
+    "Ctrl\n\n\n\n1.5\n\n\n\n\nEx3",
+    {
+      "x": -0.25,
+      "c": "#9d6ee0",
+      "w": 1.25
+    },
+    "Win\n\n\n\n1.25\n\n\n\n\nE4",
+    {
+      "x": -1
+    },
+    "Win\n\n\n\n\n\n\n\n\nEx4",
+    {
+      "c": "#919feb",
+      "w": 1.25
+    },
+    "Alt\n\n\n\n1.25\n\n\n\n\nE5",
+    {
+      "x": -1.25,
+      "w": 1.5
+    },
+    "Alt\n\n\n\n1.5\n\n\n\n\nEx5",
+    {
+      "x": -0.25,
+      "c": "#64a3de",
+      "w": 1.25
+    },
+    "Fn\n\n\n\n1.25\n\n\n\n\nE6",
+    {
+      "x": -1.25,
+      "c": "#6486de",
+      "w": 2.25
+    },
+    "Space\n\n\n\n2.25\n\n\n\n\nE7",
+    {
+      "x": -2,
+      "c": "#64a3de"
+    },
+    "Fn\n\n\n\n\n\n\n\n\nEx6",
+    {
+      "c": "#246fb5",
+      "w": 2.25
+    },
+    "Space\n\n\n\n2.25\n\n\n\n\nE8",
+    {
+      "x": -2.25,
+      "c": "#6486de"
+    },
+    "Space\n\n\n\n1\n\n\n\n\nEx7",
+    {
+      "c": "#246fb5",
+      "w": 1.25
+    },
+    "Space\n\n\n\n1.25\n\n\n\n\nE8",
+    {
+      "x": 1,
+      "c": "#74b9d6",
+      "w": 2.75
+    },
+    "Space\n\n\n\n2.75\n\n\n\n\nE2",
+    {
+      "x": -2.75,
+      "c": "#6282a8",
+      "w": 1.25
+    },
+    "Fn\n\n\n\n1.25\n\n\n\n\nE1",
+    {
+      "x": -1.25,
+      "c": "#74b9d6",
+      "w": 2.25
+    },
+    "Space\n\n\n\n2.25\n\n\n\n\nEy2",
+    {
+      "x": -1,
+      "w": 1.5
+    },
+    "Space\n\n\n\n1.5\n\n\n\n\nEx2",
+    {
+      "x": -0.5,
+      "c": "#92d0d4",
+      "w": 1.25
+    },
+    "Alt\n\n\n\n1.25\n\n\n\n\nEz3",
+    {
+      "x": -0.75,
+      "w": 1.25
+    },
+    "Alt\n\n\n\n1.25\n\n\n\n\nE3",
+    {
+      "x": -1.25
+    },
+    "Alt\n\n\n\n1\n\n\n\n\nEx3",
+    {
+      "x": -1,
+      "w": 1.5
+    },
+    "Alt\n\n\n\n1.5\n\n\n\n\nEy3",
+    {
+      "x": -0.75,
+      "c": "#41a6ab",
+      "w": 1.25
+    },
+    "Win\n\n\n\n1.25\n\n\n\n\nEz4",
+    {
+      "x": -1
+    },
+    "Ctrl\n\n\n\n1\n\n\n\n\nEx4",
+    {
+      "x": -0.75,
+      "w": 1.25
+    },
+    "Win\n\n\n\n1.25\n\n\n\n\nE4",
+    {
+      "x": -1,
+      "w": 1.5
+    },
+    "Ctrl\n\n\n\n1.5\n\n\n\n\nEy4",
+    {
+      "x": -1,
+      "c": "#92d499"
+    },
+    "Win\n\n\n\n1\n\n\n\n\nE5",
+    {
+      "x": -0.5,
+      "c": "#c7d492",
+      "w": 1.25
+    },
+    "Menu\n\n\n\n1.25\n\n\n\n\nE7",
+    {
+      "x": -0.75
+    },
+    "Left\n\n\n\n1\n\n\n\n\nEx7",
+    {
+      "x": -0.25,
+      "c": "#d49692",
+      "w": 1.25
+    },
+    "Ctrl\n\n\n\n1.25\n\n\n\n\nE8",
+    {
+      "x": -1
+    },
+    "Down\n\n\n\n1\n\n\n\n\nEx8",
+    {
+      "c": "#cccccc"
+    },
+    "Right\n\n\n\n\n\n\n\n\nE9"
+  ]
+]
