@@ -1,14 +1,14 @@
 import makerjs from "makerjs";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as kle from "./KLESerial";
-import StabilizerCutout from "./StabilizerCutout";
+import StabilizerCutout, { StabilizerCutoutType } from "./StabilizerCutout";
 import * as makerTools from "./makerTools";
 
 class Point {
-  constructor(public x: number, public y: number) {}
+  constructor(public x: number, public y: number) { }
 }
 
-enum SwitchCutoutType {
+export enum SwitchCutoutType {
   MX,
   Alps,
   MX_Alps,
@@ -19,6 +19,7 @@ class KeyCutouts implements makerjs.IModel {
   public origin: makerjs.IPoint;
   public models: makerjs.IModelMap = {};
   public paths: makerjs.IPathMap = {};
+  public units = makerjs.unitType.Millimeter;
   private xSpacing: number = 19.05;
   private ySpacing: number = 19.05;
 
@@ -26,16 +27,18 @@ class KeyCutouts implements makerjs.IModel {
     this.origin = this.absoluteCenter(key);
     let models: { [id: string]: makerjs.IModel } = {};
 
-    models["switchCutout"] = this.switchCutout(SwitchCutoutType.MX);
+    models["switchCutout"] = this.switchCutout(SwitchCutoutType.MX, 0.0);
     //models["outline"] = this.switchOutline(key);
     //models["outline"].layer = "gray";
 
-    let stabCutoutStyle = "5mm-plate";
+    let stabCutoutStyle = StabilizerCutoutType.ThickPlate3mm;
+    let stabCornerRadius = 0.0;
     if (key.width >= 2) {
       let stabModel = new StabilizerCutout(
         key.width,
         stabCutoutStyle,
         key.rs || key.nub,
+        stabCornerRadius
       );
       models["stabilizer"] = stabModel;
     } else if (key.height >= 2) {
@@ -43,6 +46,7 @@ class KeyCutouts implements makerjs.IModel {
         key.height,
         stabCutoutStyle,
         key.rs || key.nub,
+        stabCornerRadius
       );
       let rotation = key.rotation_angle >= 0 ? -90 : 90;
       makerjs.model.rotate(stabModel, rotation);

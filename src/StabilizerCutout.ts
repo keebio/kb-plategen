@@ -7,15 +7,24 @@ class CutoutParameters {
     public width: number,
     public height: number,
     public heightOffset: number,
-  ) {}
+  ) { }
+}
+
+export enum StabilizerCutoutType {
+  Normal,
+  Large,
+  Choc,
+  ThickPlate3mm,
+  ThickPlate5mm,
 }
 
 class StabilizerCutout implements makerjs.IModel {
   public models: makerjs.IModelMap = {};
+  public units = makerjs.unitType.Millimeter;
 
   constructor(
     stabilzerWidth: number,
-    style: string = "normal",
+    style: StabilizerCutoutType = StabilizerCutoutType.Normal,
     reversed: boolean = false,
     radius: number = 0.5,
   ) {
@@ -30,12 +39,12 @@ class StabilizerCutout implements makerjs.IModel {
       offsets = [-50, 50];
     } else if (stabilzerWidth === 6) {
       offsets = [-57.15, 38.1];
-    } else if (stabilzerWidth === 5.5 && style === "choc") {
+    } else if (stabilzerWidth === 5.5 && style === StabilizerCutoutType.Choc) {
       offsets = [-38, 38];
     } else if (stabilzerWidth >= 3) {
       offsets = [-19.05, 19.05];
     } else if (stabilzerWidth >= 2) {
-      if (style === "choc") {
+      if (style === StabilizerCutoutType.Choc) {
         offsets = [-12, 12];
       } else {
         offsets = [-11.938, 11.938];
@@ -43,7 +52,7 @@ class StabilizerCutout implements makerjs.IModel {
     }
 
     let leftStab: makerjs.IModel;
-    if (style === "choc") {
+    if (style === StabilizerCutoutType.Choc) {
       leftStab = this.cutoutChoc(radius);
     } else {
       leftStab = this.cutoutMX(params, radius);
@@ -52,7 +61,8 @@ class StabilizerCutout implements makerjs.IModel {
     makerjs.model.moveRelative(leftStab, [offsets[0], params.heightOffset]);
     makerjs.model.moveRelative(rightStab, [offsets[1], params.heightOffset]);
 
-    if (style === "5mm-plate") {
+    if (style === StabilizerCutoutType.ThickPlate5mm) {
+      // Add cutout for stabilizer wire
       let wire = this.cutoutMXWire(offsets[1] - offsets[0], radius);
       let models = {
         stabilzerLeft: leftStab,
@@ -74,13 +84,15 @@ class StabilizerCutout implements makerjs.IModel {
     }
   }
 
-  loadStyle(style: string): CutoutParameters {
+  loadStyle(style: StabilizerCutoutType): CutoutParameters {
     switch (style) {
-      case "large":
+      case StabilizerCutoutType.Large:
         return new CutoutParameters(7, 15, -0.5);
-      case "5mm-plate":
+      case StabilizerCutoutType.ThickPlate3mm:
+        return new CutoutParameters(7, 16, -1);
+      case StabilizerCutoutType.ThickPlate5mm:
         return new CutoutParameters(7, 19, -0.9);
-      case "normal":
+      case StabilizerCutoutType.Normal:
       default:
         return new CutoutParameters(6.75, 14, -1);
     }
@@ -105,11 +117,4 @@ class StabilizerCutout implements makerjs.IModel {
   }
 }
 
-// eslint-disable-next-line
-declare namespace StabilizerCutout {
-  export enum Style {
-    Normal = 1,
-    Large,
-  }
-}
 export default StabilizerCutout;
