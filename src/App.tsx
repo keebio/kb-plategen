@@ -4,7 +4,6 @@ import SwitchPlate from "./SwitchPlate";
 import makerjs from "makerjs";
 import FileSaver from "file-saver";
 import PlateConfiguration from "./PlateConfiguration";
-import "./App.css";
 
 function App() {
   let sampleJson = require("./sample/quefrency-rev2.json");
