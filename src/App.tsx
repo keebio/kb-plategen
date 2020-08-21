@@ -1,27 +1,17 @@
 import React from "react";
-import Blueprint from "react-blueprint-svg";
 import SwitchPlate from "./SwitchPlate";
 import makerjs from "makerjs";
-import FileSaver from "file-saver";
-import PlateConfiguration from "./PlateConfiguration";
+import PlateViewer from "./components/PlateViewer";
+import PlateConfiguration from "./components/PlateConfiguration";
 
 function App() {
-  let sampleJson = require("./sample/quefrency-rev2.json");
-  let switchPlate: makerjs.IModel = new SwitchPlate(sampleJson);
+  let state = {
+    kleData: require("./sample/quefrency-rev2.json"),
+  };
+  let switchPlate: makerjs.IModel = new SwitchPlate(state.kleData);
   return (
     <div>
-      <div className="container">
-        <Blueprint model={switchPlate}>
-          <h3>
-            Keyboard Plate Generator by <a href="https://github.com/keebio">
-              Keebio
-            </a>
-          </h3>
-        </Blueprint>
-        <p />
-        <button onClick={saveSvg}>Save SVG</button>
-        <button onClick={saveDxf}>Save DXF</button>
-      </div>
+      <PlateViewer switchPlate={switchPlate} />
       <div className="configuration">
         <PlateConfiguration />
 
@@ -45,27 +35,6 @@ function App() {
       </div>
     </div>
   );
-
-  function saveSvg() {
-    let options: makerjs.exporter.ISVGRenderOptions = {
-      accuracy: 0.000001,
-      units: makerjs.unitType.Millimeter,
-      strokeWidth: "0.25mm",
-    };
-    let output = makerjs.exporter.toSVG(switchPlate, options);
-    let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
-    FileSaver.saveAs(blob, "kbplate.svg");
-  }
-
-  function saveDxf() {
-    let options: makerjs.exporter.IDXFRenderOptions = {
-      accuracy: 0.000001,
-      units: makerjs.unitType.Millimeter,
-    };
-    let output = makerjs.exporter.toDXF(switchPlate, options);
-    let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
-    FileSaver.saveAs(blob, "kbplate.dxf");
-  }
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import React from "react";
-import { SwitchCutoutType } from "./KeyCutouts";
-import { StabilizerCutoutType } from "./StabilizerCutout";
+import { SwitchCutoutType } from "../KeyCutouts";
+import { StabilizerCutoutType } from "../StabilizerCutout";
 
 export interface PlateConfigurationProps {
   rawKLEData?: string;
@@ -26,8 +26,26 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
 
     return (
       <div className="plateConfiguration">
-        <div className="kleInput">
-          KLE input box goes here: {rawKLEData}
+        <div className="ui form">
+          <div className="field">
+            <label>KLE Raw Data</label>
+            <textarea>{rawKLEData}</textarea>
+          </div>
+
+          <div className="field">
+            <label>Switch Cutout Type</label>
+            <div className="ui selection dropdown">
+              <input name="switchCutoutType"></input>
+              <i className="dropdown icon"></i>
+              <div className="menu">
+                <div className="item" data-value="MX">MX</div>
+                <div className="item" data-value="Alps">Alps</div>
+                <div className="item" data-value="MX_Alps">MX/Alps</div>
+                <div className="item" data-value="MX_Opening">MX Opening</div>
+                <div className="item" data-value="MX_Encoder">MX + Encoder</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="switchCutoutConfig">
