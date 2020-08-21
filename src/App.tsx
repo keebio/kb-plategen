@@ -1,6 +1,6 @@
 import React from "react";
-import SwitchPlate from "./SwitchPlate";
 import makerjs from "makerjs";
+import SwitchPlate from "./maker_models/SwitchPlate";
 import PlateViewer from "./components/PlateViewer";
 import PlateConfiguration from "./components/PlateConfiguration";
 

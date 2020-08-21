@@ -1,6 +1,6 @@
 import React from "react";
-import { SwitchCutoutType } from "../KeyCutouts";
-import { StabilizerCutoutType } from "../StabilizerCutout";
+import { SwitchCutoutType } from "../maker_models/KeyCutouts";
+import { StabilizerCutoutType } from "../maker_models/StabilizerCutout";
 
 export interface PlateConfigurationProps {
   rawKLEData?: string;
