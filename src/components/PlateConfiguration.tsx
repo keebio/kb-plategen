@@ -25,53 +25,109 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
     } = this.props;
 
     return (
-      <div className="plateConfiguration">
+      <div className="ui container">
         <div className="ui form">
+          <h3 className="ui header">KLE Raw Data</h3>
           <div className="field">
-            <label>KLE Raw Data</label>
             <textarea>{rawKLEData}</textarea>
           </div>
 
-          <div className="field">
-            <label>Switch Cutout Type</label>
-            <div className="ui selection dropdown">
-              <input name="switchCutoutType"></input>
-              <i className="dropdown icon"></i>
-              <div className="menu">
-                <div className="item" data-value="MX">MX</div>
-                <div className="item" data-value="Alps">Alps</div>
-                <div className="item" data-value="MX_Alps">MX/Alps</div>
-                <div className="item" data-value="MX_Opening">MX Opening</div>
-                <div className="item" data-value="MX_Encoder">MX + Encoder</div>
+          <h3 className="ui dividing header">Switch Cutouts</h3>
+          <div className="fields">
+            <div className="six wide field">
+              <label>Cutout Type</label>
+              <div className="ui selection dropdown">
+                <input
+                  type="hidden"
+                  name="switchCutoutType"
+                  value={switchCutoutType}
+                />
+                <i className="dropdown icon"></i>
+                <div className="menu">
+                  <div className="item" data-value="MX">MX</div>
+                  <div className="item" data-value="Alps">Alps</div>
+                  <div className="item" data-value="MX_Alps">MX/Alps</div>
+                  <div className="item" data-value="MX_Opening">MX Opening</div>
+                  <div className="item" data-value="MX_Encoder">
+                    MX + Encoder
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="three wide field">
+              <label>Cutout Fillet Radius</label>
+              <div className="ui right labeled input">
+                <input
+                  type="text"
+                  name="switchCutoutRadius"
+                  value={switchCutoutRadius}
+                />
+                <div className="ui basic label">mm</div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="switchCutoutConfig">
-          <div className="cutoutType">
-            Switch Cutout Type: {switchCutoutType}
+          <h3 className="ui dividing header">Stabilizer Cutouts</h3>
+          <div className="fields">
+            <div className="six wide field">
+              <label>Cutout Type</label>
+              <div className="ui selection dropdown">
+                <input
+                  type="hidden"
+                  name="stabilizerCutoutType"
+                  value={stabilizerCutoutType}
+                />
+                <i className="dropdown icon"></i>
+                <div className="menu">
+                  <div className="item" data-value="MX">MX</div>
+                  <div className="item" data-value="Alps">Alps</div>
+                  <div className="item" data-value="MX_Alps">MX/Alps</div>
+                  <div className="item" data-value="MX_Opening">MX Opening</div>
+                  <div className="item" data-value="MX_Encoder">
+                    MX + Encoder
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="three wide field">
+              <label>Cutout Fillet Radius</label>
+              <div className="ui right labeled input">
+                <input
+                  type="text"
+                  name="stabilizerCutoutRadius"
+                  value={stabilizerCutoutRadius}
+                />
+                <div className="ui basic label">mm</div>
+              </div>
+            </div>
           </div>
-          <div className="cutoutRadius">
-            Switch Cutout Radius: {switchCutoutRadius}
-          </div>
-        </div>
 
-        <div className="stabilizerCutoutConfig">
-          <div className="cutoutType">
-            Stabilizer Cutout Type: {stabilizerCutoutType}
-          </div>
-          <div className="cutoutRadius">
-            Stabilizer Cutout Radius: {stabilizerCutoutRadius}
-          </div>
-        </div>
-
-        <div className="keySpacing">
-          <div className="horizontalKeySpacing">
-            Horizontal Key Spacing: {horizontalKeySpacing}
-          </div>
-          <div className="verticalKeySpacing">
-            Vertical Key Spacing: {verticalKeySpacing}
+          <h3 className="ui dividing header">Keyspacing</h3>
+          <div className="fields">
+            <div className="three wide field">
+              <label>Horizontal</label>
+              <div className="ui right labeled left icon input">
+                <i className="arrows alternate horizontal icon"></i>
+                <input
+                  type="text"
+                  name="horizontalKeySpacing"
+                  value={horizontalKeySpacing}
+                />
+                <div className="ui basic label">mm</div>
+              </div>
+            </div>
+            <div className="three wide field">
+              <label>Vertical</label>
+              <div className="ui right labeled left icon input">
+                <i className="arrows alternate vertical icon"></i>
+                <input
+                  type="text"
+                  name="verticalKeySpacing"
+                  value={verticalKeySpacing}
+                />
+                <div className="ui basic label">mm</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

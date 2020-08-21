@@ -10,7 +10,7 @@ export type PlateProps = {
 class PlateViewer extends React.Component<PlateProps> {
   render() {
     return (
-      <div className="container">
+      <div className="plateviewer">
         <Blueprint model={this.props.switchPlate}>
           <h3>
             Keyboard Plate Generator by <a href="https://github.com/keebio">
