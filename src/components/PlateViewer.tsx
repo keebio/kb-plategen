@@ -19,29 +19,29 @@ class PlateViewer extends React.Component<PlateProps> {
           </h3>
         </Blueprint>
         <p />
-        <button onClick={this.saveSvg}>Save SVG</button>
-        <button onClick={this.saveDxf}>Save DXF</button>
+        <button onClick={e => this.saveSvg(this.props.switchPlate)}>Save SVG</button>
+        <button onClick={e => this.saveDxf(this.props.switchPlate)}>Save DXF</button>
       </div>
     );
   }
 
-  saveSvg() {
+  saveSvg(model: makerjs.IModel) {
     let options: makerjs.exporter.ISVGRenderOptions = {
       accuracy: 0.000001,
       units: makerjs.unitType.Millimeter,
       strokeWidth: "0.25mm",
     };
-    let output = makerjs.exporter.toSVG(this.props.switchPlate, options);
+    let output = makerjs.exporter.toSVG(model, options);
     let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, "kbplate.svg");
   }
 
-  saveDxf() {
+  saveDxf(model: makerjs.IModel) {
     let options: makerjs.exporter.IDXFRenderOptions = {
       accuracy: 0.000001,
       units: makerjs.unitType.Millimeter,
     };
-    let output = makerjs.exporter.toDXF(this.props.switchPlate, options);
+    let output = makerjs.exporter.toDXF(model, options);
     let blob = new Blob([output], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, "kbplate.dxf");
   }
