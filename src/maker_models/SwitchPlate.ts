@@ -10,7 +10,7 @@ class SwitchPlate implements makerjs.IModel {
   constructor(kleData: any) {
     this.origin = [0, 0];
     let models: makerjs.IModelMap = {};
-    let combineOverlaps = true;
+    let combineOverlaps = false;
 
     var keyboard: kle.Keyboard;
     if (typeof kleData === 'string') {

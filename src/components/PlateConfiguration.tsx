@@ -34,25 +34,19 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
 
           <h3 className="ui dividing header">Switch Cutouts</h3>
           <div className="fields">
-            <div className="six wide field">
+            <div className="three wide field">
               <label>Cutout Type</label>
-              <div className="ui selection dropdown">
-                <input
-                  type="hidden"
-                  name="switchCutoutType"
-                  value={switchCutoutType}
-                />
-                <i className="dropdown icon"></i>
-                <div className="menu">
-                  <div className="item" data-value="MX">MX</div>
-                  <div className="item" data-value="Alps">Alps</div>
-                  <div className="item" data-value="MX_Alps">MX/Alps</div>
-                  <div className="item" data-value="MX_Opening">MX Opening</div>
-                  <div className="item" data-value="MX_Encoder">
-                    MX + Encoder
-                  </div>
-                </div>
-              </div>
+              <select name="switchCutoutType" value={switchCutoutType}>
+                <option className="item" data-value="MX">MX</option>
+                <option className="item" data-value="Alps">Alps</option>
+                <option className="item" data-value="MX_Alps">MX/Alps</option>
+                <option className="item" data-value="MX_Opening">
+                  MX Opening
+                </option>
+                <option className="item" data-value="MX_Encoder">
+                  MX + Encoder
+                </option>
+              </select>
             </div>
             <div className="three wide field">
               <label>Cutout Fillet Radius</label>
@@ -69,25 +63,20 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
 
           <h3 className="ui dividing header">Stabilizer Cutouts</h3>
           <div className="fields">
-            <div className="six wide field">
+            <div className="three wide field">
               <label>Cutout Type</label>
-              <div className="ui selection dropdown">
-                <input
-                  type="hidden"
-                  name="stabilizerCutoutType"
-                  value={stabilizerCutoutType}
-                />
+              <select name="stabilizerCutoutType" value={stabilizerCutoutType}>
                 <i className="dropdown icon"></i>
-                <div className="menu">
-                  <div className="item" data-value="MX">MX</div>
-                  <div className="item" data-value="Alps">Alps</div>
-                  <div className="item" data-value="MX_Alps">MX/Alps</div>
-                  <div className="item" data-value="MX_Opening">MX Opening</div>
-                  <div className="item" data-value="MX_Encoder">
-                    MX + Encoder
-                  </div>
-                </div>
-              </div>
+                <option className="item" data-value="Normal">Normal</option>
+                <option className="item" data-value="Large">Large</option>
+                <option className="item" data-value="Choc">Choc</option>
+                <option className="item" data-value="3mm Plate">
+                  3mm Plate
+                </option>
+                <option className="item" data-value="5mm Plate">
+                  5mm Plate
+                </option>
+              </select>
             </div>
             <div className="three wide field">
               <label>Cutout Fillet Radius</label>
