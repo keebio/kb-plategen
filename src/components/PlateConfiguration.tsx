@@ -33,12 +33,16 @@ class PlateConfiguration
     return (
       <div className="ui container">
         <div className="ui form">
-          <h3 className="ui header">KLE Raw Data</h3>
+          <h3 className="ui header">
+            <i className="keyboard icon" />KLE Raw Data
+          </h3>
           <div className="field">
             <textarea>{this.state.rawKLEData}</textarea>
           </div>
 
-          <h3 className="ui dividing header">Switch Cutouts</h3>
+          <h3 className="ui dividing header">
+            <i className="cut icon" />Switch Cutouts
+          </h3>
           <div className="fields">
             <div className="three wide field">
               <label>Cutout Type</label>
@@ -70,7 +74,9 @@ class PlateConfiguration
             </div>
           </div>
 
-          <h3 className="ui dividing header">Stabilizer Cutouts</h3>
+          <h3 className="ui dividing header">
+            <i className="cut icon" />Stabilizer Cutouts
+          </h3>
           <div className="fields">
             <div className="three wide field">
               <label>Cutout Type</label>
@@ -103,12 +109,14 @@ class PlateConfiguration
             </div>
           </div>
 
-          <h3 className="ui dividing header">Keyspacing</h3>
+          <h3 className="ui dividing header">
+            <i className="space shuttle icon" />Keyspacing
+          </h3>
           <div className="fields">
             <div className="three wide field">
               <label>Horizontal</label>
               <div className="ui right labeled left icon input">
-                <i className="arrows alternate horizontal icon"></i>
+                <i className="arrows alternate horizontal icon" />
                 <input
                   type="text"
                   name="horizontalKeySpacing"
@@ -120,7 +128,7 @@ class PlateConfiguration
             <div className="three wide field">
               <label>Vertical</label>
               <div className="ui right labeled left icon input">
-                <i className="arrows alternate vertical icon"></i>
+                <i className="arrows alternate vertical icon" />
                 <input
                   type="text"
                   name="verticalKeySpacing"
