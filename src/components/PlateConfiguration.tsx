@@ -27,6 +27,22 @@ class PlateConfiguration
       horizontalKeySpacing: 19.05,
       verticalKeySpacing: 19.05,
     };
+    this.handleKLEChange = this.handleKLEChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleKLEChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    this.setState({
+      rawKLEData: event.target.value,
+    }, () => console.log(this.state));
+  }
+
+  handleChange(event: React.ChangeEvent<any>) {
+    console.log(`target: ${event.target.name}, value: ${event.target.value}`);
+    this.setState(
+      { [event.target.name]: event.target.value },
+      () => console.log(this.state),
+    );
   }
 
   render() {
@@ -37,7 +53,10 @@ class PlateConfiguration
             <i className="keyboard icon" />KLE Raw Data
           </h3>
           <div className="field">
-            <textarea>{this.state.rawKLEData}</textarea>
+            <textarea
+              value={this.state.rawKLEData}
+              onChange={this.handleKLEChange}
+            />
           </div>
 
           <h3 className="ui dividing header">
@@ -49,6 +68,7 @@ class PlateConfiguration
               <select
                 name="switchCutoutType"
                 value={this.state.switchCutoutType}
+                onChange={this.handleChange}
               >
                 <option className="item" data-value="MX">MX</option>
                 <option className="item" data-value="Alps">Alps</option>
@@ -68,6 +88,7 @@ class PlateConfiguration
                   type="text"
                   name="switchCutoutRadius"
                   value={this.state.switchCutoutRadius}
+                  onChange={this.handleChange}
                 />
                 <div className="ui basic label">mm</div>
               </div>
@@ -83,8 +104,8 @@ class PlateConfiguration
               <select
                 name="stabilizerCutoutType"
                 value={this.state.stabilizerCutoutType}
+                onChange={this.handleChange}
               >
-                <i className="dropdown icon"></i>
                 <option className="item" data-value="Normal">Normal</option>
                 <option className="item" data-value="Large">Large</option>
                 <option className="item" data-value="Choc">Choc</option>
@@ -103,6 +124,7 @@ class PlateConfiguration
                   type="text"
                   name="stabilizerCutoutRadius"
                   value={this.state.stabilizerCutoutRadius}
+                  onChange={this.handleChange}
                 />
                 <div className="ui basic label">mm</div>
               </div>
@@ -121,6 +143,7 @@ class PlateConfiguration
                   type="text"
                   name="horizontalKeySpacing"
                   value={this.state.horizontalKeySpacing}
+                  onChange={this.handleChange}
                 />
                 <div className="ui basic label">mm</div>
               </div>
@@ -133,6 +156,7 @@ class PlateConfiguration
                   type="text"
                   name="verticalKeySpacing"
                   value={this.state.verticalKeySpacing}
+                  onChange={this.handleChange}
                 />
                 <div className="ui basic label">mm</div>
               </div>
