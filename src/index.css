@@ -10,3 +10,7 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+select {
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
