@@ -19,8 +19,18 @@ class PlateViewer extends React.Component<PlateProps> {
           </h3>
         </Blueprint>
         <p />
-        <button onClick={e => this.saveSvg(this.props.switchPlate)}>Save SVG</button>
-        <button onClick={e => this.saveDxf(this.props.switchPlate)}>Save DXF</button>
+        <button
+          className="ui button"
+          onClick={(e) => this.saveSvg(this.props.switchPlate)}
+        >
+          Save SVG
+        </button>
+        <button
+          className="ui button"
+          onClick={(e) => this.saveDxf(this.props.switchPlate)}
+        >
+          Save DXF
+        </button>
       </div>
     );
   }
