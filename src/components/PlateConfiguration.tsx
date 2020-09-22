@@ -2,7 +2,9 @@ import React from "react";
 import { SwitchCutoutType } from "../maker_models/KeyCutouts";
 import { StabilizerCutoutType } from "../maker_models/StabilizerCutout";
 
-export interface PlateConfigurationProps {
+export interface PlateConfigurationProps {}
+
+export interface PlateConfigurationState {
   rawKLEData?: string;
   switchCutoutType?: SwitchCutoutType;
   switchCutoutRadius?: number;
@@ -12,31 +14,38 @@ export interface PlateConfigurationProps {
   verticalKeySpacing?: number;
 }
 
-class PlateConfiguration extends React.Component<PlateConfigurationProps> {
-  render() {
-    const {
-      rawKLEData = "",
-      switchCutoutType = SwitchCutoutType.MX,
-      switchCutoutRadius = 0.5,
-      stabilizerCutoutType = StabilizerCutoutType.Large,
-      stabilizerCutoutRadius = 0.5,
-      horizontalKeySpacing = 19.05,
-      verticalKeySpacing = 19.05,
-    } = this.props;
+class PlateConfiguration
+  extends React.Component<PlateConfigurationProps, PlateConfigurationState> {
+  constructor(props: PlateConfigurationProps) {
+    super(props);
+    this.state = {
+      rawKLEData: "",
+      switchCutoutType: SwitchCutoutType.MX,
+      switchCutoutRadius: 0.5,
+      stabilizerCutoutType: StabilizerCutoutType.Large,
+      stabilizerCutoutRadius: 0.5,
+      horizontalKeySpacing: 19.05,
+      verticalKeySpacing: 19.05,
+    };
+  }
 
+  render() {
     return (
       <div className="ui container">
         <div className="ui form">
           <h3 className="ui header">KLE Raw Data</h3>
           <div className="field">
-            <textarea>{rawKLEData}</textarea>
+            <textarea>{this.state.rawKLEData}</textarea>
           </div>
 
           <h3 className="ui dividing header">Switch Cutouts</h3>
           <div className="fields">
             <div className="three wide field">
               <label>Cutout Type</label>
-              <select name="switchCutoutType" value={switchCutoutType}>
+              <select
+                name="switchCutoutType"
+                value={this.state.switchCutoutType}
+              >
                 <option className="item" data-value="MX">MX</option>
                 <option className="item" data-value="Alps">Alps</option>
                 <option className="item" data-value="MX_Alps">MX/Alps</option>
@@ -54,7 +63,7 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
                 <input
                   type="text"
                   name="switchCutoutRadius"
-                  value={switchCutoutRadius}
+                  value={this.state.switchCutoutRadius}
                 />
                 <div className="ui basic label">mm</div>
               </div>
@@ -65,7 +74,10 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
           <div className="fields">
             <div className="three wide field">
               <label>Cutout Type</label>
-              <select name="stabilizerCutoutType" value={stabilizerCutoutType}>
+              <select
+                name="stabilizerCutoutType"
+                value={this.state.stabilizerCutoutType}
+              >
                 <i className="dropdown icon"></i>
                 <option className="item" data-value="Normal">Normal</option>
                 <option className="item" data-value="Large">Large</option>
@@ -84,7 +96,7 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
                 <input
                   type="text"
                   name="stabilizerCutoutRadius"
-                  value={stabilizerCutoutRadius}
+                  value={this.state.stabilizerCutoutRadius}
                 />
                 <div className="ui basic label">mm</div>
               </div>
@@ -100,7 +112,7 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
                 <input
                   type="text"
                   name="horizontalKeySpacing"
-                  value={horizontalKeySpacing}
+                  value={this.state.horizontalKeySpacing}
                 />
                 <div className="ui basic label">mm</div>
               </div>
@@ -112,7 +124,7 @@ class PlateConfiguration extends React.Component<PlateConfigurationProps> {
                 <input
                   type="text"
                   name="verticalKeySpacing"
-                  value={verticalKeySpacing}
+                  value={this.state.verticalKeySpacing}
                 />
                 <div className="ui basic label">mm</div>
               </div>
