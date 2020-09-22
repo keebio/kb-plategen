@@ -14,3 +14,7 @@
 select {
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
+
+textarea {
+  font-family: 'Fira Code', 'Menlo', 'Courier New', Courier, monospace;
+}
