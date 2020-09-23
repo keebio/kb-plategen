@@ -77,7 +77,8 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
               <label>Cutout Fillet Radius</label>
               <div className="ui right labeled input">
                 <input
-                  type="text"
+                  type="number"
+                  step="0.1"
                   name="switchCutoutRadius"
                   value={this.props.switchCutoutRadius}
                   onChange={this.handleChange}
@@ -113,7 +114,8 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
               <label>Cutout Fillet Radius</label>
               <div className="ui right labeled input">
                 <input
-                  type="text"
+                  type="number"
+                  step="0.1"
                   name="stabilizerCutoutRadius"
                   value={this.props.stabilizerCutoutRadius}
                   onChange={this.handleChange}
@@ -132,7 +134,8 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
               <div className="ui right labeled left icon input">
                 <i className="arrows alternate horizontal icon" />
                 <input
-                  type="text"
+                  type="number"
+                  step="0.05"
                   name="horizontalKeySpacing"
                   value={this.props.horizontalKeySpacing}
                   onChange={this.handleChange}
@@ -145,7 +148,8 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
               <div className="ui right labeled left icon input">
                 <i className="arrows alternate vertical icon" />
                 <input
-                  type="text"
+                  type="number"
+                  step="0.05"
                   name="verticalKeySpacing"
                   value={this.props.verticalKeySpacing}
                   onChange={this.handleChange}
