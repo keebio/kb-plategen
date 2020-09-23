@@ -2,31 +2,26 @@ import React from "react";
 import { SwitchCutoutType } from "../maker_models/KeyCutouts";
 import { StabilizerCutoutType } from "../maker_models/StabilizerCutout";
 
-export interface PlateConfigurationProps {}
-
-export interface PlateConfigurationState {
-  rawKLEData?: string;
+export interface PlateConfigurationProps {
+  kleData?: string;
   switchCutoutType?: SwitchCutoutType;
   switchCutoutRadius?: number;
-  stabilizerCutoutType?: string;
+  stabilizerCutoutType?: StabilizerCutoutType;
   stabilizerCutoutRadius?: number;
   horizontalKeySpacing?: number;
   verticalKeySpacing?: number;
 }
 
-class PlateConfiguration
-  extends React.Component<PlateConfigurationProps, PlateConfigurationState> {
-  constructor(props: PlateConfigurationProps) {
+export interface OnChangeProps {
+  onConfigChange: (config: PlateConfigurationProps) => void;
+}
+export type PlateConfigurationInputProps =
+  & PlateConfigurationProps
+  & OnChangeProps;
+
+class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
+  constructor(props: PlateConfigurationInputProps) {
     super(props);
-    this.state = {
-      rawKLEData: "",
-      switchCutoutType: SwitchCutoutType.MX,
-      switchCutoutRadius: 0.5,
-      stabilizerCutoutType: StabilizerCutoutType.Large,
-      stabilizerCutoutRadius: 0.5,
-      horizontalKeySpacing: 19.05,
-      verticalKeySpacing: 19.05,
-    };
     this.handleKLEChange = this.handleKLEChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -39,10 +34,7 @@ class PlateConfiguration
 
   handleChange(event: React.ChangeEvent<any>) {
     console.log(`target: ${event.target.name}, value: ${event.target.value}`);
-    this.setState(
-      { [event.target.name]: event.target.value },
-      () => console.log(this.state),
-    );
+    this.props.onConfigChange({ [event.target.name]: event.target.value });
   }
 
   render() {
@@ -54,7 +46,7 @@ class PlateConfiguration
           </h3>
           <div className="field">
             <textarea
-              value={this.state.rawKLEData}
+              value={this.props.kleData}
               onChange={this.handleKLEChange}
             />
           </div>
@@ -67,7 +59,7 @@ class PlateConfiguration
               <label>Cutout Type</label>
               <select
                 name="switchCutoutType"
-                value={this.state.switchCutoutType}
+                value={this.props.switchCutoutType}
                 onChange={this.handleChange}
               >
                 <option className="item" data-value="MX">MX</option>
@@ -87,7 +79,7 @@ class PlateConfiguration
                 <input
                   type="text"
                   name="switchCutoutRadius"
-                  value={this.state.switchCutoutRadius}
+                  value={this.props.switchCutoutRadius}
                   onChange={this.handleChange}
                 />
                 <div className="ui basic label">mm</div>
@@ -103,7 +95,7 @@ class PlateConfiguration
               <label>Cutout Type</label>
               <select
                 name="stabilizerCutoutType"
-                value={this.state.stabilizerCutoutType}
+                value={this.props.stabilizerCutoutType}
                 onChange={this.handleChange}
               >
                 <option className="item" data-value="Normal">Normal</option>
@@ -123,7 +115,7 @@ class PlateConfiguration
                 <input
                   type="text"
                   name="stabilizerCutoutRadius"
-                  value={this.state.stabilizerCutoutRadius}
+                  value={this.props.stabilizerCutoutRadius}
                   onChange={this.handleChange}
                 />
                 <div className="ui basic label">mm</div>
@@ -142,7 +134,7 @@ class PlateConfiguration
                 <input
                   type="text"
                   name="horizontalKeySpacing"
-                  value={this.state.horizontalKeySpacing}
+                  value={this.props.horizontalKeySpacing}
                   onChange={this.handleChange}
                 />
                 <div className="ui basic label">mm</div>
@@ -155,7 +147,7 @@ class PlateConfiguration
                 <input
                   type="text"
                   name="verticalKeySpacing"
-                  value={this.state.verticalKeySpacing}
+                  value={this.props.verticalKeySpacing}
                   onChange={this.handleChange}
                 />
                 <div className="ui basic label">mm</div>
