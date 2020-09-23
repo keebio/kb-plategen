@@ -1,13 +1,15 @@
 import React from "react";
+import AwesomeDebouncePromise from "awesome-debounce-promise";
 import SwitchPlate from "./maker_models/SwitchPlate";
-import PlateViewer from "./components/PlateViewer";
+import PlateViewer, { PlateProps } from "./components/PlateViewer";
 import { SwitchCutoutType } from "./maker_models/KeyCutouts";
 import { StabilizerCutoutType } from "./maker_models/StabilizerCutout";
 import PlateConfiguration, {
   PlateConfigurationProps,
 } from "./components/PlateConfiguration";
+import PlateParameters from "./PlateParameters";
 
-type AppState = PlateConfigurationProps;
+type AppState = PlateConfigurationProps & PlateProps;
 
 const defaultState: PlateConfigurationProps = {
   kleData: require("./sample/quefrency-rev2.json"),
@@ -23,24 +25,32 @@ class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
     this.handleConfigurationChange = this.handleConfigurationChange.bind(this);
-    this.state = defaultState;
+    const switchPlate = new SwitchPlate(defaultState.kleData, defaultState);
+    this.state = { ...defaultState, switchPlate: switchPlate };
   }
 
-  handleConfigurationChange(config: PlateConfigurationProps) {
+  makeSwitchPlate = AwesomeDebouncePromise(
+    (kleData: string | object | undefined, params: PlateParameters) => {
+      return new SwitchPlate(this.state.kleData, this.state);
+    },
+    500,
+  );
+
+  async handleConfigurationChange(config: PlateConfigurationProps) {
     this.setState(config, () => console.log(this.state));
+    const switchPlate = await this.makeSwitchPlate(config.kleData, config);
+    this.setState({ switchPlate: switchPlate });
   }
 
   render() {
-    const stateWithHandler = {
-      ...this.state,
-      onConfigChange: this.handleConfigurationChange,
-    };
-    const switchPlate = new SwitchPlate(this.state.kleData, this.state);
     return (
       <div>
-        <PlateViewer switchPlate={switchPlate} />
+        <PlateViewer switchPlate={this.state.switchPlate} />
         <div>
-          <PlateConfiguration {...stateWithHandler} />
+          <PlateConfiguration
+            {...this.state}
+            onConfigChange={this.handleConfigurationChange}
+          />
           <p />
           <div className="ui container">
             This is currently a work in progress, and here's the list of initial
