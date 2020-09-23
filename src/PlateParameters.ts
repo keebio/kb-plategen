@@ -9,6 +9,7 @@ export type PlateParameters = {
   stabilizerCutoutRadius: number;
   horizontalKeySpacing: number;
   verticalKeySpacing: number;
+  combineOverlaps: boolean;
 };
 
 export default PlateParameters;

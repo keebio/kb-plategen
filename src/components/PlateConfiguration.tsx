@@ -22,9 +22,12 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
   }
 
   handleChange(event: React.ChangeEvent<any>) {
-    console.log(`target: ${event.target.name}, value: ${event.target.value}`);
+    const value = event.target.type === "checkbox"
+      ? event.target.checked
+      : event.target.value;
+    console.log(`target: ${event.target.name}, value: ${value}`);
     this.props.onConfigChange(
-      { ...this.props, [event.target.name]: event.target.value },
+      { ...this.props, [event.target.name]: value },
     );
   }
 
@@ -155,6 +158,23 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
                 />
                 <div className="ui basic label">mm</div>
               </div>
+            </div>
+          </div>
+
+          <h3 className="ui dividing header">
+            <i className="settings icon" />Miscellaneous Options
+          </h3>
+          <div className="field">
+            <div className="ui checkbox">
+              <input
+                type="checkbox"
+                name="combineOverlaps"
+                checked={this.props.combineOverlaps}
+                onChange={this.handleChange}
+              />
+              <label>
+                Combine Overlapping Layouts (Note: This makes rendering slow)
+              </label>
             </div>
           </div>
         </div>

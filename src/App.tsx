@@ -19,6 +19,7 @@ const defaultState: PlateConfigurationProps = {
   stabilizerCutoutRadius: 0.5,
   horizontalKeySpacing: 19.05,
   verticalKeySpacing: 19.05,
+  combineOverlaps: false,
 };
 
 class App extends React.Component<{}, AppState> {

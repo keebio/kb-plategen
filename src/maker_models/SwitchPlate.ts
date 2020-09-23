@@ -11,7 +11,6 @@ class SwitchPlate implements makerjs.IModel {
   constructor(kleData: any, plateParameters: PlateParameters) {
     this.origin = [0, 0];
     let models: makerjs.IModelMap = {};
-    let combineOverlaps = false;
 
     var keyboard: kle.Keyboard;
     if (typeof kleData === "string") {
@@ -28,7 +27,7 @@ class SwitchPlate implements makerjs.IModel {
       i++;
     }
 
-    if (combineOverlaps) {
+    if (plateParameters.combineOverlaps) {
       let combinedModel = makerjs.cloneObject(models["switch1"]);
       for (let i = 2; i <= keyboard.keys.length; i++) {
         console.log(`Combining models: Switch ${i}`);
