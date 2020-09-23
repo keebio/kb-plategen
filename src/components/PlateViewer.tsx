@@ -11,7 +11,10 @@ class PlateViewer extends React.Component<PlateProps> {
   render() {
     return (
       <div className="plateviewer">
-        <Blueprint model={this.props.switchPlate}>
+        <Blueprint
+          model={this.props.switchPlate}
+          options={{ fitOnScreen: true }}
+        >
           <h3>
             Keyboard Plate Generator by <a href="https://github.com/keebio">
               Keebio
