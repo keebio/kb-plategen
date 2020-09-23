@@ -1,54 +1,58 @@
 import React from "react";
 import makerjs from "makerjs";
 import SwitchPlate from "./maker_models/SwitchPlate";
-import PlateViewer, { PlateProps } from "./components/PlateViewer";
+import PlateViewer from "./components/PlateViewer";
 import { SwitchCutoutType } from "./maker_models/KeyCutouts";
 import { StabilizerCutoutType } from "./maker_models/StabilizerCutout";
 import PlateConfiguration, {
   PlateConfigurationProps,
-  PlateConfigurationInputProps,
 } from "./components/PlateConfiguration";
 
-type AppState = PlateProps & PlateConfigurationInputProps;
+type AppState = PlateConfigurationProps;
+
+const defaultState: PlateConfigurationProps = {
+  kleData: require("./sample/quefrency-rev2.json"),
+  switchCutoutType: SwitchCutoutType.MX,
+  switchCutoutRadius: 0.5,
+  stabilizerCutoutType: StabilizerCutoutType.Large,
+  stabilizerCutoutRadius: 0.5,
+  horizontalKeySpacing: 19.05,
+  verticalKeySpacing: 19.05,
+};
 
 class App extends React.Component<{}, AppState> {
-  constructor(props: any) {
+  private switchPlate: makerjs.IModel = new SwitchPlate(
+    defaultState.kleData,
+    defaultState,
+  );
+  constructor(props: {}) {
     super(props);
     this.handleConfigurationChange = this.handleConfigurationChange.bind(this);
-    this.state = {
-      switchPlate: new SwitchPlate(""),
-      kleData: require("./sample/quefrency-rev2.json"),
-      switchCutoutType: SwitchCutoutType.MX,
-      switchCutoutRadius: 0.5,
-      stabilizerCutoutType: StabilizerCutoutType.Large,
-      stabilizerCutoutRadius: 0.5,
-      horizontalKeySpacing: 19.05,
-      verticalKeySpacing: 19.05,
-      onConfigChange: this.handleConfigurationChange,
-    };
+    this.state = defaultState;
   }
 
   componentDidMount() {
-    const switchPlate: makerjs.IModel = new SwitchPlate(this.state.kleData);
-    this.setState({ switchPlate: switchPlate });
+    this.switchPlate = new SwitchPlate(this.state.kleData, this.state);
   }
 
   handleConfigurationChange(config: PlateConfigurationProps) {
-    this.setState(config, () => console.log(this.state));
+    this.setState(config, () => {
+      this.switchPlate = new SwitchPlate(this.state.kleData, this.state);
+      console.log(this.state);
+    });
   }
 
   render() {
-    const { switchPlate, ...configuration }:
-      & PlateProps
-      & PlateConfigurationInputProps = this.state;
+    const stateWithHandler = {
+      ...this.state,
+      onConfigChange: this.handleConfigurationChange,
+    };
     return (
       <div>
-        <PlateViewer switchPlate={this.state.switchPlate} />
+        <PlateViewer switchPlate={this.switchPlate} />
         <div>
           {/* TODO: Add onConfigurationChange prop/callback */}
-          <PlateConfiguration
-            {...configuration}
-          />
+          <PlateConfiguration {...stateWithHandler} />
           <p />
           <div className="ui container">
             This is currently a work in progress, and here's the list of initial

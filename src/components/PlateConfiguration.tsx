@@ -1,16 +1,8 @@
+import json5 from "json5";
 import React from "react";
-import { SwitchCutoutType } from "../maker_models/KeyCutouts";
-import { StabilizerCutoutType } from "../maker_models/StabilizerCutout";
+import PlateParameters from "../PlateParameters";
 
-export interface PlateConfigurationProps {
-  kleData?: string;
-  switchCutoutType?: SwitchCutoutType;
-  switchCutoutRadius?: number;
-  stabilizerCutoutType?: StabilizerCutoutType;
-  stabilizerCutoutRadius?: number;
-  horizontalKeySpacing?: number;
-  verticalKeySpacing?: number;
-}
+export type PlateConfigurationProps = PlateParameters;
 
 export interface OnChangeProps {
   onConfigChange: (config: PlateConfigurationProps) => void;
@@ -27,9 +19,7 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
   }
 
   handleKLEChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    this.setState({
-      rawKLEData: event.target.value,
-    }, () => console.log(this.state));
+    this.props.onConfigChange({ kleData: event.target.value });
   }
 
   handleChange(event: React.ChangeEvent<any>) {
@@ -38,6 +28,14 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
   }
 
   render() {
+    var kleString: string = "";
+    if (typeof this.props.kleData === "string") {
+      kleString = this.props.kleData;
+    } else if (typeof this.props.kleData === "object") {
+      kleString = json5.stringify(this.props.kleData);
+      // Strip leading `[` and trailing `]` to be similar to raw KLE format
+      kleString = kleString.substring(1, kleString.length - 1);
+    }
     return (
       <div className="ui container">
         <div className="ui form">
@@ -46,7 +44,7 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
           </h3>
           <div className="field">
             <textarea
-              value={this.props.kleData}
+              value={kleString}
               onChange={this.handleKLEChange}
             />
           </div>

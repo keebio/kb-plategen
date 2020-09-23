@@ -1,19 +1,19 @@
-import makerjs from 'makerjs';
-import * as kle from '../KLESerial';
-import CenteredRoundRectangle from './CenteredRoundRectangle';
-import * as makerTools from './makerTools';
-import StabilizerCutout, {StabilizerCutoutType} from './StabilizerCutout';
+import makerjs from "makerjs";
+import * as kle from "../KLESerial";
+import CenteredRoundRectangle from "./CenteredRoundRectangle";
+import * as makerTools from "./makerTools";
+import StabilizerCutout, { StabilizerCutoutType } from "./StabilizerCutout";
 
 class Point {
   constructor(public x: number, public y: number) {}
 }
 
 export enum SwitchCutoutType {
-  MX = 'MX',
-  Alps = 'Alps',
-  MX_Alps = 'MX/Alps',
-  MX_Opening = 'MX Opening',
-  MX_Encoder = 'MX + Encoder'
+  MX = "MX",
+  Alps = "Alps",
+  MX_Alps = "MX/Alps",
+  MX_Opening = "MX Opening",
+  MX_Encoder = "MX + Encoder",
 }
 
 class KeyCutouts implements makerjs.IModel {
@@ -21,32 +21,51 @@ class KeyCutouts implements makerjs.IModel {
   public models: makerjs.IModelMap = {};
   public paths: makerjs.IPathMap = {};
   public units = makerjs.unitType.Millimeter;
-  private xSpacing: number = 19.05;
-  private ySpacing: number = 19.05;
+  private horizontalKeySpacing: number = 19.05;
+  private verticalKeySpacing: number = 19.05;
 
-  constructor(key: kle.Key) {
+  constructor(
+    key: kle.Key,
+    switchCutoutType: SwitchCutoutType = SwitchCutoutType.MX,
+    switchCutoutRadius: number = 0.5,
+    stabilizerCutoutType: StabilizerCutoutType = StabilizerCutoutType.Large,
+    stabilizerCutoutRadius: number = 0.5,
+    horizontalKeySpacing: number = 19.05,
+    verticalKeySpacing: number = 19.05,
+  ) {
+    this.horizontalKeySpacing = horizontalKeySpacing;
+    this.verticalKeySpacing = verticalKeySpacing;
     this.origin = this.absoluteCenter(key);
-    let models: {[id: string]: makerjs.IModel} = {};
-    let switchCutoutType = SwitchCutoutType.MX;
+    let models: { [id: string]: makerjs.IModel } = {};
 
-    if (switchCutoutType === SwitchCutoutType.MX && key.enc)
+    if (switchCutoutType === SwitchCutoutType.MX && key.enc) {
       switchCutoutType = SwitchCutoutType.MX_Encoder;
-    models['switchCutout'] = this.switchCutout(switchCutoutType, 0.0);
+    }
+    models["switchCutout"] = this.switchCutout(
+      switchCutoutType,
+      switchCutoutRadius,
+    );
     // models["outline"] = this.switchOutline(key);
     // models["outline"].layer = "gray";
 
-    let stabCutoutStyle = StabilizerCutoutType.ThickPlate3mm;
-    let stabCornerRadius = 0.0;
     if (key.width >= 2) {
       let stabModel = new StabilizerCutout(
-          key.width, stabCutoutStyle, key.rs || key.nub, stabCornerRadius);
-      models['stabilizer'] = stabModel;
+        key.width,
+        stabilizerCutoutType,
+        key.rs || key.nub,
+        stabilizerCutoutRadius,
+      );
+      models["stabilizer"] = stabModel;
     } else if (key.height >= 2) {
       let stabModel = new StabilizerCutout(
-          key.height, stabCutoutStyle, key.rs || key.nub, stabCornerRadius);
+        key.height,
+        stabilizerCutoutType,
+        key.rs || key.nub,
+        stabilizerCutoutRadius,
+      );
       let rotation = key.rotation_angle >= 0 ? -90 : 90;
       makerjs.model.rotate(stabModel, rotation);
-      models['stabilizer'] = stabModel;
+      models["stabilizer"] = stabModel;
     }
 
     // TODO: Add acoustic cutouts here
@@ -63,9 +82,9 @@ class KeyCutouts implements makerjs.IModel {
   }
 
   switchCutout(
-      cutoutType: SwitchCutoutType,
-      radius: number = 0.5,
-      ): makerjs.IModel {
+    cutoutType: SwitchCutoutType,
+    radius: number = 0.5,
+  ): makerjs.IModel {
     switch (cutoutType) {
       case SwitchCutoutType.MX:
         return new CenteredRoundRectangle(14, 14, radius);
@@ -98,9 +117,9 @@ class KeyCutouts implements makerjs.IModel {
 
   switchOutline(key: kle.Key): makerjs.IModel {
     return new CenteredRoundRectangle(
-        this.xSpacing * key.width,
-        this.ySpacing * key.height,
-        2,
+      this.horizontalKeySpacing * key.width,
+      this.verticalKeySpacing * key.height,
+      2,
     );
   }
 
@@ -113,16 +132,19 @@ class KeyCutouts implements makerjs.IModel {
     }
 
     let newCenter = makerjs.point.rotate(
-        [centerX, centerY],
-        key.rotation_angle,
-        [key.rotation_x, key.rotation_y],
+      [centerX, centerY],
+      key.rotation_angle,
+      [key.rotation_x, key.rotation_y],
     );
     return new Point(newCenter[0], newCenter[1]);
   }
 
   absoluteCenter(key: kle.Key): makerjs.IPoint {
     let center = this.center(key);
-    return [center.x * this.xSpacing, center.y * -this.ySpacing];
+    return [
+      center.x * this.horizontalKeySpacing,
+      center.y * -this.verticalKeySpacing,
+    ];
   }
 }
 
