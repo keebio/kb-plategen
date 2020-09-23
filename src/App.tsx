@@ -1,5 +1,4 @@
 import React from "react";
-import makerjs from "makerjs";
 import SwitchPlate from "./maker_models/SwitchPlate";
 import PlateViewer from "./components/PlateViewer";
 import { SwitchCutoutType } from "./maker_models/KeyCutouts";
@@ -21,25 +20,14 @@ const defaultState: PlateConfigurationProps = {
 };
 
 class App extends React.Component<{}, AppState> {
-  private switchPlate: makerjs.IModel = new SwitchPlate(
-    defaultState.kleData,
-    defaultState,
-  );
   constructor(props: {}) {
     super(props);
     this.handleConfigurationChange = this.handleConfigurationChange.bind(this);
     this.state = defaultState;
   }
 
-  componentDidMount() {
-    this.switchPlate = new SwitchPlate(this.state.kleData, this.state);
-  }
-
   handleConfigurationChange(config: PlateConfigurationProps) {
-    this.setState(config, () => {
-      this.switchPlate = new SwitchPlate(this.state.kleData, this.state);
-      console.log(this.state);
-    });
+    this.setState(config, () => console.log(this.state));
   }
 
   render() {
@@ -47,11 +35,11 @@ class App extends React.Component<{}, AppState> {
       ...this.state,
       onConfigChange: this.handleConfigurationChange,
     };
+    const switchPlate = new SwitchPlate(this.state.kleData, this.state);
     return (
       <div>
-        <PlateViewer switchPlate={this.switchPlate} />
+        <PlateViewer switchPlate={switchPlate} />
         <div>
-          {/* TODO: Add onConfigurationChange prop/callback */}
           <PlateConfiguration {...stateWithHandler} />
           <p />
           <div className="ui container">

@@ -1,4 +1,3 @@
-import json5 from "json5";
 import React from "react";
 import PlateParameters from "../PlateParameters";
 
@@ -34,7 +33,7 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
     if (typeof this.props.kleData === "string") {
       kleString = this.props.kleData;
     } else if (typeof this.props.kleData === "object") {
-      kleString = json5.stringify(this.props.kleData);
+      kleString = JSON.stringify(this.props.kleData);
       // Strip leading `[` and trailing `]` to be similar to raw KLE format
       kleString = kleString.substring(1, kleString.length - 1);
     }
