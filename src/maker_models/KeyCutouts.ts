@@ -1,5 +1,6 @@
 import makerjs from "makerjs";
 import * as kle from "../KLESerial";
+import PlateParameters from "../PlateParameters";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as makerTools from "./makerTools";
 import StabilizerCutout, { StabilizerCutoutType } from "./StabilizerCutout";
@@ -26,16 +27,22 @@ class KeyCutouts implements makerjs.IModel {
 
   constructor(
     key: kle.Key,
-    switchCutoutType: SwitchCutoutType = SwitchCutoutType.MX,
-    switchCutoutRadius: number = 0.5,
-    stabilizerCutoutType: StabilizerCutoutType = StabilizerCutoutType.Large,
-    stabilizerCutoutRadius: number = 0.5,
-    horizontalKeySpacing: number = 19.05,
-    verticalKeySpacing: number = 19.05,
+    plateParams: PlateParameters = {
+      switchCutoutType: SwitchCutoutType.MX,
+      switchCutoutRadius: 0.5,
+      stabilizerCutoutType: StabilizerCutoutType.Large,
+      stabilizerCutoutRadius: 0.5,
+      horizontalKeySpacing: 19.05,
+      verticalKeySpacing: 19.05,
+    },
   ) {
-    this.horizontalKeySpacing = horizontalKeySpacing;
-    this.verticalKeySpacing = verticalKeySpacing;
+    this.horizontalKeySpacing = plateParams.horizontalKeySpacing;
+    this.verticalKeySpacing = plateParams.verticalKeySpacing;
     this.origin = this.absoluteCenter(key);
+    let switchCutoutType = plateParams.switchCutoutType;
+    let switchCutoutRadius = plateParams.switchCutoutRadius;
+    let stabilizerCutoutType = plateParams.stabilizerCutoutType;
+    let stabilizerCutoutRadius = plateParams.stabilizerCutoutRadius;
     let models: { [id: string]: makerjs.IModel } = {};
 
     if (switchCutoutType === SwitchCutoutType.MX && key.enc) {

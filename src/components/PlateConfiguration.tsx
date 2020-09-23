@@ -19,12 +19,14 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
   }
 
   handleKLEChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    this.props.onConfigChange({ kleData: event.target.value });
+    this.props.onConfigChange({ ...this.props, kleData: event.target.value });
   }
 
   handleChange(event: React.ChangeEvent<any>) {
     console.log(`target: ${event.target.name}, value: ${event.target.value}`);
-    this.props.onConfigChange({ [event.target.name]: event.target.value });
+    this.props.onConfigChange(
+      { ...this.props, [event.target.name]: event.target.value },
+    );
   }
 
   render() {

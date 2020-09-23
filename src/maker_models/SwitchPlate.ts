@@ -8,7 +8,7 @@ class SwitchPlate implements makerjs.IModel {
   public units = makerjs.unitType.Millimeter;
   public models: makerjs.IModelMap = {};
 
-  constructor(kleData: any, config: PlateParameters) {
+  constructor(kleData: any, plateParameters: PlateParameters) {
     this.origin = [0, 0];
     let models: makerjs.IModelMap = {};
     let combineOverlaps = false;
@@ -24,15 +24,7 @@ class SwitchPlate implements makerjs.IModel {
 
     let i = 1;
     for (let key of keyboard.keys) {
-      models["switch" + i] = new KeyCutouts(
-        key,
-        config.switchCutoutType,
-        config.switchCutoutRadius,
-        config.stabilizerCutoutType,
-        config.stabilizerCutoutRadius,
-        config.horizontalKeySpacing,
-        config.verticalKeySpacing,
-      );
+      models["switch" + i] = new KeyCutouts(key, plateParameters);
       i++;
     }
 
