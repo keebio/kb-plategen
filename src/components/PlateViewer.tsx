@@ -23,13 +23,13 @@ class PlateViewer extends React.Component<PlateProps> {
         </Blueprint>
         <p />
         <button
-          className="ui button"
+          className="ui primary button"
           onClick={(e) => this.saveSvg(this.props.switchPlate)}
         >
           <i className="download icon" />Download SVG
         </button>
         <button
-          className="ui button"
+          className="ui primary button"
           onClick={(e) => this.saveDxf(this.props.switchPlate)}
         >
           <i className="download icon" />Download DXF
