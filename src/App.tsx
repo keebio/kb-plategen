@@ -110,7 +110,11 @@ class App extends React.Component<{}, AppState> {
                   Project status board
                 </a>
               </li>
-              <li>GitHub Issue Tracker</li>
+              <li>
+                <a href="https://github.com/keebio/kb-plategen/issues">
+                  GitHub Issue Tracker
+                </a>
+              </li>
             </ul>
 
             <p />
