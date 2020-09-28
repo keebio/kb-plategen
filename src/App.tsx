@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 import SwitchPlate from "./maker_models/SwitchPlate";
-import PlateViewer, { PlateProps } from "./components/PlateViewer";
+import PlateViewer from "./components/PlateViewer";
 import { SwitchCutoutType } from "./maker_models/KeyCutouts";
 import { StabilizerCutoutType } from "./maker_models/StabilizerCutout";
 import PlateConfiguration, {
@@ -10,9 +10,7 @@ import PlateConfiguration, {
 import PlateParameters from "./PlateParameters";
 import AppInfo from "./components/AppInfo";
 
-type AppState = PlateConfigurationProps & PlateProps;
-
-const defaultState: PlateConfigurationProps = {
+const defaultConfig: PlateConfigurationProps = {
   kleData: require("./sample/quefrency-rev2.json"),
   //kleData: '[""]',
   switchCutoutType: SwitchCutoutType.MX,
@@ -25,21 +23,18 @@ const defaultState: PlateConfigurationProps = {
 };
 
 function App() {
-  const [state, setState] = useState(defaultState);
+  const [plateConfig, setPlateConfig] = useState(defaultConfig);
   const [switchPlate, setSwitchPlate] = useState(
-    new SwitchPlate(defaultState.kleData, defaultState),
+    new SwitchPlate(defaultConfig),
   );
 
-  const makeSwitchPlate = AwesomeDebouncePromise(
-    (kleData: string | object | undefined, params: PlateParameters) => {
-      return new SwitchPlate(params.kleData, params);
-    },
-    500,
-  );
+  const makeSwitchPlate = AwesomeDebouncePromise((params: PlateParameters) => {
+    return new SwitchPlate(params);
+  }, 500);
 
   const handleConfigurationChange = async (config: PlateConfigurationProps) => {
-    setState(config);
-    const newSwitchPlate = await makeSwitchPlate(config.kleData, config);
+    setPlateConfig(config);
+    const newSwitchPlate = await makeSwitchPlate(config);
     setSwitchPlate(newSwitchPlate);
   };
 
@@ -48,7 +43,7 @@ function App() {
       <PlateViewer switchPlate={switchPlate} />
       <div>
         <PlateConfiguration
-          {...state}
+          {...plateConfig}
           onConfigChange={handleConfigurationChange}
         />
         &nbsp;

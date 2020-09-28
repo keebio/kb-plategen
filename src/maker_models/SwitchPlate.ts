@@ -8,15 +8,16 @@ class SwitchPlate implements makerjs.IModel {
   public units = makerjs.unitType.Millimeter;
   public models: makerjs.IModelMap = {};
 
-  constructor(kleData: any, plateParameters: PlateParameters) {
+  constructor(plateParameters: PlateParameters) {
     this.origin = [0, 0];
     let models: makerjs.IModelMap = {};
+    console.log(`Parameters: ${JSON.stringify(plateParameters)}`);
 
     var keyboard: kle.Keyboard;
-    if (typeof kleData === "string") {
-      keyboard = kle.parse(kleData);
-    } else if (typeof kleData === "object") {
-      keyboard = kle.deserialize(kleData);
+    if (typeof plateParameters.kleData === "string") {
+      keyboard = kle.parse(plateParameters.kleData);
+    } else if (typeof plateParameters.kleData === "object") {
+      keyboard = kle.deserialize(plateParameters.kleData);
     } else {
       return;
     }

@@ -1,6 +1,6 @@
 import makerjs from "makerjs";
 import * as kle from "../KLESerial";
-import PlateParameters from "../PlateParameters";
+import { KeyCutoutParameters } from "../PlateParameters";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as makerTools from "./makerTools";
 import StabilizerCutout, { StabilizerCutoutType } from "./StabilizerCutout";
@@ -27,7 +27,7 @@ class KeyCutouts implements makerjs.IModel {
 
   constructor(
     key: kle.Key,
-    plateParams: PlateParameters = {
+    plateParams: KeyCutoutParameters = {
       switchCutoutType: SwitchCutoutType.MX,
       switchCutoutRadius: 0.5,
       stabilizerCutoutType: StabilizerCutoutType.Large,
