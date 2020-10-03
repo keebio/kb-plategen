@@ -23,28 +23,29 @@ const defaultConfig: PlateConfigurationProps = {
 };
 
 function App() {
-  const [plateConfig, setPlateConfig] = useState(defaultConfig);
-  const [switchPlate, setSwitchPlate] = useState(
-    new SwitchPlate(defaultConfig),
-  );
+  const switchPlate = new SwitchPlate(defaultConfig);
+  const [state, setState] = useState({
+    config: defaultConfig,
+    switchPlate: switchPlate,
+  });
 
   const makeSwitchPlate = AwesomeDebouncePromise((params: PlateParameters) => {
     return new SwitchPlate(params);
   }, 500);
 
   const handleConfigurationChange = async (config: PlateConfigurationProps) => {
-    setPlateConfig(config);
+    setState({ config: config, switchPlate: state.switchPlate });
     const newSwitchPlate = await makeSwitchPlate(config);
-    setSwitchPlate(newSwitchPlate);
+    setState({ config: config, switchPlate: newSwitchPlate });
   };
 
   return (
     <div>
-      <PlateViewer switchPlate={switchPlate} />
+      <PlateViewer switchPlate={state.switchPlate} />
       <div>
         <PlateConfiguration
-          {...plateConfig}
-          onConfigChange={handleConfigurationChange}
+          {...state.config}
+          onConfigChange={(config) => handleConfigurationChange(config)}
         />
         &nbsp;
         <p />
