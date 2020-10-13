@@ -2,8 +2,7 @@ import { SwitchCutoutType } from "./maker_models/KeyCutouts";
 import { StabilizerCutoutType } from "./maker_models/StabilizerCutout";
 
 export type PlateKLE = {
-  //kleData: string | object;
-  kleData: any; // TODO: Fix this since SwitchPlate isn't happy if I use the type above
+  kleData: string;
 };
 
 export type KeyCutoutParameters = {

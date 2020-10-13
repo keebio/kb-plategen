@@ -10,9 +10,11 @@ import PlateConfiguration, {
 import PlateParameters from "./PlateParameters";
 import AppInfo from "./components/AppInfo";
 
+var kleData = JSON.stringify(require("./sample/quefrency-rev2.json"));
+kleData = kleData.substring(1, kleData.length - 1);
+
 const defaultConfig: PlateConfigurationProps = {
-  kleData: require("./sample/quefrency-rev2.json"),
-  //kleData: '[""]',
+  kleData: kleData,
   switchCutoutType: SwitchCutoutType.MX,
   switchCutoutRadius: 0.5,
   stabilizerCutoutType: StabilizerCutoutType.Large,
