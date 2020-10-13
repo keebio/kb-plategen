@@ -9,6 +9,7 @@ import PlateConfiguration, {
 } from "./components/PlateConfiguration";
 import PlateParameters from "./PlateParameters";
 import AppInfo from "./components/AppInfo";
+import useConstant from "use-constant";
 
 var kleData = JSON.stringify(require("./sample/quefrency-rev2.json"));
 kleData = kleData.substring(1, kleData.length - 1);
@@ -31,13 +32,13 @@ function App() {
     switchPlate: initialSwitchPlate,
   });
 
-  const makeSwitchPlate = AwesomeDebouncePromise((params: PlateParameters) => {
+  const debouncedMakeSwitchPlate = useConstant(() => AwesomeDebouncePromise((params: PlateParameters) => {
     return new SwitchPlate(params);
-  }, 500);
+  }, 500));
 
   const handleConfigurationChange = async (config: PlateConfigurationProps) => {
     setState({ config: config, switchPlate: state.switchPlate });
-    const newSwitchPlate = await makeSwitchPlate(config);
+    const newSwitchPlate = await debouncedMakeSwitchPlate(config);
     setState({ config: config, switchPlate: newSwitchPlate });
   };
 
