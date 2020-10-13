@@ -23,12 +23,12 @@ const defaultConfig: PlateConfigurationProps = {
   verticalKeySpacing: 19.05,
   combineOverlaps: false,
 };
+const initialSwitchPlate = new SwitchPlate(defaultConfig);
 
 function App() {
-  const switchPlate = new SwitchPlate(defaultConfig);
   const [state, setState] = useState({
     config: defaultConfig,
-    switchPlate: switchPlate,
+    switchPlate: initialSwitchPlate,
   });
 
   const makeSwitchPlate = AwesomeDebouncePromise((params: PlateParameters) => {
