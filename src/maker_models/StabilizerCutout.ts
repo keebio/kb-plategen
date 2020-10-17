@@ -91,7 +91,7 @@ class StabilizerCutout implements makerjs.IModel {
       case StabilizerCutoutType.ThickPlate3mm:
         return new CutoutParameters(7, 16, -1);
       case StabilizerCutoutType.ThickPlate5mm:
-        return new CutoutParameters(7, 19, -0.9);
+        return new CutoutParameters(7, 20.15, -0.325);
       case StabilizerCutoutType.Normal:
       default:
         return new CutoutParameters(6.75, 14, -1);
