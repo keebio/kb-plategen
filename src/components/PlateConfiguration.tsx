@@ -32,14 +32,6 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
   }
 
   render() {
-    var kleString: string = "";
-    if (typeof this.props.kleData === "string") {
-      kleString = this.props.kleData;
-    } else if (typeof this.props.kleData === "object") {
-      kleString = JSON.stringify(this.props.kleData);
-      // Strip leading `[` and trailing `]` to be similar to raw KLE format
-      kleString = kleString.substring(1, kleString.length - 1);
-    }
     return (
       <div className="ui container">
         <div className="ui form">
@@ -48,7 +40,7 @@ class PlateConfiguration extends React.Component<PlateConfigurationInputProps> {
           </h3>
           <div className="field">
             <textarea
-              value={kleString}
+              value={this.props.kleData}
               onChange={this.handleKLEChange}
             />
           </div>

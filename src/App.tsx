@@ -9,10 +9,13 @@ import PlateConfiguration, {
 } from "./components/PlateConfiguration";
 import PlateParameters from "./PlateParameters";
 import AppInfo from "./components/AppInfo";
+import useConstant from "use-constant";
+
+var kleData = JSON.stringify(require("./sample/quefrency-rev2.json"));
+kleData = kleData.substring(1, kleData.length - 1);
 
 const defaultConfig: PlateConfigurationProps = {
-  kleData: require("./sample/quefrency-rev2.json"),
-  //kleData: '[""]',
+  kleData: kleData,
   switchCutoutType: SwitchCutoutType.MX,
   switchCutoutRadius: 0.5,
   stabilizerCutoutType: StabilizerCutoutType.Large,
@@ -21,30 +24,31 @@ const defaultConfig: PlateConfigurationProps = {
   verticalKeySpacing: 19.05,
   combineOverlaps: false,
 };
+const initialSwitchPlate = new SwitchPlate(defaultConfig);
 
 function App() {
-  const [plateConfig, setPlateConfig] = useState(defaultConfig);
-  const [switchPlate, setSwitchPlate] = useState(
-    new SwitchPlate(defaultConfig),
-  );
+  const [state, setState] = useState({
+    config: defaultConfig,
+    switchPlate: initialSwitchPlate,
+  });
 
-  const makeSwitchPlate = AwesomeDebouncePromise((params: PlateParameters) => {
+  const debouncedMakeSwitchPlate = useConstant(() => AwesomeDebouncePromise((params: PlateParameters) => {
     return new SwitchPlate(params);
-  }, 500);
+  }, 500));
 
   const handleConfigurationChange = async (config: PlateConfigurationProps) => {
-    setPlateConfig(config);
-    const newSwitchPlate = await makeSwitchPlate(config);
-    setSwitchPlate(newSwitchPlate);
+    setState({ config: config, switchPlate: state.switchPlate });
+    const newSwitchPlate = await debouncedMakeSwitchPlate(config);
+    setState({ config: config, switchPlate: newSwitchPlate });
   };
 
   return (
     <div>
-      <PlateViewer switchPlate={switchPlate} />
+      <PlateViewer switchPlate={state.switchPlate} />
       <div>
         <PlateConfiguration
-          {...plateConfig}
-          onConfigChange={handleConfigurationChange}
+          {...state.config}
+          onConfigChange={(config) => handleConfigurationChange(config)}
         />
         &nbsp;
         <p />
