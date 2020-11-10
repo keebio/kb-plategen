@@ -52,8 +52,8 @@ function App() {
       <PlateViewer switchPlate={switchPlate} />
       <div>
         <PlateConfiguration
-          onConfigChange={handleConfigurationChange}
           {...config}
+          onConfigChange={handleConfigurationChange}
         />
         &nbsp;
         <p />
