@@ -35,7 +35,7 @@ function App() {
   const handleConfigurationChange = async (newConfig: PlateConfigurationProps) => {
     setConfig(newConfig);
     setSwitchPlate(switchPlate);
-    const newSwitchPlate = await debouncedMakeSwitchPlate(config);
+    const newSwitchPlate = await debouncedMakeSwitchPlate(newConfig);
     setConfig(newConfig);
     setSwitchPlate(newSwitchPlate);
   };
