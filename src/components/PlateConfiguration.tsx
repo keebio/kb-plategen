@@ -1,13 +1,12 @@
-import React from 'react'
-import PlateParameters from '../PlateParameters'
+import React from 'react';
+import PlateParameters from '../PlateParameters';
 
-export type PlateConfigurationProps = PlateParameters
+export type PlateConfigurationProps = PlateParameters;
 
 export interface OnChangeProps {
-  onConfigChange: (config: PlateConfigurationProps) => void
+  onConfigChange: (config: PlateConfigurationProps) => void;
 }
-export type PlateConfigurationInputProps = PlateConfigurationProps &
-  OnChangeProps
+export type PlateConfigurationInputProps = PlateConfigurationProps & OnChangeProps;
 
 const PlateConfiguration = (props: PlateConfigurationInputProps) => {
   const {
@@ -20,18 +19,16 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
     switchCutoutRadius,
     switchCutoutType,
     verticalKeySpacing,
-  } = props
+  } = props;
   const handleKLEChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onConfigChange({ ...props, kleData: event.target.value })
-  }
+    onConfigChange({ ...props, kleData: event.target.value });
+  };
 
-  const handleChange = ({
-    target: { checked, name, type, value },
-  }: React.ChangeEvent<any>) => {
-    const derivedValue = type === 'checkbox' ? checked : value
-    console.log(`target: ${name}, value: ${derivedValue}`)
-    onConfigChange({ ...props, [name]: derivedValue })
-  }
+  const handleChange = ({ target: { checked, name, type, value } }: React.ChangeEvent<any>) => {
+    const derivedValue = type === 'checkbox' ? checked : value;
+    console.log(`target: ${name}, value: ${derivedValue}`);
+    onConfigChange({ ...props, [name]: derivedValue });
+  };
 
   return (
     <div className="ui container">
@@ -51,11 +48,7 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
         <div className="fields">
           <div className="three wide field">
             <label>Cutout Type</label>
-            <select
-              name="switchCutoutType"
-              value={switchCutoutType}
-              onChange={handleChange}
-            >
+            <select name="switchCutoutType" value={switchCutoutType} onChange={handleChange}>
               <option className="item" data-value="MX">
                 MX
               </option>
@@ -179,14 +172,12 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               checked={combineOverlaps}
               onChange={handleChange}
             />
-            <label>
-              Combine Overlapping Layouts (Note: This makes rendering slow)
-            </label>
+            <label>Combine Overlapping Layouts (Note: This makes rendering slow)</label>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PlateConfiguration
+export default PlateConfiguration;
