@@ -40,7 +40,11 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
         <div className="field">
           <textarea value={kleData} onChange={handleKLEChange} />
         </div>
-
+        <h4>Specifying Flipped/Reversed Stabilizers</h4>
+        To specify flipped stabilizers (like for the bottow row), you can do one of two things. The
+        first way is to edit the raw data manually to add <code>{'{"rs":true}'}</code> to the key.
+        The other option to do it, which is a bit easier, is to mark it as a Homing key in the KLE
+        editor.
         <h3 className="ui dividing header">
           <i className="cut icon" />
           Switch Cutouts
@@ -80,7 +84,6 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
             </div>
           </div>
         </div>
-
         <h3 className="ui dividing header">
           <i className="cut icon" />
           Stabilizer Cutouts
@@ -124,7 +127,6 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
             </div>
           </div>
         </div>
-
         <h3 className="ui dividing header">
           <i className="space shuttle icon" />
           Keyspacing
@@ -159,7 +161,6 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
             </div>
           </div>
         </div>
-
         <h3 className="ui dividing header">
           <i className="settings icon" />
           Miscellaneous Options
