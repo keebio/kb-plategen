@@ -31,8 +31,8 @@ function AppInfo() {
           <li>And more...(See Trello board)</li>
         </ul>
 
-        If you’d like to contribute code to this project, the GitHub repository
-        will be opened to the public shortly after some code cleanup.
+        If you’d like to contribute code to this project, here's the
+        GitHub repository:
         <p />
         <a href="https://github.com/keebio/kb-plategen">
           <button className="ui github button">
