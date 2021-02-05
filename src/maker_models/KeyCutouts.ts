@@ -53,8 +53,13 @@ class KeyCutouts implements makerjs.IModel {
       switchCutoutType,
       switchCutoutRadius,
     );
-    // models["outline"] = this.switchOutline(key);
-    // models["outline"].layer = "gray";
+
+    let outlineOn = true;
+    if (outlineOn) {
+      let outlineRadius = 0;
+      models["outline"] = this.switchOutline(key, outlineRadius);
+      models["outline"].layer = "gray";
+    }
 
     if (key.width >= 2) {
       let stabModel = new StabilizerCutout(
@@ -123,11 +128,11 @@ class KeyCutouts implements makerjs.IModel {
     }
   }
 
-  switchOutline(key: kle.Key): makerjs.IModel {
+  switchOutline(key: kle.Key, radius: number): makerjs.IModel {
     return new CenteredRoundRectangle(
       this.horizontalKeySpacing * key.width,
       this.verticalKeySpacing * key.height,
-      2,
+      radius,
     );
   }
 
