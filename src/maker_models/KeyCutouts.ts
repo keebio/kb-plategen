@@ -15,6 +15,7 @@ export enum SwitchCutoutType {
   MX_Alps = "MX/Alps",
   MX_Opening = "MX Opening",
   MX_Encoder = "MX + Encoder",
+  Keycap_Outline = "Keycap Outline"
 }
 
 class KeyCutouts implements makerjs.IModel {
@@ -46,6 +47,14 @@ class KeyCutouts implements makerjs.IModel {
     let stabilizerCutoutRadius = plateParams.stabilizerCutoutRadius;
     let models: { [id: string]: makerjs.IModel } = {};
 
+    if (switchCutoutType === SwitchCutoutType.Keycap_Outline) {
+      this.models = {
+        keyCutout: this.switchOutline(key, switchCutoutRadius)
+      }
+      //models["outline"].layer = "gray";
+      return;
+    }
+
     if (switchCutoutType === SwitchCutoutType.MX && key.enc) {
       switchCutoutType = SwitchCutoutType.MX_Encoder;
     }
@@ -53,13 +62,6 @@ class KeyCutouts implements makerjs.IModel {
       switchCutoutType,
       switchCutoutRadius,
     );
-
-    let outlineOn = true;
-    if (outlineOn) {
-      let outlineRadius = 0;
-      models["outline"] = this.switchOutline(key, outlineRadius);
-      models["outline"].layer = "gray";
-    }
 
     if (key.width >= 2) {
       let stabModel = new StabilizerCutout(
