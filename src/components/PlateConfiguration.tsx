@@ -211,7 +211,10 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               checked={combineOverlaps}
               onChange={handleChange}
             />
-            <label>Combine Overlapping Layouts (Note: This makes rendering slow)</label>
+            <label>
+              Combine Overlapping Layouts (Note: This makes rendering slow, so use this when you're
+              done tinkering with other settings to generate your final plate design)
+            </label>
           </div>
         </div>
       </div>
