@@ -4,6 +4,7 @@ import { KeyCutoutParameters } from "../PlateParameters";
 import CenteredRoundRectangle from "./CenteredRoundRectangle";
 import * as makerTools from "./makerTools";
 import StabilizerCutout, { StabilizerCutoutType } from "./StabilizerCutout";
+import AcousticCutout, { AcousticCutoutType } from "./AcousticCutout";
 
 class Point {
   constructor(public x: number, public y: number) {}
@@ -33,6 +34,8 @@ class KeyCutouts implements makerjs.IModel {
       switchCutoutRadius: 0.5,
       stabilizerCutoutType: StabilizerCutoutType.Large,
       stabilizerCutoutRadius: 0.5,
+      acousticCutoutType: AcousticCutoutType.None,
+      acousticCutoutRadius: 0.5,
       horizontalKeySpacing: 19.05,
       verticalKeySpacing: 19.05,
       combineOverlaps: false,
@@ -45,6 +48,8 @@ class KeyCutouts implements makerjs.IModel {
     let switchCutoutRadius = plateParams.switchCutoutRadius;
     let stabilizerCutoutType = plateParams.stabilizerCutoutType;
     let stabilizerCutoutRadius = plateParams.stabilizerCutoutRadius;
+    let acousticCutoutType = plateParams.acousticCutoutType;
+    let acousticCutoutRadius = plateParams.acousticCutoutRadius;
     let models: { [id: string]: makerjs.IModel } = {};
 
     if (switchCutoutType === SwitchCutoutType.Keycap_Outline) {
@@ -83,7 +88,12 @@ class KeyCutouts implements makerjs.IModel {
       models["stabilizer"] = stabModel;
     }
 
-    // TODO: Add acoustic cutouts here
+    if (this.shouldMakeAcousticCutout(acousticCutoutType, key.width)) {
+      let acousticCutoutModel = new AcousticCutout(
+        key.width, acousticCutoutType, acousticCutoutRadius
+      )
+      models["acousticCut"] = acousticCutoutModel
+    }
 
     if (key.rotation_angle !== 0) {
       Object.keys(models).forEach((k: string) => {
@@ -94,6 +104,17 @@ class KeyCutouts implements makerjs.IModel {
     this.models = {
       keyCutout: makerTools.combineModels(models),
     };
+  }
+
+  shouldMakeAcousticCutout(cutoutType: AcousticCutoutType, keyWidth: number): boolean {
+    switch (cutoutType) {
+      case AcousticCutoutType.None:
+        return false;
+      case AcousticCutoutType.Typical:
+        return (Math.abs(keyWidth - 1.5) < 0.01);
+      case AcousticCutoutType.Extreme:
+        return (Math.abs(keyWidth - 1.5) < 0.01) || (Math.abs(keyWidth - 2) < 0.01);
+    }
   }
 
   switchCutout(

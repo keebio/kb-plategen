@@ -16,6 +16,8 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
     onConfigChange,
     stabilizerCutoutRadius,
     stabilizerCutoutType,
+    acousticCutoutRadius,
+    acousticCutoutType,
     switchCutoutRadius,
     switchCutoutType,
     verticalKeySpacing,
@@ -124,6 +126,39 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
                 step="0.1"
                 name="stabilizerCutoutRadius"
                 value={stabilizerCutoutRadius}
+                onChange={handleChange}
+              />
+              <div className="ui basic label">mm</div>
+            </div>
+          </div>
+        </div>
+        <h3 className="ui dividing header">
+          <i className="cut icon" />
+          Acoustic Cutouts
+        </h3>
+        <div className="fields">
+          <div className="three wide field">
+            <label>Cutout Type</label>
+            <select name="acousticCutoutType" value={acousticCutoutType} onChange={handleChange}>
+              <option className="item" data-value="None">
+                None
+              </option>
+              <option className="item" data-value="Typical">
+                Typical
+              </option>
+              <option className="item" data-value="Extreme">
+                Extreme
+              </option>
+            </select>
+          </div>
+          <div className="three wide field">
+            <label>Cutout Fillet Radius</label>
+            <div className="ui right labeled input">
+              <input
+                type="number"
+                step="0.1"
+                name="acousticCutoutRadius"
+                value={acousticCutoutRadius}
                 onChange={handleChange}
               />
               <div className="ui basic label">mm</div>

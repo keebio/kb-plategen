@@ -4,6 +4,7 @@ import SwitchPlate from './maker_models/SwitchPlate';
 import PlateViewer from './components/PlateViewer';
 import { SwitchCutoutType } from './maker_models/KeyCutouts';
 import { StabilizerCutoutType } from './maker_models/StabilizerCutout';
+import { AcousticCutoutType } from './maker_models/AcousticCutout';
 import PlateConfiguration, { PlateConfigurationProps } from './components/PlateConfiguration';
 import PlateParameters from './PlateParameters';
 import AppInfo from './components/AppInfo';
@@ -18,6 +19,8 @@ const defaultConfig: PlateConfigurationProps = {
   switchCutoutRadius: 0.5,
   stabilizerCutoutType: StabilizerCutoutType.Large,
   stabilizerCutoutRadius: 0.5,
+  acousticCutoutType: AcousticCutoutType.None,
+  acousticCutoutRadius: 0.5,
   horizontalKeySpacing: 19.05,
   verticalKeySpacing: 19.05,
   combineOverlaps: false,
