@@ -53,8 +53,12 @@ class KeyCutouts implements makerjs.IModel {
     let models: { [id: string]: makerjs.IModel } = {};
 
     if (switchCutoutType === SwitchCutoutType.Keycap_Outline) {
+      let outlineModel = this.switchOutline(key, switchCutoutRadius)
+      if (key.rotation_angle !== 0) {
+        makerjs.model.rotate(outlineModel, -key.rotation_angle);
+      }
       this.models = {
-        keyCutout: this.switchOutline(key, switchCutoutRadius)
+        keyCutout: outlineModel
       }
       //models["outline"].layer = "gray";
       return;
