@@ -113,6 +113,9 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <option className="item" data-value="3mm Plate">
                 3mm Plate
               </option>
+              <option className="item" data-value="3mm Plate for Screw-ins">
+                3mm Plate for Screw-ins
+              </option>
               <option className="item" data-value="5mm Plate">
                 5mm Plate
               </option>

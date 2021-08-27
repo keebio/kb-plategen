@@ -15,6 +15,7 @@ export enum StabilizerCutoutType {
   Large = "Large",
   Choc = "Choc",
   ThickPlate3mm = "3mm Plate",
+  ThickPlate3mmScrewIn = "3mm Plate for Screw-ins",
   ThickPlate5mm = "5mm Plate",
 }
 
@@ -90,6 +91,8 @@ class StabilizerCutout implements makerjs.IModel {
         return new CutoutParameters(7, 15, -0.5);
       case StabilizerCutoutType.ThickPlate3mm:
         return new CutoutParameters(7, 16, -1);
+      case StabilizerCutoutType.ThickPlate3mmScrewIn:
+        return new CutoutParameters(7, 19.5, 0.75);
       case StabilizerCutoutType.ThickPlate5mm:
         return new CutoutParameters(7, 20.15, -0.325);
         case StabilizerCutoutType.Choc:
