@@ -1,5 +1,5 @@
 import makerjs from "makerjs";
-import CenteredRoundRectangle from "./CenteredRoundRectangle";
+import CenteredRoundRectangleWithKerf from "./CenteredRoundRectangleWithKerf";
 import * as makerTools from "./makerTools";
 
 class CutoutParameters {
@@ -28,6 +28,7 @@ class StabilizerCutout implements makerjs.IModel {
     style: StabilizerCutoutType = StabilizerCutoutType.Normal,
     reversed: boolean = false,
     radius: number = 0.5,
+    kerf: number = 0.0,
   ) {
     let params = this.loadStyle(style);
 
@@ -54,9 +55,9 @@ class StabilizerCutout implements makerjs.IModel {
 
     let leftStab: makerjs.IModel;
     if (style === StabilizerCutoutType.Choc) {
-      leftStab = this.cutoutChoc(radius);
+      leftStab = this.cutoutChoc(radius, kerf);
     } else {
-      leftStab = this.cutoutMX(params, radius);
+      leftStab = this.cutoutMX(params, radius, kerf);
     }
     let rightStab = makerjs.model.clone(leftStab);
     makerjs.model.moveRelative(leftStab, [offsets[0], params.heightOffset]);
@@ -64,7 +65,7 @@ class StabilizerCutout implements makerjs.IModel {
 
     if (style === StabilizerCutoutType.ThickPlate5mm) {
       // Add cutout for stabilizer wire
-      let wire = this.cutoutMXWire(offsets[1] - offsets[0], radius);
+      let wire = this.cutoutMXWire(offsets[1] - offsets[0], radius, kerf);
       let models = {
         stabilzerLeft: leftStab,
         stabilzerRight: rightStab,
@@ -103,20 +104,20 @@ class StabilizerCutout implements makerjs.IModel {
     }
   }
 
-  cutoutMX(params: CutoutParameters, radius: number): makerjs.IModel {
-    return new CenteredRoundRectangle(params.width, params.height, radius);
+  cutoutMX(params: CutoutParameters, radius: number, kerf: number): makerjs.IModel {
+    return new CenteredRoundRectangleWithKerf(params.width, params.height, radius, kerf);
   }
 
-  cutoutMXWire(wireLength: number, radius: number): makerjs.IModel {
-    let wire = new CenteredRoundRectangle(wireLength, 3.6, radius);
+  cutoutMXWire(wireLength: number, radius: number, kerf: number): makerjs.IModel {
+    let wire = new CenteredRoundRectangleWithKerf(wireLength, 3.6, radius, kerf);
     makerjs.model.moveRelative(wire, [0, -8.6]);
     return wire;
   }
 
-  cutoutChoc(radius: number): makerjs.IModel {
-    let part1 = new CenteredRoundRectangle(6.3, 6.85, radius);
+  cutoutChoc(radius: number, kerf: number): makerjs.IModel {
+    let part1 = new CenteredRoundRectangleWithKerf(6.3, 6.85, radius, kerf);
     makerjs.model.moveRelative(part1, [0, 0.375]);
-    let part2 = new CenteredRoundRectangle(3.6, 8.45, radius);
+    let part2 = new CenteredRoundRectangleWithKerf(3.6, 8.45, radius, kerf);
     makerjs.model.moveRelative(part2, [0, 4.225]);
     return makerjs.model.combineUnion(part1, part2);
   }

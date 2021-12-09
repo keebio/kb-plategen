@@ -1,5 +1,5 @@
 import makerjs from "makerjs";
-import CenteredRoundRectangle from "./CenteredRoundRectangle";
+import CenteredRoundRectangleWithKerf from "./CenteredRoundRectangleWithKerf";
 
 class CutoutParameters {
   constructor(
@@ -22,6 +22,7 @@ class AcousticCutout implements makerjs.IModel {
     keyWidth: number,
     style: AcousticCutoutType = AcousticCutoutType.None,
     radius: number = 0.5,
+    kerf: number = 0.0
   ) {
     let params = new CutoutParameters(2, 14);
 
@@ -34,7 +35,7 @@ class AcousticCutout implements makerjs.IModel {
     }
 
     let leftCutout: makerjs.IModel;
-    leftCutout = this.cutout(params, radius);
+    leftCutout = this.cutout(params, radius, kerf);
     let rightCutout = makerjs.model.clone(leftCutout);
     makerjs.model.moveRelative(leftCutout, [offsets[0], 0]);
     makerjs.model.moveRelative(rightCutout, [offsets[1], 0]);
@@ -45,8 +46,8 @@ class AcousticCutout implements makerjs.IModel {
     }
   }
 
-  cutout(params: CutoutParameters, radius: number): makerjs.IModel {
-    return new CenteredRoundRectangle(params.width, params.height, radius);
+  cutout(params: CutoutParameters, radius: number, kerf: number): makerjs.IModel {
+    return new CenteredRoundRectangleWithKerf(params.width, params.height, radius, kerf);
   }
 }
 

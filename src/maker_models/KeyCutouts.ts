@@ -1,7 +1,7 @@
 import makerjs from "makerjs";
 import * as kle from "../KLESerial";
 import { KeyCutoutParameters } from "../PlateParameters";
-import CenteredRoundRectangle from "./CenteredRoundRectangle";
+import CenteredRoundRectangleWithKerf from "./CenteredRoundRectangleWithKerf";
 import * as makerTools from "./makerTools";
 import StabilizerCutout, { StabilizerCutoutType } from "./StabilizerCutout";
 import AcousticCutout, { AcousticCutoutType } from "./AcousticCutout";
@@ -81,6 +81,7 @@ class KeyCutouts implements makerjs.IModel {
         stabilizerCutoutType,
         key.rs || key.nub,
         stabilizerCutoutRadius,
+        this.kerf
       );
       models["stabilizer"] = stabModel;
     } else if (key.height >= 2) {
@@ -89,6 +90,7 @@ class KeyCutouts implements makerjs.IModel {
         stabilizerCutoutType,
         key.rs || key.nub,
         stabilizerCutoutRadius,
+        this.kerf,
       );
       let rotation = key.rotation_angle >= 0 ? -90 : 90;
       makerjs.model.rotate(stabModel, rotation);
@@ -97,7 +99,7 @@ class KeyCutouts implements makerjs.IModel {
 
     if (this.shouldMakeAcousticCutout(acousticCutoutType, key.width)) {
       let acousticCutoutModel = new AcousticCutout(
-        key.width, acousticCutoutType, acousticCutoutRadius
+        key.width, acousticCutoutType, acousticCutoutRadius, this.kerf
       )
       models["acousticCut"] = acousticCutoutModel
     }
@@ -130,9 +132,9 @@ class KeyCutouts implements makerjs.IModel {
   ): makerjs.IModel {
     switch (cutoutType) {
       case SwitchCutoutType.MX:
-        return new CenteredRoundRectangle(14, 14, radius);
+        return new CenteredRoundRectangleWithKerf(14, 14, radius, this.kerf);
       case SwitchCutoutType.Alps:
-        return new CenteredRoundRectangle(15.5, 12.8, radius);
+        return new CenteredRoundRectangleWithKerf(15.5, 12.8, radius, this.kerf);
       case SwitchCutoutType.MX_Alps: {
         let cutoutMX = this.switchCutout(SwitchCutoutType.MX, radius);
         let cutoutAlps = this.switchCutout(SwitchCutoutType.Alps, radius);
@@ -140,7 +142,7 @@ class KeyCutouts implements makerjs.IModel {
       }
       case SwitchCutoutType.MX_Opening: {
         let cutout = this.switchCutout(SwitchCutoutType.MX, radius);
-        let cutoutSide1 = new CenteredRoundRectangle(15.6, 3.1, radius);
+        let cutoutSide1 = new CenteredRoundRectangleWithKerf(15.6, 3.1, radius, this.kerf);
         let cutoutSide2 = makerjs.model.clone(cutoutSide1);
         makerjs.model.moveRelative(cutoutSide1, [0, 4.45]);
         makerjs.model.moveRelative(cutoutSide2, [0, -4.45]);
@@ -149,20 +151,21 @@ class KeyCutouts implements makerjs.IModel {
         return cutout;
       }
       case SwitchCutoutType.MX_Encoder: {
-        let cutout = new CenteredRoundRectangle(14, 16.5, radius);
+        let cutout = new CenteredRoundRectangleWithKerf(14, 16.5, radius, this.kerf);
         makerjs.model.moveRelative(cutout, [0, -0.25]);
         return cutout;
       }
       default:
-        return new CenteredRoundRectangle(14, 14, radius);
+        return new CenteredRoundRectangleWithKerf(14, 14, radius, this.kerf);
     }
   }
 
   switchOutline(key: kle.Key, radius: number): makerjs.IModel {
-    return new CenteredRoundRectangle(
+    return new CenteredRoundRectangleWithKerf(
       this.horizontalKeySpacing * key.width,
       this.verticalKeySpacing * key.height,
       radius,
+      this.kerf,
     );
   }
 
