@@ -23,6 +23,7 @@ const defaultConfig: PlateConfigurationProps = {
   acousticCutoutRadius: 0.5,
   horizontalKeySpacing: 19.05,
   verticalKeySpacing: 19.05,
+  kerf: 0.0,
   combineOverlaps: false,
 };
 const initialSwitchPlate = new SwitchPlate(defaultConfig);

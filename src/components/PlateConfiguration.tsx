@@ -21,6 +21,7 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
     switchCutoutRadius,
     switchCutoutType,
     verticalKeySpacing,
+    kerf,
   } = props;
   const handleKLEChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     onConfigChange({ ...props, kleData: event.target.value });
@@ -206,6 +207,20 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
           <i className="settings icon" />
           Miscellaneous Options
         </h3>
+        <div className="three wide field">
+          <label>Kerf</label>
+          <div className="ui right labeled left icon input">
+            <i className="pencil alternate icon" />
+            <input
+              type="number"
+              step="0.01"
+              name="kerf"
+              value={kerf}
+              onChange={handleChange}
+            />
+            <div className="ui basic label">mm</div>
+          </div>
+        </div>
         <div className="field">
           <div className="ui checkbox">
             <input

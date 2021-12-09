@@ -15,6 +15,7 @@ export type KeyCutoutParameters = {
   acousticCutoutRadius: number;
   horizontalKeySpacing: number;
   verticalKeySpacing: number;
+  kerf: number;
   combineOverlaps: boolean;
 };
 

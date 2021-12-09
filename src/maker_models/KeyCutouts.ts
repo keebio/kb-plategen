@@ -26,6 +26,7 @@ class KeyCutouts implements makerjs.IModel {
   public units = makerjs.unitType.Millimeter;
   private horizontalKeySpacing: number = 19.05;
   private verticalKeySpacing: number = 19.05;
+  private kerf: number = 0.0;
 
   constructor(
     key: kle.Key,
@@ -38,11 +39,13 @@ class KeyCutouts implements makerjs.IModel {
       acousticCutoutRadius: 0.5,
       horizontalKeySpacing: 19.05,
       verticalKeySpacing: 19.05,
+      kerf: 0.0,
       combineOverlaps: false,
     },
   ) {
     this.horizontalKeySpacing = plateParams.horizontalKeySpacing;
     this.verticalKeySpacing = plateParams.verticalKeySpacing;
+    this.kerf = plateParams.kerf;
     this.origin = this.absoluteCenter(key);
     let switchCutoutType = plateParams.switchCutoutType;
     let switchCutoutRadius = plateParams.switchCutoutRadius;
