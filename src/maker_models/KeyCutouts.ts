@@ -16,7 +16,8 @@ export enum SwitchCutoutType {
   MX_Alps = "MX/Alps",
   MX_Opening = "MX Opening",
   MX_Encoder = "MX + Encoder",
-  Keycap_Outline = "Keycap Outline"
+  Support_Plate = "Support Plate",
+  Keycap_Outline = "Keycap Outline",
 }
 
 class KeyCutouts implements makerjs.IModel {
@@ -155,6 +156,8 @@ class KeyCutouts implements makerjs.IModel {
         makerjs.model.moveRelative(cutout, [0, -0.25]);
         return cutout;
       }
+      case SwitchCutoutType.Support_Plate:
+        return new CenteredRoundRectangleWithKerf(14, 16, radius, this.kerf);
       default:
         return new CenteredRoundRectangleWithKerf(14, 14, radius, this.kerf);
     }
