@@ -7,7 +7,7 @@ import StabilizerCutout, { StabilizerCutoutType } from "./StabilizerCutout";
 import AcousticCutout, { AcousticCutoutType } from "./AcousticCutout";
 
 class Point {
-  constructor(public x: number, public y: number) {}
+  constructor(public x: number, public y: number) { }
 }
 
 export enum SwitchCutoutType {
@@ -157,7 +157,9 @@ class KeyCutouts implements makerjs.IModel {
         return cutout;
       }
       case SwitchCutoutType.Support_Plate:
-        return new CenteredRoundRectangleWithKerf(14, 16, radius, this.kerf);
+        let cutoutMX = this.switchCutout(SwitchCutoutType.MX, radius);
+        let cutoutNotch = new CenteredRoundRectangleWithKerf(5, 16, radius, this.kerf);
+        return makerjs.model.combineUnion(cutoutMX, cutoutNotch);
       default:
         return new CenteredRoundRectangleWithKerf(14, 14, radius, this.kerf);
     }
