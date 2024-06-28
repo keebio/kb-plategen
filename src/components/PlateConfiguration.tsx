@@ -71,6 +71,9 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <option className="item" data-value="MX_Encoder">
                 MX + Encoder
               </option>
+              <option className="item" data-value="Support_Plate">
+                Support Plate
+              </option>
               <option className="item" data-value="Keycap_Outline">
                 Keycap Outline
               </option>
