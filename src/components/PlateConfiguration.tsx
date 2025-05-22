@@ -1,5 +1,6 @@
 import React from 'react';
 import PlateParameters from '../PlateParameters';
+import KLEInputBox from './KLEInputBox'; // Import the new KLEInputBox component
 
 export type PlateConfigurationProps = PlateParameters;
 
@@ -36,18 +37,7 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
   return (
     <div className="ui container">
       <div className="ui form">
-        <h3 className="ui header">
-          <i className="keyboard icon" />
-          KLE Raw Data
-        </h3>
-        <div className="field">
-          <textarea value={kleData} onChange={handleKLEChange} />
-        </div>
-        <h4>Specifying Flipped/Reversed Stabilizers</h4>
-        To specify flipped stabilizers (like for the bottow row), you can do one of two things. The
-        first way is to edit the raw data manually to add <code>{'{"rs":true}'}</code> to the key.
-        The other option to do it, which is a bit easier, is to mark it as a Homing key in the KLE
-        editor.
+        <KLEInputBox kleData={kleData} onKLEChange={handleKLEChange} />
         <h3 className="ui dividing header">
           <i className="cut icon" />
           Switch Cutouts
