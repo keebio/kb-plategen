@@ -17,6 +17,7 @@ export enum StabilizerCutoutType {
   ThickPlate3mm = "3mm Plate",
   ThickPlate3mmScrewIn = "3mm Plate for Screw-ins",
   ThickPlate5mm = "5mm Plate",
+  GateronLP = "Gateron LP",
 }
 
 class StabilizerCutout implements makerjs.IModel {
@@ -74,7 +75,19 @@ class StabilizerCutout implements makerjs.IModel {
       this.models = {
         stabilizer: makerTools.combineModels(models),
       };
-    } else {
+    } else if (style === StabilizerCutoutType.GateronLP) {
+      // Add cutout for stabilizer wire
+      let wire = this.cutoutGateronLPWire(offsets[1] - offsets[0], radius, kerf);
+      let models = {
+        stabilzerLeft: leftStab,
+        stabilzerRight: rightStab,
+        wire: wire,
+      };
+      this.models = {
+        stabilizer: makerTools.combineModels(models),
+      };
+    } 
+    else {
       this.models = {
         stabilzerLeft: leftStab,
         stabilzerRight: rightStab,
@@ -96,8 +109,10 @@ class StabilizerCutout implements makerjs.IModel {
         return new CutoutParameters(7, 19.5, 0.75);
       case StabilizerCutoutType.ThickPlate5mm:
         return new CutoutParameters(7, 20.15, -0.325);
-        case StabilizerCutoutType.Choc:
-          return new CutoutParameters(0, 0, 0);
+      case StabilizerCutoutType.Choc:
+        return new CutoutParameters(0, 0, 0);
+      case StabilizerCutoutType.GateronLP:
+        return new CutoutParameters(6.0, 12.5, -0.45);
       case StabilizerCutoutType.Normal:
       default:
         return new CutoutParameters(6.75, 14, -1);
@@ -120,6 +135,13 @@ class StabilizerCutout implements makerjs.IModel {
     let part2 = new CenteredRoundRectangleWithKerf(3.6, 8.45, radius, kerf);
     makerjs.model.moveRelative(part2, [0, 4.225]);
     return makerjs.model.combineUnion(part1, part2);
+  }
+
+  cutoutGateronLPWire(wireLength: number, radius: number, kerf: number): makerjs.IModel {
+    let wireHeight = 2.5;
+    let wire = new CenteredRoundRectangleWithKerf(wireLength, wireHeight, radius, kerf);
+    makerjs.model.moveRelative(wire, [0, -wireHeight/2]);
+    return wire;
   }
 }
 

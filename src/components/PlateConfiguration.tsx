@@ -113,6 +113,9 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <option className="item" data-value="5mm Plate">
                 5mm Plate
               </option>
+              <option className="item" data-value="Gateron LP">
+                Gateron LP
+              </option>
             </select>
           </div>
           <div className="three wide field">
