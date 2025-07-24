@@ -18,6 +18,7 @@ export enum StabilizerCutoutType {
   ThickPlate3mmScrewIn = "3mm Plate for Screw-ins",
   ThickPlate5mm = "5mm Plate",
   GateronLP = "Gateron LP",
+  CustomRectangles = "Custom Rectangles",
 }
 
 class StabilizerCutout implements makerjs.IModel {
@@ -30,8 +31,16 @@ class StabilizerCutout implements makerjs.IModel {
     reversed: boolean = false,
     radius: number = 0.5,
     kerf: number = 0.0,
+    customWidth: number = 7.0,
+    customHeight: number = 15.0,
+    customVerticalOffset: number = -0.5,
   ) {
     let params = this.loadStyle(style);
+
+    // For custom rectangles, use the provided dimensions and offset
+    if (style === StabilizerCutoutType.CustomRectangles) {
+      params = new CutoutParameters(customWidth, customHeight, customVerticalOffset);
+    }
 
     let offsets = [0, 0];
     if (stabilzerWidth >= 8) {
@@ -86,7 +95,7 @@ class StabilizerCutout implements makerjs.IModel {
       this.models = {
         stabilizer: makerTools.combineModels(models),
       };
-    } 
+    }
     else {
       this.models = {
         stabilzerLeft: leftStab,
@@ -140,7 +149,7 @@ class StabilizerCutout implements makerjs.IModel {
   cutoutGateronLPWire(wireLength: number, radius: number, kerf: number): makerjs.IModel {
     let wireHeight = 2.5;
     let wire = new CenteredRoundRectangleWithKerf(wireLength, wireHeight, radius, kerf);
-    makerjs.model.moveRelative(wire, [0, -wireHeight/2]);
+    makerjs.model.moveRelative(wire, [0, -wireHeight / 2]);
     return wire;
   }
 }

@@ -81,25 +81,29 @@ class KeyCutouts implements makerjs.IModel {
       switchCutoutRadius,
     );
 
-    if (key.width >= 2) {
-      let stabModel = new StabilizerCutout(
-        key.width,
+    const size = key.width >= 2 ? key.width : key.height;
+    if (size >= 2) {
+      const isVertical = key.height >= 2 && key.width < 2;
+      const reversed = key.rs || key.nub;
+      
+      const stabModel = new StabilizerCutout(
+        size,
         stabilizerCutoutType,
-        key.rs || key.nub,
-        stabilizerCutoutRadius,
-        this.kerf
-      );
-      models["stabilizer"] = stabModel;
-    } else if (key.height >= 2) {
-      let stabModel = new StabilizerCutout(
-        key.height,
-        stabilizerCutoutType,
-        key.rs || key.nub,
+        reversed,
         stabilizerCutoutRadius,
         this.kerf,
+        ...(stabilizerCutoutType === StabilizerCutoutType.CustomRectangles ? [
+          plateParams.stabilizerCutoutWidth ?? 7,
+          plateParams.stabilizerCutoutHeight ?? 15,
+          plateParams.stabilizerCutoutVerticalOffset ?? 0
+        ] : [])
       );
-      let rotation = key.rotation_angle >= 0 ? -90 : 90;
-      makerjs.model.rotate(stabModel, rotation);
+      
+      if (isVertical) {
+        const rotation = key.rotation_angle >= 0 ? -90 : 90;
+        makerjs.model.rotate(stabModel, rotation);
+      }
+      
       models["stabilizer"] = stabModel;
     }
 

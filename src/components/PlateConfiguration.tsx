@@ -1,6 +1,7 @@
 import React from 'react';
 import PlateParameters from '../PlateParameters';
 import { SwitchCutoutType } from '../maker_models/KeyCutouts';
+import { StabilizerCutoutType } from '../maker_models/StabilizerCutout';
 import KLEInputBox from './KLEInputBox'; // Import the new KLEInputBox component
 
 export type PlateConfigurationProps = PlateParameters;
@@ -32,8 +33,13 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
   };
 
   const handleChange = ({ target: { checked, name, type, value } }: React.ChangeEvent<any>) => {
-    const derivedValue = type === 'checkbox' ? checked : value;
-    console.log(`target: ${name}, value: ${derivedValue}`);
+    let derivedValue: any = type === 'checkbox' ? checked : value;
+    if (type === 'number') {
+      // Convert empty string to undefined, otherwise parse as float
+      // Make sure to handle '0' as a valid number
+      derivedValue = value === '' ? undefined : 
+                   (value === '0' ? 0 : parseFloat(value));
+    }
     onConfigChange({ ...props, [name]: derivedValue });
   };
 
@@ -98,7 +104,7 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
                     type="number"
                     step="0.1"
                     name="switchCutoutWidth"
-                    value={switchCutoutWidth || 14.0}
+                    value={switchCutoutWidth ?? 14.0}
                     onChange={handleChange}
                   />
                   <div className="ui basic label">mm</div>
@@ -112,7 +118,7 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
                     type="number"
                     step="0.1"
                     name="switchCutoutHeight"
-                    value={switchCutoutHeight || 14.0}
+                    value={switchCutoutHeight ?? 14.0}
                     onChange={handleChange}
                   />
                   <div className="ui basic label">mm</div>
@@ -154,6 +160,9 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <option className="item" data-value="Gateron LP">
                 Gateron LP
               </option>
+              <option className="item" data-value="Custom Rectangles">
+                Custom Rectangles
+              </option>
             </select>
           </div>
           <div className="three wide field">
@@ -169,6 +178,52 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <div className="ui basic label">mm</div>
             </div>
           </div>
+          {stabilizerCutoutType === StabilizerCutoutType.CustomRectangles && (
+            <>
+              <div className="three wide field">
+                <label>Width</label>
+                <div className="ui right labeled left icon input">
+                  <i className="arrows alternate horizontal icon" />
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="stabilizerCutoutWidth"
+                    value={props.stabilizerCutoutWidth ?? 7.0}
+                    onChange={handleChange}
+                  />
+                  <div className="ui basic label">mm</div>
+                </div>
+              </div>
+              <div className="three wide field">
+                <label>Height</label>
+                <div className="ui right labeled left icon input">
+                  <i className="arrows alternate vertical icon" />
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="stabilizerCutoutHeight"
+                    value={props.stabilizerCutoutHeight ?? 15.0}
+                    onChange={handleChange}
+                  />
+                  <div className="ui basic label">mm</div>
+                </div>
+              </div>
+              <div className="three wide field">
+                <label>Vertical Offset</label>
+                <div className="ui right labeled left icon input">
+                  <i className="arrows alternate vertical icon" />
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="stabilizerCutoutVerticalOffset"
+                    value={props.stabilizerCutoutVerticalOffset ?? -0.5}
+                    onChange={handleChange}
+                  />
+                  <div className="ui basic label">mm</div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <h3 className="ui dividing header">
           <i className="cut icon" />

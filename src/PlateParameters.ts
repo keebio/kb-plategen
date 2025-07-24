@@ -13,6 +13,9 @@ export type KeyCutoutParameters = {
   switchCutoutHeight?: number;
   stabilizerCutoutType: StabilizerCutoutType;
   stabilizerCutoutRadius: number;
+  stabilizerCutoutWidth?: number;
+  stabilizerCutoutHeight?: number;
+  stabilizerCutoutVerticalOffset?: number;
   acousticCutoutType: AcousticCutoutType;
   acousticCutoutRadius: number;
   horizontalKeySpacing: number;
