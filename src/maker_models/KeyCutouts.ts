@@ -18,6 +18,7 @@ export enum SwitchCutoutType {
   MX_Encoder = "MX + Encoder",
   Support_Plate = "Support Plate",
   Keycap_Outline = "Keycap Outline",
+  Custom_Rectangle = "Custom Rectangle"
 }
 
 class KeyCutouts implements makerjs.IModel {
@@ -28,6 +29,8 @@ class KeyCutouts implements makerjs.IModel {
   private horizontalKeySpacing: number = 19.05;
   private verticalKeySpacing: number = 19.05;
   private kerf: number = 0.0;
+  private switchCutoutWidth: number = 14.0;
+  private switchCutoutHeight: number = 14.0;
 
   constructor(
     key: kle.Key,
@@ -47,6 +50,8 @@ class KeyCutouts implements makerjs.IModel {
     this.horizontalKeySpacing = plateParams.horizontalKeySpacing;
     this.verticalKeySpacing = plateParams.verticalKeySpacing;
     this.kerf = plateParams.kerf;
+    this.switchCutoutWidth = plateParams.switchCutoutWidth || 14.0;
+    this.switchCutoutHeight = plateParams.switchCutoutHeight || 14.0;
     this.origin = this.absoluteCenter(key);
     let switchCutoutType = plateParams.switchCutoutType;
     let switchCutoutRadius = plateParams.switchCutoutRadius;
@@ -160,6 +165,14 @@ class KeyCutouts implements makerjs.IModel {
         let cutoutMX = this.switchCutout(SwitchCutoutType.MX, radius);
         let cutoutNotch = new CenteredRoundRectangleWithKerf(5, 16, radius, this.kerf);
         return makerjs.model.combineUnion(cutoutMX, cutoutNotch);
+      case SwitchCutoutType.Custom_Rectangle:
+        // Use the specified width and height from the configuration, defaulting to 14x14mm
+        return new CenteredRoundRectangleWithKerf(
+          this.switchCutoutWidth || 14,
+          this.switchCutoutHeight || 14,
+          radius,
+          this.kerf
+        );
       default:
         return new CenteredRoundRectangleWithKerf(14, 14, radius, this.kerf);
     }

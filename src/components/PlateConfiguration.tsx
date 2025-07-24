@@ -1,5 +1,6 @@
 import React from 'react';
 import PlateParameters from '../PlateParameters';
+import { SwitchCutoutType } from '../maker_models/KeyCutouts';
 import KLEInputBox from './KLEInputBox'; // Import the new KLEInputBox component
 
 export type PlateConfigurationProps = PlateParameters;
@@ -21,6 +22,8 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
     acousticCutoutType,
     switchCutoutRadius,
     switchCutoutType,
+    switchCutoutWidth,
+    switchCutoutHeight,
     verticalKeySpacing,
     kerf,
   } = props;
@@ -67,6 +70,9 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <option className="item" data-value="Keycap_Outline">
                 Keycap Outline
               </option>
+              <option className="item" data-value="Custom_Rectangle">
+                Custom Rectangle
+              </option>
             </select>
           </div>
           <div className="three wide field">
@@ -82,6 +88,38 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <div className="ui basic label">mm</div>
             </div>
           </div>
+          {switchCutoutType === SwitchCutoutType.Custom_Rectangle && (
+            <>
+              <div className="three wide field">
+                <label>Width</label>
+                <div className="ui right labeled left icon input">
+                  <i className="arrows alternate horizontal icon" />
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="switchCutoutWidth"
+                    value={switchCutoutWidth || 14.0}
+                    onChange={handleChange}
+                  />
+                  <div className="ui basic label">mm</div>
+                </div>
+              </div>
+              <div className="three wide field">
+                <label>Height</label>
+                <div className="ui right labeled left icon input">
+                  <i className="arrows alternate vertical icon" />
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="switchCutoutHeight"
+                    value={switchCutoutHeight || 14.0}
+                    onChange={handleChange}
+                  />
+                  <div className="ui basic label">mm</div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <h3 className="ui dividing header">
           <i className="cut icon" />

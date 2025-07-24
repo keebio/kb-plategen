@@ -9,6 +9,8 @@ export type PlateKLE = {
 export type KeyCutoutParameters = {
   switchCutoutType: SwitchCutoutType;
   switchCutoutRadius: number;
+  switchCutoutWidth?: number;
+  switchCutoutHeight?: number;
   stabilizerCutoutType: StabilizerCutoutType;
   stabilizerCutoutRadius: number;
   acousticCutoutType: AcousticCutoutType;

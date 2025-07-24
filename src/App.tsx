@@ -17,6 +17,8 @@ const defaultConfig: PlateConfigurationProps = {
   kleData,
   switchCutoutType: SwitchCutoutType.MX,
   switchCutoutRadius: 0.5,
+  switchCutoutWidth: 14.0,
+  switchCutoutHeight: 14.0,
   stabilizerCutoutType: StabilizerCutoutType.Large,
   stabilizerCutoutRadius: 0.5,
   acousticCutoutType: AcousticCutoutType.None,
