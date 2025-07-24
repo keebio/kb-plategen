@@ -92,7 +92,8 @@ class KeyCutouts implements makerjs.IModel {
         reversed,
         stabilizerCutoutRadius,
         this.kerf,
-        ...(stabilizerCutoutType === StabilizerCutoutType.CustomRectangles ? [
+        ...(stabilizerCutoutType === StabilizerCutoutType.CustomRectangles || 
+            stabilizerCutoutType === StabilizerCutoutType.SingleRectangle ? [
           plateParams.stabilizerCutoutWidth ?? 7,
           plateParams.stabilizerCutoutHeight ?? 15,
           plateParams.stabilizerCutoutVerticalOffset ?? 0

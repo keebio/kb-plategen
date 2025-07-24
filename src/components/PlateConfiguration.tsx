@@ -163,6 +163,9 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <option className="item" data-value="Custom Rectangles">
                 Custom Rectangles
               </option>
+              <option className="item" data-value="Single Rectangle">
+                Single Rectangle
+              </option>
             </select>
           </div>
           <div className="three wide field">
@@ -178,7 +181,7 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <div className="ui basic label">mm</div>
             </div>
           </div>
-          {stabilizerCutoutType === StabilizerCutoutType.CustomRectangles && (
+          {(stabilizerCutoutType === StabilizerCutoutType.CustomRectangles || stabilizerCutoutType === StabilizerCutoutType.SingleRectangle) && (
             <>
               <div className="three wide field">
                 <label>Width</label>

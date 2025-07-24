@@ -19,6 +19,7 @@ export enum StabilizerCutoutType {
   ThickPlate5mm = "5mm Plate",
   GateronLP = "Gateron LP",
   CustomRectangles = "Custom Rectangles",
+  SingleRectangle = "Single Rectangle",
 }
 
 class StabilizerCutout implements makerjs.IModel {
@@ -37,8 +38,8 @@ class StabilizerCutout implements makerjs.IModel {
   ) {
     let params = this.loadStyle(style);
 
-    // For custom rectangles, use the provided dimensions and offset
-    if (style === StabilizerCutoutType.CustomRectangles) {
+    // For custom rectangles or single rectangle, use the provided dimensions and offset
+    if (style === StabilizerCutoutType.CustomRectangles || style === StabilizerCutoutType.SingleRectangle) {
       params = new CutoutParameters(customWidth, customHeight, customVerticalOffset);
     }
 
@@ -63,6 +64,17 @@ class StabilizerCutout implements makerjs.IModel {
       }
     }
 
+    if (style === StabilizerCutoutType.SingleRectangle) {
+      // For single rectangle, create just one centered rectangle
+      const singleRect = this.cutoutMX(params, radius, kerf);
+      makerjs.model.moveRelative(singleRect, [0, params.heightOffset]);
+      this.models = {
+        stabilizer: singleRect
+      };
+      return;
+    }
+
+    // For other styles, create left and right stabilizers
     let leftStab: makerjs.IModel;
     if (style === StabilizerCutoutType.Choc) {
       leftStab = this.cutoutChoc(radius, kerf);
