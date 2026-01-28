@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 
 // Import all examples at build time
-import quefrencyRev2 from '../sample/quefrency-rev2.json';
+import quefrency from '../sample/quefrency-rev2.json';
 import ansi104 from '../sample/ansi104.json';
 import ansi60 from '../sample/ansi60.json';
 import iso60 from '../sample/iso60.json';
 import atreus from '../sample/atreus.json';
 import ergodox from '../sample/ergodox.json';
-import sincRev1 from '../sample/sinc-rev1.json';
+import sinc from '../sample/sinc-rev1.json';
+import iris from '../sample/iris.json';
 
 interface KLEInputBoxProps {
   kleData: string;
@@ -15,8 +16,9 @@ interface KLEInputBoxProps {
 }
 
 const EXAMPLES = [
-  { name: 'Quefrency', file: 'quefrency-rev2.json', data: quefrencyRev2 },
-  { name: 'Sinc', file: 'sinc-rev1.json', data: sincRev1 },
+  { name: 'Quefrency', file: 'quefrency-rev2.json', data: quefrency },
+  { name: 'Iris', file: 'iris.json', data: iris },
+  { name: 'Sinc', file: 'sinc-rev1.json', data: sinc },
   { name: 'ANSI 104', file: 'ansi104.json', data: ansi104 },
   { name: 'ANSI 60', file: 'ansi60.json', data: ansi60 },
   { name: 'ISO 60', file: 'iso60.json', data: iso60 },
@@ -46,7 +48,7 @@ const KLEInputBox: React.FC<KLEInputBoxProps> = ({ kleData, onKLEChange }) => {
 
   // Load default example on mount
   useEffect(() => {
-    loadExample(quefrencyRev2);
+    loadExample(quefrency);
   }, []);
 
   return (
