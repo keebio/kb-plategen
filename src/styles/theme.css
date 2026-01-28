@@ -28,12 +28,6 @@ body.light .ui.primary.button {
   color: #ffffff;
 }
 
-body.light .ui.dropdown {
-  background-color: #ffffff;
-  color: #1b1c1d;
-  border-color: #d4d4d5;
-}
-
 body.light .ui.input input {
   background-color: #ffffff;
   color: #1b1c1d;
@@ -98,50 +92,6 @@ body.dark select option {
 
 body.dark select {
   color-scheme: dark;
-}
-
-/* More specific dropdown styling using attribute selector */
-html[data-theme="dark"] .ui.dropdown,
-html[data-theme="dark"] .ui.selection.dropdown {
-  background-color: #2a2a2a !important;
-  color: #ffffff !important;
-  border-color: #4a4a4a !important;
-}
-
-html[data-theme="dark"] .ui.dropdown .menu,
-html[data-theme="dark"] .ui.selection.dropdown .menu {
-  background-color: #2a2a2a !important;
-  border-color: #4a4a4a !important;
-}
-
-html[data-theme="dark"] .ui.dropdown .menu .item,
-html[data-theme="dark"] .ui.selection.dropdown .menu .item {
-  color: #ffffff !important;
-  background-color: #2a2a2a !important;
-}
-
-html[data-theme="dark"] .ui.dropdown .menu .item:hover,
-html[data-theme="dark"] .ui.selection.dropdown .menu .item:hover {
-  background-color: #3a3a3a !important;
-  color: #ffffff !important;
-}
-
-html[data-theme="dark"] .ui.dropdown .menu .item.active,
-html[data-theme="dark"] .ui.selection.dropdown .menu .item.active,
-html[data-theme="dark"] .ui.dropdown .menu .selected.item,
-html[data-theme="dark"] .ui.selection.dropdown .menu .selected.item {
-  background-color: #2185d0 !important;
-  color: #ffffff !important;
-}
-
-html[data-theme="dark"] .ui.selection.dropdown .text,
-html[data-theme="dark"] .ui.selection.dropdown .dropdown.icon {
-  color: #ffffff !important;
-}
-
-html[data-theme="dark"] .ui.dropdown>.text {
-  color: #ffffff !important;
-  background-color: transparent !important;
 }
 
 body.dark .ui.input input {
