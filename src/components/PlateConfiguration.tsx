@@ -37,8 +37,8 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
     if (type === 'number') {
       // Convert empty string to undefined, otherwise parse as float
       // Make sure to handle '0' as a valid number
-      derivedValue = value === '' ? undefined : 
-                   (value === '0' ? 0 : parseFloat(value));
+      derivedValue = value === '' ? undefined :
+        (value === '0' ? 0 : parseFloat(value));
     }
     onConfigChange({ ...props, [name]: derivedValue });
   };
@@ -145,8 +145,11 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <option className="item" data-value="Large">
                 Large
               </option>
-              <option className="item" data-value="Choc">
-                Choc
+              <option className="item" data-value="Choc V1">
+                Choc V1
+              </option>
+              <option className="item" data-value="Choc V2">
+                Choc V2
               </option>
               <option className="item" data-value="3mm Plate">
                 3mm Plate
