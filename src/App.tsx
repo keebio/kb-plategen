@@ -9,6 +9,8 @@ import PlateConfiguration, { PlateConfigurationProps } from './components/PlateC
 import PlateParameters from './PlateParameters';
 import AppInfo from './components/AppInfo';
 import useConstant from 'use-constant';
+import { useTheme } from './contexts/ThemeContext';
+import './ThemeToggle.css';
 
 let kleData = JSON.stringify(require('./sample/quefrency-rev2.json'));
 kleData = kleData.substring(1, kleData.length - 1);
@@ -34,6 +36,7 @@ const defaultConfig: PlateConfigurationProps = {
 const initialSwitchPlate = new SwitchPlate(defaultConfig);
 
 function App() {
+  const { theme, toggleTheme } = useTheme();
   const [config, setConfig] = useState(defaultConfig);
   const [switchPlate, setSwitchPlate] = useState(initialSwitchPlate);
 
@@ -51,6 +54,17 @@ function App() {
 
   return (
     <>
+      <div className="theme-toggle-container" onClick={toggleTheme}>
+        <span className="theme-toggle-label">Light</span>
+        <div className={`theme-toggle-switch ${theme === 'dark' ? 'dark' : ''}`}>
+          <div className="theme-toggle-circle">
+            <span className="theme-toggle-icon">
+              {theme === 'light' ? '☀️' : '🌙'}
+            </span>
+          </div>
+        </div>
+        <span className="theme-toggle-label">Dark</span>
+      </div>
       <PlateViewer switchPlate={switchPlate} />
       <div>
         <PlateConfiguration {...config} onConfigChange={handleConfigurationChange} />

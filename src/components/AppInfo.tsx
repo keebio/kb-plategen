@@ -27,7 +27,6 @@ function AppInfo() {
           <li>KLE data import from file</li>
           <li>Save configuration</li>
           <li>Layout presets</li>
-          <li>Dark mode</li>
           <li>And more...(See Trello board)</li>
         </ul>
 
