@@ -79,6 +79,10 @@ body.dark select.ui.dropdown {
   border-color: #4a4a4a;
 }
 
+body.dark i.icon {
+  color: #ffffff !important;
+}
+
 body.dark select:focus,
 body.dark .ui.form select:focus {
   border-color: #2185d0;
