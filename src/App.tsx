@@ -67,6 +67,16 @@ function App() {
     setSwitchPlate(newSwitchPlate);
   };
 
+  const handleResetToDefaults = () => {
+    try {
+      localStorage.removeItem(CONFIG_STORAGE_KEY);
+    } catch {
+      // ignore
+    }
+    setConfig(defaultConfig);
+    setSwitchPlate(new SwitchPlate(defaultConfig));
+  };
+
   return (
     <>
       <div className="theme-toggle-container" onClick={toggleTheme}>
@@ -82,7 +92,11 @@ function App() {
       </div>
       <PlateViewer switchPlate={switchPlate} />
       <div>
-        <PlateConfiguration {...config} onConfigChange={handleConfigurationChange} />
+        <PlateConfiguration
+          {...config}
+          onConfigChange={handleConfigurationChange}
+          onResetToDefaults={handleResetToDefaults}
+        />
         &nbsp;
         <p />
         <AppInfo />

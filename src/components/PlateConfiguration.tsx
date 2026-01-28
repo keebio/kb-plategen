@@ -9,7 +9,10 @@ export type PlateConfigurationProps = PlateParameters;
 export interface OnChangeProps {
   onConfigChange: (config: PlateConfigurationProps) => void;
 }
-export type PlateConfigurationInputProps = PlateConfigurationProps & OnChangeProps;
+export interface OnResetProps {
+  onResetToDefaults?: () => void;
+}
+export type PlateConfigurationInputProps = PlateConfigurationProps & OnChangeProps & OnResetProps;
 
 const PlateConfiguration = (props: PlateConfigurationInputProps) => {
   const {
@@ -17,6 +20,7 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
     kleData,
     horizontalKeySpacing,
     onConfigChange,
+    onResetToDefaults,
     stabilizerCutoutRadius,
     stabilizerCutoutType,
     acousticCutoutRadius,
@@ -47,6 +51,13 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
     <div className="ui container">
       <div className="ui form">
         <KLEInputBox kleData={kleData} onKLEChange={handleKLEChange} />
+        {onResetToDefaults && (
+          <div style={{ marginTop: '1em' }}>
+            <button className="ui button" onClick={onResetToDefaults}>
+              Reset Configuration to Defaults
+            </button>
+          </div>
+        )}
         <h3 className="ui dividing header">
           <i className="cut icon" />
           Switch Cutouts
