@@ -57,7 +57,7 @@ const KLEInputBox: React.FC<KLEInputBoxProps> = ({ kleData, onKLEChange }) => {
       </h3>
       <div className="field">
         <label>Load Example Layout</label>
-        <select className="ui dropdown" onChange={handleExampleChange} defaultValue="quefrency-rev2.json">
+        <select className="ui dropdown" style={{ width: '200px' }} onChange={handleExampleChange} defaultValue="quefrency-rev2.json">
           <option value="">Select an example...</option>
           {EXAMPLES.map(example => (
             <option key={example.file} value={example.file}>
