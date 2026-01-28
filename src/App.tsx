@@ -32,18 +32,36 @@ const defaultConfig: PlateConfigurationProps = {
   kerf: 0.0,
   combineOverlaps: false,
 };
-const initialSwitchPlate = new SwitchPlate(defaultConfig);
+
+const CONFIG_STORAGE_KEY = 'kb-plategen.config';
+
+const loadStoredConfig = (): PlateConfigurationProps => {
+  try {
+    const raw = localStorage.getItem(CONFIG_STORAGE_KEY);
+    if (!raw) return defaultConfig;
+    const parsed = JSON.parse(raw) as Partial<PlateConfigurationProps>;
+    return { ...defaultConfig, ...parsed };
+  } catch {
+    return defaultConfig;
+  }
+};
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const [config, setConfig] = useState(defaultConfig);
-  const [switchPlate, setSwitchPlate] = useState(initialSwitchPlate);
+  const initialConfig = useConstant(() => loadStoredConfig());
+  const [config, setConfig] = useState(initialConfig);
+  const [switchPlate, setSwitchPlate] = useState(() => new SwitchPlate(initialConfig));
 
   const debouncedMakeSwitchPlate = useConstant(() =>
     AwesomeDebouncePromise((params: PlateParameters) => new SwitchPlate(params), 500)
   );
 
   const handleConfigurationChange = async (newConfig: PlateConfigurationProps) => {
+    try {
+      localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(newConfig));
+    } catch {
+      // ignore
+    }
     setConfig(newConfig);
     const newSwitchPlate = await debouncedMakeSwitchPlate(newConfig);
     setSwitchPlate(newSwitchPlate);
