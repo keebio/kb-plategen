@@ -46,6 +46,23 @@ const KLEInputBox: React.FC<KLEInputBoxProps> = ({ kleData, onKLEChange }) => {
     }
   };
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const jsonData = JSON.parse(event.target?.result as string);
+        loadExample(jsonData);
+      } catch (error) {
+        console.error('Failed to parse JSON file:', error);
+        alert('Invalid JSON file. Please upload a valid KLE layout file.');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   // Load default example on mount
   useEffect(() => {
     loadExample(quefrency);
@@ -59,14 +76,30 @@ const KLEInputBox: React.FC<KLEInputBoxProps> = ({ kleData, onKLEChange }) => {
       </h3>
       <div className="field">
         <label>Load Example Layout</label>
-        <select className="ui dropdown" style={{ width: '200px' }} onChange={handleExampleChange} defaultValue="quefrency-rev2.json">
-          <option value="">Select an example...</option>
-          {EXAMPLES.map(example => (
-            <option key={example.file} value={example.file}>
-              {example.name}
-            </option>
-          ))}
-        </select>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <select className="ui dropdown" style={{ width: '200px' }} onChange={handleExampleChange} defaultValue="quefrency-rev2.json">
+            <option value="">Select an example...</option>
+            {EXAMPLES.map(example => (
+              <option key={example.file} value={example.file}>
+                {example.name}
+              </option>
+            ))}
+          </select>
+          <input
+            type="file"
+            accept=".json"
+            onChange={handleFileUpload}
+            style={{ display: 'none' }}
+            id="file-upload"
+          />
+          <button
+            className="ui button"
+            onClick={() => document.getElementById('file-upload')?.click()}
+          >
+            <i className="upload icon" />
+            Upload JSON
+          </button>
+        </div>
       </div>
       <div className="field">
         <textarea value={kleData} onChange={onKLEChange} />
