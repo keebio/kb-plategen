@@ -10,7 +10,6 @@ import PlateParameters from './PlateParameters';
 import AppInfo from './components/AppInfo';
 import useConstant from 'use-constant';
 import { useTheme } from './contexts/ThemeContext';
-import './styles/theme-toggle.css';
 
 let kleData = JSON.stringify(require('./sample/quefrency-rev2.json'));
 kleData = kleData.substring(1, kleData.length - 1);
