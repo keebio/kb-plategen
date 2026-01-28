@@ -9,12 +9,11 @@ interface Props {
 
 const PlateViewer = ({ switchPlate }: Props) => (
   <div className="plateviewer">
-    <Blueprint model={switchPlate} options={{ fitOnScreen: true }}>
-      <h3>
-        Keyboard Plate Generator by{' '}
-        <a href="https://github.com/keebio">Keebio</a>
-      </h3>
-    </Blueprint>
+    <h3>
+      Keyboard Plate Generator by{' '}
+      <a href="https://github.com/keebio">Keebio</a>
+    </h3>
+    <Blueprint model={switchPlate} options={{ fitOnScreen: true }} />
     <p />
     <button className="ui primary button" onClick={(e) => saveSvg(switchPlate)}>
       <i className="download icon" />
