@@ -35,8 +35,51 @@ const defaultConfig: PlateConfigurationProps = {
 
 const CONFIG_STORAGE_KEY = 'kb-plategen.config';
 
+const CONFIG_FIELDS = [
+  { key: 'kleData', param: 'kle', type: 'string' as const },
+  { key: 'switchCutoutType', param: 'switch', type: 'string' as const },
+  { key: 'switchCutoutRadius', param: 'switchRadius', type: 'number' as const },
+  { key: 'switchCutoutWidth', param: 'switchWidth', type: 'number' as const },
+  { key: 'switchCutoutHeight', param: 'switchHeight', type: 'number' as const },
+  { key: 'stabilizerCutoutType', param: 'stab', type: 'string' as const },
+  { key: 'stabilizerCutoutRadius', param: 'stabRadius', type: 'number' as const },
+  { key: 'stabilizerCutoutWidth', param: 'stabWidth', type: 'number' as const },
+  { key: 'stabilizerCutoutHeight', param: 'stabHeight', type: 'number' as const },
+  { key: 'stabilizerCutoutVerticalOffset', param: 'stabOffset', type: 'number' as const },
+  { key: 'acousticCutoutType', param: 'acoustic', type: 'string' as const },
+  { key: 'acousticCutoutRadius', param: 'acousticRadius', type: 'number' as const },
+  { key: 'horizontalKeySpacing', param: 'hSpacing', type: 'number' as const },
+  { key: 'verticalKeySpacing', param: 'vSpacing', type: 'number' as const },
+  { key: 'kerf', param: 'kerf', type: 'number' as const },
+  { key: 'combineOverlaps', param: 'combine', type: 'boolean' as const },
+];
+
 const loadStoredConfig = (): PlateConfigurationProps => {
   try {
+    // Try URL params first, then localStorage
+    const params = new URLSearchParams(window.location.search);
+    const config: Partial<PlateConfigurationProps> = {};
+
+    // Parse human-readable query params using CONFIG_FIELDS
+    CONFIG_FIELDS.forEach(({ key, param, type }) => {
+      if (params.has(param)) {
+        const value = params.get(param)!;
+        if (type === 'boolean') {
+          (config as any)[key] = value === 'true';
+        } else if (type === 'number') {
+          (config as any)[key] = parseFloat(value);
+        } else {
+          (config as any)[key] = value;
+        }
+      }
+    });
+
+    // If we have URL params, use them
+    if (Object.keys(config).length > 0) {
+      return { ...defaultConfig, ...config };
+    }
+
+    // Otherwise try localStorage
     const raw = localStorage.getItem(CONFIG_STORAGE_KEY);
     if (!raw) return defaultConfig;
     const parsed = JSON.parse(raw) as Partial<PlateConfigurationProps>;
@@ -44,6 +87,38 @@ const loadStoredConfig = (): PlateConfigurationProps => {
   } catch {
     return defaultConfig;
   }
+};
+
+const configToQueryParams = (config: PlateConfigurationProps): string => {
+  const params = new URLSearchParams();
+
+  CONFIG_FIELDS.forEach(({ key, param, type }) => {
+    const value = config[key as keyof PlateConfigurationProps];
+    const defaultValue = defaultConfig[key as keyof PlateConfigurationProps];
+
+    if (value !== defaultValue && value !== undefined) {
+      if (type === 'boolean') {
+        params.set(param, value.toString());
+      } else if (type === 'number') {
+        params.set(param, (value as number).toString());
+      } else {
+        params.set(param, value as string);
+      }
+    }
+  });
+
+  return params.toString();
+};
+
+const updateURL = (config: PlateConfigurationProps) => {
+  const url = new URL(window.location.href);
+  const queryString = configToQueryParams(config);
+  if (queryString) {
+    url.search = `?${queryString}`;
+  } else {
+    url.search = '';
+  }
+  window.history.replaceState({}, '', url.toString());
 };
 
 function App() {
@@ -62,6 +137,7 @@ function App() {
     } catch {
       // ignore
     }
+    updateURL(newConfig);
     setConfig(newConfig);
     const newSwitchPlate = await debouncedMakeSwitchPlate(newConfig);
     setSwitchPlate(newSwitchPlate);
@@ -73,6 +149,7 @@ function App() {
     } catch {
       // ignore
     }
+    updateURL(defaultConfig);
     setConfig(defaultConfig);
     setSwitchPlate(new SwitchPlate(defaultConfig));
   };
