@@ -70,7 +70,6 @@ body.dark .theme-toggle-circle {
   line-height: 1;
 }
 
-/* Hover effects */
 .theme-toggle-container:hover {
   transform: scale(1.05);
 }
@@ -91,7 +90,6 @@ body.dark .theme-toggle-container:hover .theme-toggle-circle {
   box-shadow: 0 4px 12px rgba(33, 150, 243, 0.6);
 }
 
-/* Active state animation */
 .theme-toggle-container:active .theme-toggle-circle {
   transform: scale(0.95);
 }
