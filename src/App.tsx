@@ -36,7 +36,6 @@ const defaultConfig: PlateConfigurationProps = {
 const CONFIG_STORAGE_KEY = 'kb-plategen.config';
 
 const CONFIG_FIELDS = [
-  { key: 'kleData', param: 'kle', type: 'string' as const },
   { key: 'switchCutoutType', param: 'switch', type: 'string' as const },
   { key: 'switchCutoutRadius', param: 'switchRadius', type: 'number' as const },
   { key: 'switchCutoutWidth', param: 'switchWidth', type: 'number' as const },
