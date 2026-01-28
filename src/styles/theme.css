@@ -18,7 +18,6 @@ body.light .ui.header {
 }
 
 body.light .ui.button {
-  background-color: #ffffff;
   color: #1b1c1d;
   border-color: #d4d4d5;
 }
@@ -62,7 +61,7 @@ body.dark .ui.header {
 }
 
 body.dark .ui.button {
-  background-color: #2a2a2a;
+  background-color: #4a4a4a;
   color: #ffffff;
   border-color: #4a4a4a;
 }

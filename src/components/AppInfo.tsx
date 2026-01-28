@@ -44,7 +44,7 @@ function AppInfo() {
         sponsor! Any amount is appreciated.
         <p />
         <a href="https://github.com/sponsors/nooges">
-          <button className="ui purple button">
+          <button className="ui button">
             <i className="heart icon" />Sponsor project
           </button>
         </a>
