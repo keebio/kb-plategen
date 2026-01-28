@@ -2,6 +2,10 @@
 
 This is a keyboard switch plate generator that takes in output from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/) and generates a switch plate based on the parameters you specify. The generation of the plate is all done client-side and leverages the [Maker.js](https://github.com/Microsoft/maker.js) library to draw out all the paths.
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ## Development & Contributing
 
 ### Running the Generator Locally
