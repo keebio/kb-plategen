@@ -18,7 +18,9 @@ export enum SwitchCutoutType {
   MX_Encoder = "MX + Encoder",
   Support_Plate = "Support Plate",
   Keycap_Outline = "Keycap Outline",
-  Custom_Rectangle = "Custom Rectangle"
+  Custom_Rectangle = "Custom Rectangle",
+  Choc_V2 = "Choc V2",
+  Choc_V2_Support_Plate = "Choc V2 Support Plate"
 }
 
 class KeyCutouts implements makerjs.IModel {
@@ -85,26 +87,26 @@ class KeyCutouts implements makerjs.IModel {
     if (size >= 2) {
       const isVertical = key.height >= 2 && key.width < 2;
       const reversed = key.rs || key.nub;
-      
+
       const stabModel = new StabilizerCutout(
         size,
         stabilizerCutoutType,
         reversed,
         stabilizerCutoutRadius,
         this.kerf,
-        ...(stabilizerCutoutType === StabilizerCutoutType.CustomRectangles || 
-            stabilizerCutoutType === StabilizerCutoutType.SingleRectangle ? [
+        ...(stabilizerCutoutType === StabilizerCutoutType.CustomRectangles ||
+          stabilizerCutoutType === StabilizerCutoutType.SingleRectangle ? [
           plateParams.stabilizerCutoutWidth ?? 7,
           plateParams.stabilizerCutoutHeight ?? 15,
           plateParams.stabilizerCutoutVerticalOffset ?? 0
         ] : [])
       );
-      
+
       if (isVertical) {
         const rotation = key.rotation_angle >= 0 ? -90 : 90;
         makerjs.model.rotate(stabModel, rotation);
       }
-      
+
       models["stabilizer"] = stabModel;
     }
 
@@ -178,6 +180,10 @@ class KeyCutouts implements makerjs.IModel {
           radius,
           this.kerf
         );
+      case SwitchCutoutType.Choc_V2:
+        return new CenteredRoundRectangleWithKerf(14.2, 14, radius, this.kerf);
+      case SwitchCutoutType.Choc_V2_Support_Plate:
+        return new CenteredRoundRectangleWithKerf(14.6, 14, radius, this.kerf);
       default:
         return new CenteredRoundRectangleWithKerf(14, 14, radius, this.kerf);
     }

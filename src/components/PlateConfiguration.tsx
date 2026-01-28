@@ -79,6 +79,12 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
               <option className="item" data-value="Custom_Rectangle">
                 Custom Rectangle
               </option>
+              <option className="item" data-value="Choc_V2">
+                Choc V2
+              </option>
+              <option className="item" data-value="Choc_V2_Support_Plate">
+                Choc V2 Support Plate
+              </option>
             </select>
           </div>
           <div className="three wide field">
