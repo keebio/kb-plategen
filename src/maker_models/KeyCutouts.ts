@@ -206,12 +206,18 @@ class KeyCutouts implements makerjs.IModel {
       return new Point(centerX, centerY);
     }
 
+    // Apply spacing scaling before rotation to maintain correct rotation geometry
+    let scaledCenterX = centerX * this.horizontalKeySpacing;
+    let scaledCenterY = centerY * this.verticalKeySpacing;
+    let scaledRotationX = key.rotation_x * this.horizontalKeySpacing;
+    let scaledRotationY = key.rotation_y * this.verticalKeySpacing;
+
     let newCenter = makerjs.point.rotate(
-      [centerX, centerY],
+      [scaledCenterX, scaledCenterY],
       key.rotation_angle,
-      [key.rotation_x, key.rotation_y],
+      [scaledRotationX, scaledRotationY],
     );
-    return new Point(newCenter[0], newCenter[1]);
+    return new Point(newCenter[0] / this.horizontalKeySpacing, newCenter[1] / this.verticalKeySpacing);
   }
 
   absoluteCenter(key: kle.Key): makerjs.IPoint {
