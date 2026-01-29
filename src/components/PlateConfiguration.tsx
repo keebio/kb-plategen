@@ -104,7 +104,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'cut',
           'Switch Cutouts',
-          'Choose the type of switch cutout for your keyboard:\n• MX - Most common standard\n• MX/Alps - Supports both switch types\n• Support plates - Additional stability'
+          '• MX - Most common standard\n• MX/Alps - Supports both switch types\n• Support Plate - For foam/silicone below switch plate w/space for switches to clip in'
         )}
         <div className="fields">
           <div className="three wide field">
@@ -191,7 +191,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'cut',
           'Stabilizer Cutouts',
-          'Stabilizers prevent larger keys from wobbling:\n• Large - Common for spacebars\n• Choc - For low-profile keyboards\n• Choose based on your stabilizer type'
+          '• Normal - Cutouts according to spec sheet\n• Large - Slightly larger than spec, but works better'
         )}
         <div className="fields">
           <div className="three wide field">
@@ -296,7 +296,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'cut',
           'Acoustic Cutouts',
-          'Acoustic cutouts improve keyboard sound:\n• Typical - Small holes for basic improvement\n• Extreme - Larger openings for more modification\n• Allows air to flow through the plate'
+          'Acoustic cutouts improve keyboard sound:\n• Typical - Acoustic cuts for 1.5u keys\n• Extreme - Acoustic cuts for 1.5u and 2u keys'
         )}
         <div className="fields">
           <div className="three wide field">
@@ -330,7 +330,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'space shuttle',
           'Keyspacing',
-          'Distance between key centers:\n• Standard: 19.05mm (3/4 inch)\n• Adjust for non-standard layouts\n• Use for ergonomic designs'
+          'Distance between key centers:\n• Standard: 19.05mm (3/4 inch)\n• Adjust for non-standard keyspacings like Choc V1'
         )}
         <div className="fields">
           <div className="three wide field">
@@ -365,7 +365,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'settings',
           'Miscellaneous Options',
-          'Advanced options for plate generation:\n• Kerf - Compensates for laser cutter width\n• Combine Overlaps - Merges overlapping shapes\n• Both improve final file quality'
+          'Advanced options for plate generation:\n• Kerf - Compensates for laser cutter width\n• Combine Overlaps - Merges overlapping shapes to reduce number of objects'
         )}
         <div className="three wide field">
           <label>Kerf</label>
