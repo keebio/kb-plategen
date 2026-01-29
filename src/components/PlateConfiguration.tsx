@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PlateParameters from '../PlateParameters';
 import { SwitchCutoutType } from '../maker_models/KeyCutouts';
 import { StabilizerCutoutType } from '../maker_models/StabilizerCutout';
-import KLEInputBox from './KLEInputBox'; // Import the new KLEInputBox component
+import { AcousticCutoutType } from '../maker_models/AcousticCutout';
+import KLEInputBox from './KLEInputBox';
 
 export type PlateConfigurationProps = PlateParameters;
 
@@ -14,38 +15,80 @@ export interface OnResetProps {
 }
 export type PlateConfigurationInputProps = PlateConfigurationProps & OnChangeProps & OnResetProps;
 
-const PlateConfiguration = (props: PlateConfigurationInputProps) => {
+const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
   const {
-    combineOverlaps,
     kleData,
-    horizontalKeySpacing,
-    onConfigChange,
-    onResetToDefaults,
-    stabilizerCutoutRadius,
-    stabilizerCutoutType,
-    acousticCutoutRadius,
-    acousticCutoutType,
-    switchCutoutRadius,
     switchCutoutType,
+    switchCutoutRadius,
     switchCutoutWidth,
     switchCutoutHeight,
+    stabilizerCutoutType,
+    stabilizerCutoutRadius,
+    stabilizerCutoutWidth,
+    stabilizerCutoutHeight,
+    stabilizerCutoutVerticalOffset,
+    acousticCutoutType,
+    acousticCutoutRadius,
+    horizontalKeySpacing,
     verticalKeySpacing,
     kerf,
+    combineOverlaps,
+    onConfigChange,
+    onResetToDefaults,
   } = props;
+
+  // Initialize Semantic UI tooltips
+  useEffect(() => {
+    // Initialize tooltips after component mounts
+    const timer = setTimeout(() => {
+      const icons = document.querySelectorAll('.info-tooltip');
+      icons.forEach((icon) => {
+        // @ts-ignore - Semantic UI jQuery plugin
+        if (window.$ && window.$.fn.popup) {
+          // @ts-ignore - Semantic UI jQuery plugin
+          window.$(icon).popup();
+        }
+      });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const newValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    onConfigChange({ ...props, [name]: newValue });
+  };
+
   const handleKLEChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     onConfigChange({ ...props, kleData: event.target.value });
   };
 
-  const handleChange = ({ target: { checked, name, type, value } }: React.ChangeEvent<any>) => {
-    let derivedValue: any = type === 'checkbox' ? checked : value;
-    if (type === 'number') {
-      // Convert empty string to undefined, otherwise parse as float
-      // Make sure to handle '0' as a valid number
-      derivedValue = value === '' ? undefined :
-        (value === '0' ? 0 : parseFloat(value));
-    }
-    onConfigChange({ ...props, [name]: derivedValue });
-  };
+  // Helper function to create section headers with info tooltips
+  const createSectionHeader = (icon: string, title: string, tooltip: string) => (
+    <h3 className="ui dividing header" style={{ display: 'flex', alignItems: 'center' }}>
+      <i className={`${icon} icon`} />
+      <span style={{ marginRight: '10px', marginLeft: '8px' }}>{title}</span>
+      <span
+        className="info-tooltip"
+        data-tooltip={tooltip}
+        style={{
+          display: 'inline-block',
+          fontSize: '0.7em',
+          color: '#999',
+          cursor: 'pointer',
+          border: '1px solid #999',
+          borderRadius: '50%',
+          width: '16px',
+          height: '16px',
+          textAlign: 'center',
+          lineHeight: '16px'
+        }}
+      >
+        ?
+      </span>
+    </h3>
+  );
 
   return (
     <div className="ui container">
@@ -58,10 +101,11 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
             </button>
           </div>
         )}
-        <h3 className="ui dividing header">
-          <i className="cut icon" />
-          Switch Cutouts
-        </h3>
+        {createSectionHeader(
+          'cut',
+          'Switch Cutouts',
+          'Choose the type of switch cutout for your keyboard. MX is the most common standard. MX/Alps supports both switch types. Support plates provide additional stability.'
+        )}
         <div className="fields">
           <div className="three wide field">
             <label>Cutout Type</label>
@@ -144,10 +188,11 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
             </>
           )}
         </div>
-        <h3 className="ui dividing header">
-          <i className="cut icon" />
-          Stabilizer Cutouts
-        </h3>
+        {createSectionHeader(
+          'cut',
+          'Stabilizer Cutouts',
+          'Stabilizers prevent larger keys like spacebar and shift from wobbling. Choose based on your stabilizer type. Large is common for spacebars, Choc for low-profile keyboards.'
+        )}
         <div className="fields">
           <div className="three wide field">
             <label>Cutout Type</label>
@@ -248,10 +293,11 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
             </>
           )}
         </div>
-        <h3 className="ui dividing header">
-          <i className="cut icon" />
-          Acoustic Cutouts
-        </h3>
+        {createSectionHeader(
+          'cut',
+          'Acoustic Cutouts',
+          'Acoustic cutouts improve sound by allowing air to flow. Typical adds small holes, Extreme adds larger openings for more sound modification.'
+        )}
         <div className="fields">
           <div className="three wide field">
             <label>Cutout Type</label>
@@ -281,10 +327,11 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
             </div>
           </div>
         </div>
-        <h3 className="ui dividing header">
-          <i className="space shuttle icon" />
-          Keyspacing
-        </h3>
+        {createSectionHeader(
+          'space shuttle',
+          'Keyspacing',
+          'Distance between key centers. Standard is 19.05mm (3/4 inch). Adjust for non-standard layouts or ergonomic designs.'
+        )}
         <div className="fields">
           <div className="three wide field">
             <label>Horizontal</label>
@@ -315,10 +362,11 @@ const PlateConfiguration = (props: PlateConfigurationInputProps) => {
             </div>
           </div>
         </div>
-        <h3 className="ui dividing header">
-          <i className="settings icon" />
-          Miscellaneous Options
-        </h3>
+        {createSectionHeader(
+          'settings',
+          'Miscellaneous Options',
+          'Kerf compensates for laser cutter width (material removed during cutting). Combine Overlaps merges overlapping shapes for cleaner files.'
+        )}
         <div className="three wide field">
           <label>Kerf</label>
           <div className="ui right labeled left icon input">
