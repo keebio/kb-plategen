@@ -104,7 +104,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'cut',
           'Switch Cutouts',
-          'Choose the type of switch cutout for your keyboard. MX is the most common standard. MX/Alps supports both switch types. Support plates provide additional stability.'
+          'Choose the type of switch cutout for your keyboard:\n• MX - Most common standard\n• MX/Alps - Supports both switch types\n• Support plates - Additional stability'
         )}
         <div className="fields">
           <div className="three wide field">
@@ -191,7 +191,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'cut',
           'Stabilizer Cutouts',
-          'Stabilizers prevent larger keys like spacebar and shift from wobbling. Choose based on your stabilizer type. Large is common for spacebars, Choc for low-profile keyboards.'
+          'Stabilizers prevent larger keys from wobbling:\n• Large - Common for spacebars\n• Choc - For low-profile keyboards\n• Choose based on your stabilizer type'
         )}
         <div className="fields">
           <div className="three wide field">
@@ -296,7 +296,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'cut',
           'Acoustic Cutouts',
-          'Acoustic cutouts improve sound by allowing air to flow. Typical adds small holes, Extreme adds larger openings for more sound modification.'
+          'Acoustic cutouts improve keyboard sound:\n• Typical - Small holes for basic improvement\n• Extreme - Larger openings for more modification\n• Allows air to flow through the plate'
         )}
         <div className="fields">
           <div className="three wide field">
@@ -330,7 +330,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'space shuttle',
           'Keyspacing',
-          'Distance between key centers. Standard is 19.05mm (3/4 inch). Adjust for non-standard layouts or ergonomic designs.'
+          'Distance between key centers:\n• Standard: 19.05mm (3/4 inch)\n• Adjust for non-standard layouts\n• Use for ergonomic designs'
         )}
         <div className="fields">
           <div className="three wide field">
@@ -365,7 +365,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
         {createSectionHeader(
           'settings',
           'Miscellaneous Options',
-          'Kerf compensates for laser cutter width (material removed during cutting). Combine Overlaps merges overlapping shapes for cleaner files.'
+          'Advanced options for plate generation:\n• Kerf - Compensates for laser cutter width\n• Combine Overlaps - Merges overlapping shapes\n• Both improve final file quality'
         )}
         <div className="three wide field">
           <label>Kerf</label>
@@ -396,7 +396,7 @@ const PlateConfiguration: React.FC<PlateConfigurationInputProps> = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
